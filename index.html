@@ -1,305 +1,102 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    
-    <title>Title</title>
-  <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-    <link href='https://fonts.googleapis.com/css2?family=Inter :wght@400;500;600&amp;display=swap' rel='stylesheet' />
-  <!-- Font Awesome for Icons -->
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css ' rel='stylesheet' />
-  </head>
-  <body>
-    <header class='header' id='main-header'>
-    <button aria-label='Toggle navigation menu' class='hamburger' id='hamburger'>
-      <span class='bar'/>
-      <span class='bar'/>
-      <span class='bar'/>
-    </button>
-    <div class='logo-wrapper'><a class='logo12' href='/'>Jinendra Vani</a></div>
-    <div class='nav-container'>
-      <ul class='desktop-nav'>
-        <li><a href='/'>Home</a></li>
-        <li><a href='https://neet-study-hub.blogspot.com/search/label/Neet'>Neet</a></li>
-        <li><a href='https://neet-study-hub.blogspot.com/search/label/Staretgies'>Staretgies</a></li>
-        <li>
-          <a href='#'><pre>Pooja &#9662;</pre></a>
-          <ul class='dropdown'>
-            <li><a href='#'>Naimittik Pooja</a></li>
-            <li><a href='#'>Nitya Pooja</a></li>
-            <li><a href='#'>Parv Pooja</a></li>
-            <li><a href='#'>Teerthanker Pooja</a></li>
-          </ul>
-        </li>
-        <li><a href='#'>Contact</a></li>
-      </ul>
-    </div>
-    <div aria-label='Open search bar' class='search-icon' id='search-icon' role='button' tabindex='0'>
-      <i class='fas fa-search'/>
-    </div>
-    <div class='search-bar' id='search-bar'>
-      <div class='search-inner'>
-        <i class='fas fa-arrow-left icon-left' id='search-back' style='display: none;' title='Back'/>
-        <input aria-label='Search Jain Pathshala' placeholder='Search Jain Pathshala...' type='text'/>
-        <i class='fas fa-times icon-clear' id='search-clear' style='display: none;' title='Clear search'/>
-        <i class='fas fa-microphone icon-mic' id='search-mic' style='display: none;' title='Voice Search'/>
-      </div>
-    </div>
-  </header>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>जिनेंद्रवाणी</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-  <!-- Voice Search Pop-up -->
-  <div id='voice-popup'>
-    <button class='close-popup' id='close-popup'>&amp;times;</button>
-    <div id='mic-pulse'>
-      <i class='fas fa-microphone'/>
-      <div id='pulse-ring'/>
-    </div>
-    <p id='popup-status'>Listening...</p>
-    <p id='popup-transcript'/>
-    <button id='try-again-btn'>Try Again</button>
+  
+  <!-- Main App Content -->
+  <div id="app">
+    <header>
+      <h1>जिनेंद्रवाणी</h1>
+    </header>
+
+    <main>
+      <div class="category-grid">
+        <a href="chalisa.html" class="category">
+          <img src="images/chalisa.jpg" alt="चालीसा">
+          <span>चालीसा</span>
+        </a>
+        <a href="aarti.html" class="category">
+          <img src="images/aarti.jpg" alt="आरती">
+          <span>आरती</span>
+        </a>
+        <a href="bhaktamber.html" class="category">
+          <img src="images/bhaktamber.jpg" alt="भक्तम्बर स्तोत्र">
+          <span>भक्तम्बर स्तोत्र</span>
+        </a>
+        <a href="bhajan.html" class="category">
+          <img src="images/bhajan.jpg" alt="भजन">
+          <span>भजन</span>
+        </a>
+        <a href="pooja.html" class="category">
+          <img src="images/pooja.jpg" alt="पूजा">
+          <span>पूजा</span>
+        </a>
+        <a href="tirthankar-parichay.html" class="category">
+          <img src="images/tirthankar.jpg" alt="तीर्थंकर परिचय">
+          <span>तीर्थंकर परिचय</span>
+        </a>
+        <a href="dainik-path.html" class="category">
+          <img src="images/dainik-path.jpg" alt="दैनिक पाठ">
+          <span>दैनिक पाठ</span>
+        </a>
+        <a href="stotra.html" class="category">
+          <img src="images/stotra.jpg" alt="स्तोत्र">
+          <span>स्तोत्र</span>
+        </a>
+        <a href="jap-mantra.html" class="category">
+          <img src="images/jap-mantra.jpg" alt="जप मंत्र">
+          <span>जप मंत्र</span>
+        </a>
+        <a href="prarthana.html" class="category">
+          <img src="images/prarthana.jpg" alt="प्रार्थना">
+          <span>प्रार्थना</span>
+        </a>
+        <a href="svadhyay.html" class="category">
+          <img src="images/svadhyay.jpg" alt="स्वाध्याय">
+          <span>स्वाध्याय</span>
+        </a>
+        <a href="dasoakangan.html" class="category">
+          <img src="images/dasoakangan.jpg" alt="दशों उपांग">
+          <span>दशों उपांग</span>
+        </a>
+        <a href="namokar-mantra.html" class="category">
+          <img src="images/namokar-mantra.jpg" alt="नमोकार मंत्र">
+          <span>नमोकार मंत्र</span>
+        </a>
+        <a href="stuti-sangrah.html" class="category">
+          <img src="images/stuti-sangrah.jpg" alt="जिनेंद्र स्तुति संग्रह">
+          <span>जिनेंद्र स्तुति संग्रह</span>
+        </a>
+        <a href="kahaniya.html" class="category">
+          <img src="images/kahaniya.jpg" alt="जैन कहानियाँ">
+          <span>जैन कहानियाँ</span>
+        </a>
+        <a href="itihas.html" class="category">
+          <img src="images/itihas.jpg" alt="जैन इतिहास">
+          <span>जैन इतिहास</span>
+        </a>
+        <a href="mandir.html" class="category">
+          <img src="images/mandir.jpg" alt="जैन मंदिर">
+          <span>जैन मंदिर</span>
+        </a>
+        <a href="bhakti-katha.html" class="category">
+          <img src="images/bhakti-katha.jpg" alt="भक्ति कथाएँ">
+          <span>भक्ति कथाएँ</span>
+        </a>
+        <a href="bal-bodh.html" class="category">
+          <img src="images/bal-bodh.jpg" alt="बाल बोध">
+          <span>बाल बोध</span>
+        </a>
+      </div>
+    </main>
   </div>
 
-
-  <!-- Sidebar Menu -->
-  <nav class='sidebar' id='sidebar'>
-    <div class='sidebar-top'>
-<div class='sidebar-logo'><a class='logo13' href='/'>Jinendra Vani</a></div>
-      <div class='close-btn' id='close-btn'></div>
-    </div>
-    <div class='sidebar-menu'>
-      <ul>
-        <li><a href='#'><i class='fas fa-home fa-fw'/> Home</a></li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li><a href='#'><i class='fas fa-book-open fa-fw'/> Bhaktamar</a></li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li><a href='#'><i class='fas fa-bell fa-fw'/> Aarti</a></li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li><a href='#'><i class='fas fa-pray fa-fw'/> Mantra</a></li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li><a href='#'><i class='fas fa-chalkboard-teacher fa-fw'/> Chalisa</a></li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li class='has-submenu'>
-          <a aria-expanded='false' aria-haspopup='true' href='javascript:void(0);'>
-            <i class='fas fa-hands-praying fa-fw'/> Pooja
-            <i aria-hidden='true' class='fas fa-chevron-down submenu-icon'/>
-          </a>
-          <ul class='submenu'>
-            <li><a href='#'><i class='fas fa-fire-alt fa-fw'/> Naimittik Pooja</a></li>
-            <li><a href='#'><i class='fas fa-sun fa-fw'/> Nitya Pooja</a></li>
-            <li><a href='#'><i class='fas fa-calendar-day fa-fw'/> Parv Pooja</a></li>
-            <li><a href='#'><i class='fas fa-mosque fa-fw'/> Teerthanker Pooja</a></li>
-          </ul>
-        </li>
-        <li aria-hidden='true' class='menu-divider'/>
-        <li><a href='#'><i class='fas fa-dove fa-fw'/> Jain Dharma</a></li>
-      </ul>
-    </div>
-    
-    <div class='menu-divider'/>
-    <div class='sidebar-footer'>
-      <div class='footer-pages'>
-        <a href='https://jinendra-vani.blogspot.com/p/about-us.html?m=1'>About Us</a>
-        <a href='https://jinendra-vani.blogspot.com/p/privacy-policy.html'>Privacy Policy</a>
-        <a href='#'>Terms &amp; Conditions</a>
-      </div>
-    </div>
-  </nav>
-
-  <div/><!-- Overlay -->
-  <div class='overlay' id='overlay'/>
-  
-    <br/>
-  <br/>
-  <br/>
-  
-  <!-- Hero section -->
-  <section class='hero' id='home'>
-    
-    <!-- Animated Background Squares -->
-    <div class='background-squares'>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-      <div class='square'/>
-    </div>
-
-    <div class='hero-inner'>
-
-      <!-- Image -->
-      <div class='hero-images'>
-        <img alt='Mahavir Bhagwan' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOCtiOKtmDMkkmYjh0ndgZUoO97I5XxW9M1aj0gEnNSLkU8W_i17r00wNGxXi0warDe6-eKHTgGJHKwGDvqmWVG08yZ5p_d2gvratDOEXi49dKs-tAoEa67xd5KBtXbGXKjDjUmVoqVxV71QJ43S7qkGQbjVhfGmZtl-8mIv9i5acFCHcFzYWajzWm7aG4/s1600/1000046846.png'/>
-      </div>
-
-      <!-- Content -->
-      <div class='hero-content'>
-        <h1>Jai Jinendra</h1>
-        <h2>Welcome to <data:blog.title/></h2>
-        <p>We provide <strong>Chalisa</strong>, <strong>Bhaktamber</strong>, <strong>Bhajans</strong> and more Jain spiritual content.</p>
-         <div class='button-wrapper1'>
-
-          
-          <a class='listen-button' onclick='toggleBhaktamber()'>      <i class='fas fa-headphones' id='iconState'/> <span id='buttonText'> Navkar Mantra</span></a>
-
-         
-        </div>
-        
-        <div class='button-wrapper'>
-          <a href='#chalisa'>Chalisa</a>
-          <a href='#bhaktamber'>Bhaktamber</a>
-          <a href='#bhajan'>Bhajan</a>
-        </div>
-         <div class='quote'>&quot;Ahimsa Parmo Dharma&quot;</div>
-         <!-- Audio Element -->
-
- <audio crossorigin='anonymous' id='bhaktamberAudio'>
-    <source src='https://neetstudyhub.github.io/Neetstudyhub/AudioCutter_108 Navkar Mantra (Namokar mantra) _ नवकार मंत्र _ Original tune _ C(6).mp3' type='audio/mp3'/>
-    Your browser does not support the audio element.
-  </audio>
-      </div>
-
-    </div>
-  </section>
-  
-<!-- post cards -->
-  <!-- Main Content -->
-  <div class='container'>
-    <div class='card-container'>
-      <div class="card-thumbnail">
-        <img alt='Fallback' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png ' />
-      </div>
-      <div class="card-tags">
-        <button class="card-tag" type="submit">Chalisa</button>
-        <button class="card-tag" type="submit">Chalisa</button>
-      </div>
-      <div class="card-tittle">
-        My Name Is Karam
-      </div>
-      <div class="card-excrept">
-        ॥ दोहा ॥ सतत पूज्यनीय भगवान, नमिनाथ जिन महिभावान । भक्त करें जो मन में ध्याय, पा जाते मुक्ति-वरदान । ॥ चौपाई ॥ जय श्री नमिनाथ जिन स्वामी, व...
-      </div>
-      <hr class="card-hr" />
-      <div class="card-meta">
-        <span> By </span> - <span> Jinendravani</span> | <span> Friday 25,2025 </span>
-      </div>
-    </div>
-    <div class='card-container'>
-      <div class="card-thumbnail">
-        <img alt='Fallback' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png ' />
-      </div>
-      <div class="card-tags">
-        <button class="card-tag" type="submit">Chalisa</button>
-        <button class="card-tag" type="submit">Chalisa</button>
-      </div>
-      <div class="card-tittle">
-        My Name Is Karam
-      </div>
-      <div class="card-excrept">
-        ॥ दोहा ॥ सतत पूज्यनीय भगवान, नमिनाथ जिन महिभावान । भक्त करें जो मन में ध्याय, पा जाते मुक्ति-वरदान । ॥ चौपाई ॥ जय श्री नमिनाथ जिन स्वामी, व...
-      </div>
-      <hr class="card-hr" />
-      <div class="card-meta">
-        <span> By </span> - <span> Jinendravani</span> | <span> Friday 25,2025 </span>
-      </div>
-    </div>
-    <div class='card-container'>
-      <div class="card-thumbnail">
-        <img alt='Fallback' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png ' />
-      </div>
-      <div class="card-tags">
-        <button class="card-tag" type="submit">Chalisa</button>
-        <button class="card-tag" type="submit">Chalisa</button>
-      </div>
-      <div class="card-tittle">
-        My Name Is Karam
-      </div>
-      <div class="card-excrept">
-        ॥ दोहा ॥ सतत पूज्यनीय भगवान, नमिनाथ जिन महिभावान । भक्त करें जो मन में ध्याय, पा जाते मुक्ति-वरदान । ॥ चौपाई ॥ जय श्री नमिनाथ जिन स्वामी, व...
-      </div>
-      <hr class="card-hr" />
-      <div class="card-meta">
-        <span> By </span> - <span> Jinendravani</span> | <span> Friday 25,2025 </span>
-      </div>
-    </div>
-    <div class='card-container'>
-      <div class="card-thumbnail">
-        <img alt='Fallback' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png ' />
-      </div>
-      <div class="card-tags">
-        <button class="card-tag" type="submit">Chalisa</button>
-        <button class="card-tag" type="submit">Chalisa</button>
-      </div>
-      <div class="card-tittle">
-        My Name Is Karam
-      </div>
-      <div class="card-excrept">
-        ॥ दोहा ॥ सतत पूज्यनीय भगवान, नमिनाथ जिन महिभावान । भक्त करें जो मन में ध्याय, पा जाते मुक्ति-वरदान । ॥ चौपाई ॥ जय श्री नमिनाथ जिन स्वामी, व...
-      </div>
-      <hr class="card-hr" />
-      <div class="card-meta">
-        <span> By </span> - <span> Jinendravani</span> | <span> Friday 25,2025 </span>
-      </div>
-    </div>
-  </div>
-
-
-
-
-<!-- footer -->
-  <footer class='site-footer'>
-    <div class='footer-grid'>
-      <!-- Jinendra Vani Section -->
-      <div class='footer-jinendra'>
-        <h1>Jinendra Vani</h1>
-        <p>We provide Chalisa, Bhaktamber, Bhajan and more related to Jain Dharma.</p>
-      </div>
-
-      <!-- Quick Links -->
-      <div class='footer-links'>
-        <div>Quick Links</div>
-        <ul>
-          <li><a href='#'><i class='fas fa-home'/> Home</a></li>
-          <li><a href='#'><i class='fas fa-concierge-bell'/> Services</a></li>
-          <li><a href='#'><i class='fas fa-envelope'/> Contact</a></li>
-          <li><a href='#'><i class='fas fa-lock'/> Privacy Policy</a></li>
-        </ul>
-      </div>
-
-      <!-- Social Media -->
-      <div class='footer-social'>
-        <div class='social-header'>
-          <h3>Follow Us</h3>
-        </div>
-        <div class='social-icons'>
-          <a class='facebook' href='#'><i class='fab fa-facebook-f'/></a>
-          <a class='twitter' href='#'><i class='fab fa-twitter'/></a>
-          <a class='instagram' href='#'><i class='fab fa-instagram'/></a>
-          <a class='linkedin' href='#'><i class='fab fa-linkedin-in'/></a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer Bottom -->
-    <div class='footer-bottom'>
-      <div class='footer-bottom-inner'>
-        <p id='copyright'>&amp;copy; <span id='current-year'>2025 </span> <a href='/'><data:blog.title/></a>. All rights reserved.</p>
-        <div class='footer-bottom-links'>
-          <a href='https://jinendra-vani.blogspot.com'>Home</a>
-          <span>|</span>
-          <a href='https://jinendra-vani.blogspot.com/p/about-us.html?m=1'>About us</a>
-          <span>|</span>
-          <a href='https://jinendra-vani.blogspot.com/p/privacy-policy.html'>Privacy Policy</a>
-          <span>|</span>
-          <a href='https://jinendra-vani.blogspot.com/p/contact-us.html'>Contact</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <script src="script.js">script.js</script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
