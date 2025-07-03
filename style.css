@@ -62,7 +62,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
-  padding: 1rem;
+  
 }
 
 .category {
@@ -90,7 +90,6 @@ header {
   font-size: 16px;
   padding-top: 10px;
   font-weight: bold;
-  
   display: block;
   font-size: 0.95rem;
 }
