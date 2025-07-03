@@ -79,7 +79,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
-  padding: 1rem;
+  
 }
 
 .category {
@@ -108,7 +108,7 @@ header {
 
 .category span {
   font-weight: bold;
-  padding: 0.5rem;
+  padding: 1.5rem;
   display: block;
   font-size: 0.95rem;
 }
