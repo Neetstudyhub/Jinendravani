@@ -78,3 +78,25 @@
     });
   });
 
+// audio of hero button 
+
+function toggleAudio(button) {
+  const audio = document.getElementById("mahaveerAudio");
+  const icon = button.querySelector("i");
+  
+  if (audio.paused) {
+    audio.play();
+    icon.className = "fa-solid fa-circle-pause";
+    icon.style.marginRight = "6px";
+  } else {
+    audio.pause();
+    icon.className = "fa-solid fa-headphones"; // Assuming you already styled this
+    icon.style.marginRight = ""; // Remove custom margin
+  }
+  
+  // Reset icon when audio ends
+  audio.onended = () => {
+    icon.className = "fa-solid fa-headphones";
+    icon.style.marginRight = "";
+  };
+}
