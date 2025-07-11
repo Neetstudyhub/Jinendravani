@@ -295,7 +295,7 @@ button:hover{
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    height: 140px;
+    min-height: 140px;
     background-color:#fff;
     width: 37.12%;
     border-radius: 17px;
