@@ -1,1124 +1,245 @@
 <!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>जैन धर्म - प्रीमियम आध्यात्मिक पोर्टल</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0d47a1;
-            --primary-dark: #082e6b;
-            --accent: #2196f3;
-            --gold: #FFD700;
-            --light: #ffffff;
-            --dark: #121212;
-            --text: #333333;
-            --light-gray: #f5f7fa;
-            --card-bg: #ffffff;
-            --footer-bg: #0a2a5a;
-            --footer-border: #1e4a8a;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        body {
-            background-color: var(--light-gray);
-            color: var(--text);
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
-            transition: transform 0.4s ease;
-        }
-
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        h1, h2, h3, h4, h5 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--light);
-            color: var(--primary-dark);
-            padding: 15px 0;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--accent);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            height: 60px;
-            width: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--light);
-            box-shadow: 0 0 0 3px var(--accent);
-        }
-
-        .logo-img i {
-            font-size: 28px;
-            color: var(--light);
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            letter-spacing: 0.5px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.8rem;
-        }
-
-        nav a {
-            color: var(--primary-dark);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            border-radius: 30px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        nav a:hover {
-            background: rgba(13, 71, 161, 0.1);
-            color: var(--accent);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary-dark);
-            font-size: 1.8rem;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        /* Enhanced Hamburger Menu */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 220px;
-            height: 98vh;
-            background: linear-gradient(135deg, var(--footer-bg), var(--primary-dark));
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: left 0.4s ease;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-nav.show {
-            left: 0;
-        }
-
-        .mobile-nav-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .mobile-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mobile-logo-img {
-            height: 40px;
-            width: 40px;
-            background: linear-gradient(135deg, var(--accent), var(--gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--light);
-        }
-
-        .mobile-logo-img i {
-            font-size: 18px;
-            color: var(--light);
-        }
-
-        .mobile-logo h2 {
-            font-size: 1.3rem;
-            color: var(--light);
-        }
-
-        .mobile-nav .close-btn {
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            margin-bottom: auto;
-        }
-
-        .mobile-nav li {
-            margin-bottom: 8px;
-        }
-
-        .mobile-nav a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-
-        .mobile-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-dropdown {
-            position: relative;
-        }
-
-        .mobile-dropdown > a {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mobile-dropdown-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            padding-left: 20px;
-        }
-
-        .mobile-dropdown-content.show {
-            max-height: 500px;
-        }
-
-        .mobile-dropdown-content a {
-            font-size: 1rem;
-            padding: 10px 15px;
-        }
-
-        /* Horizontal Footer Links */
-        .mobile-footer-links {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .mobile-footer-links a {
-            color: var(--gold);
-            font-size: 0.85rem;
-            padding: 5px 10px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .mobile-footer-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') center/cover no-repeat;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.7) 100%);
-        }
-
-        .hero-content {
-            max-width: 900px;
-            padding: 0 20px;
-            z-index: 2;
-        }
-
-        .hero h2 {
-            font-size: 3.8rem;
-            margin-bottom: 1.5rem;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2.5rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            color: var(--light);
-            padding: 16px 42px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .cta-button:hover::after {
-            left: 100%;
-        }
-
-        /* Categories Section */
-        .categories {
-            padding: 100px 0;
-            background-color: var(--light);
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        /* Card Design */
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            height: 240px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(33, 150, 243, 0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: rgba(33, 150, 243, 0.3);
-        }
-
-        .card-icon {
-            height: 80px;
-            width: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--light);
-        }
-
-        .card-icon img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            filter: invert(100%);
-        }
-
-        .card h3 {
-            font-size: 1.6rem;
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .card h3::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        /* Premium Footer */
-        footer {
-            background: linear-gradient(135deg, var(--footer-bg), var(--primary-dark));
-            color: var(--light);
-            padding: 80px 0 30px;
-            position: relative;
-            border-top: 3px solid var(--accent);
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-logo {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .footer-logo i {
-            color: var(--gold);
-        }
-
-        .footer-about p {
-            margin-bottom: 25px;
-            line-height: 1.8;
-            font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--light);
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-
-        .social-icons a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .footer-links h4 {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: var(--light);
-        }
-
-        .footer-links h4::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--gold);
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.05rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--gold);
-            padding-left: 8px;
-        }
-
-        .contact-info p {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .contact-info i {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-top: 5px;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid var(--footer-border);
-            font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .footer-bottom a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .footer-bottom a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom a:not(:last-child)::after {
-            content: "•";
-            position: absolute;
-            right: -18px;
-            top: 0;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: -30px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 50px;
-            pointer-events: none;
-        }
-
-        .floating-elements i {
-            font-size: 2rem;
-            color: var(--accent);
-            opacity: 0.2;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-elements i:nth-child(2) {
-            animation-delay: 1s;
-        }
-
-        .floating-elements i:nth-child(3) {
-            animation-delay: 2s;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h2 {
-                font-size: 3rem;
-            }
-            
-            .hero p {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                padding: 0 20px;
-            }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero h2 {
-                font-size: 2.4rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            /* Fixed 2 cards per row on mobile */
-            .cards-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                height: 80vh;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-            
-            .card {
-                height: 200px;
-                padding: 15px;
-            }
-            
-            .card h3 {
-                font-size: 1.3rem;
-            }
-            
-            .card-icon {
-                height: 70px;
-                width: 70px;
-            }
-            
-            .card-icon img {
-                width: 40px;
-                height: 40px;
-            }
-
-            /* Mobile menu adjustments */
-            .mobile-nav {
-                width: 85%;
-                left: -85%;
-            }
-            
-            .footer-bottom {
-                flex-wrap: wrap;
-                gap: 15px;
-                justify-content: center;
-            }
-            
-            .footer-bottom a:not(:last-child)::after {
-                display: none;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .cards-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .card {
-                height: 180px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <div class="logo-img">
-                    <i class="fas fa-dharmachakra"></i>
-                </div>
-                <h1>जैन <span>धर्म</span></h1>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Jinendravani</title>
+        
+        <!-- link sheets -->
+        <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+    </head>
+    <body>
+        <header>
+         <div class="header-page">
+            <div class="header">
+                <span class="hamburgur-icon"><i class="fa-solid fa-bars"></i></span>
+                <span class="logo-text">
+                    <span class="logo-text1">Jinendra</span><span class="logo-text2">vani</span>
+                </span>
             </div>
-            <nav>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
+            <div class="hamburgur-menu">
+                
+             <div class="hamburgur-header">
+                 <span class="hamburgur-logo">Jinendra</span> <span class="hamburgur-logo1">vani</span>
+                 <span ><i class="fa fa-times cross-icon"></i></span>
+             </div>
+             <div id="hamburgur-menu2">
+                 
+            
+                <div class="hamburgur-buttons">
+                   <i class="fas fa-home hamburgur-fas "></i> Home
+                </div> 
+                <div class="hamburgur-buttons">
+                  <i class='fas fa-book-open hamburgur-fas'/>  Bhaktamber 
+                </div>
+                <div class="hamburgur-buttons">
+                    <i class='fas fa-bell hamburgur-fas'/> Aarti
+                </div>
+                <div class="hamburgur-buttons">
+                    <i class='fas fa-pray hamburgur-fas '/> Mantra
+                </div>
+                <div class="hamburgur-buttons">
+                    <i class='fas fa-chalkboard-teacher  hamburgur-fas'/> Chalisa
+                </div>
+                <div class="hamburgur-buttons submenu">
+                    <i class='fas fa-hands-praying hamburgur-fas'/> <span>Pooja</span>
+                    <span class="submenu-toggle"><i class="fa-solid fa-chevron-down fas-submenu"></i></span>
+                </div>
+                <div class="submenu-container">
+                <div class="hamburgur-buttons submenu-1">
+                    <i class='fas fa-fire-alt  hamburgur-fas'/> Naimittik Pooja
+                </div>
+                <div class="hamburgur-buttons submenu-1">
+                    <i class='fas fa-sun hamburgur-fas'/> Nitya Pooja
+                </div>
+                <div class="hamburgur-buttons submenu-1">
+                    <i class='fas fa-calendar-day hamburgur-fas'/> Parv Pooja
+                </div>
+                <div class="hamburgur-buttons submenu-1">
+                    <i class='fas fa-mosque hamburgur-fas'/> Teerthanker Pooja
+                </div>
+                </div>
+                <div class="hamburgur-buttons">
+                    <i class='fas fa-dove hamburgur-fas'/> Jain Dharma
+                </div>
+            </div>
+        <div class="Hm-hr">
+            <p><i class="fas fa-shield-alt"></i>Privacy</p>
+            <p><i class="fas fa-info-circle"></i> About</p>
+            <p><i class="fas fa-file-alt"></i> Terms</p>
+            <p><i class="fas fa-id-card"></i> Contact</p>
+            <p><i class="fas fa-cookie-bite"></i>cookies</p>
+            <p><i class="fa-solid fa-handshake-angle"></i>Donation</p>
+        </div>
+
+           </div>
+         </div>
+       </header>
+       <br />
+       <br />
+       <!-- hero section -->
+       <section class="hero">
+           <div class="hero-heading">
+               <h2>
+                   जैन धर्म: अहिंसा, शांति और आत्मज्ञान का मार्ग
+               </h2>
+               <p>अहिंसा परमो धर्मः - सभी जीवों के प्रति करुणा और अहिंसा ही सर्वोच्च धर्म है</p>
+               <button class="hero-cta" type="submit">आध्यात्मिक यात्रा प्रारंभ करें  <i class="fa-solid fa-right-to-bracket hero-fas"></i> </button>
+           </div>
+       </section>
+       
+       <!-- main cards-->
+       <section class="main-section">
+           <div class="main-heading">
+              <h1>
+                  आध्यात्मिक सामग्री
+              </h1> 
+             <hr />
+             <p>जैन धर्म की समृद्ध आध्यात्मिक विरासत को अन्वेषण करें</p>
+           </div>
+           <div class="main-cards">
+               
+               <!--cards-->
+               <div class="card">
+                 <div class="card-icon">
+                   <img src="/images/chalisa.png" alt="Chalisa">
+                 </div>
+                 <h3>चालीसा</h3>
+
+               </div>
+               
+               <div class="card">
+                    <div class="card-icon">
+     <img src="/images/aarti .png" alt="Aarti">
+ </div>
+ <h3>आरती</h3>
+               </div>
+               <div class="card">
+                    <div class="card-icon">
+     <img src="/images/bhajan.png" alt="Bhajan">
+ </div>
+ <h3>भजन</h3>
+               </div>
+                 <div class="card">
+      <div class="card-icon">
+          <img src="/images/pooja.png" alt="Pooja">
+      </div>
+      <h3>पूजा</h3>
+  </div>
+    <div class="card">
+                    <div class="card-icon">
+     <img src="/images/Tirthankar.png" alt="Tirthankar">
+ </div>
+ <h3>तीर्थंकर</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/denik Path.png" alt="Dainik path">
+ </div>
+ <h3>दैनिक पाठ</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/stotra.png" alt="Stotra">
+ </div>
+ <h3>स्तोत्र</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/Jap mantra.png" alt="Jap mantra">
+ </div>
+ <h3>जप मंत्र</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/Navkar Mantra.png" alt="Navkar mantra">
+ </div>
+ <h3>नवकार मंत्र</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/Das lakshan.png" alt="Das lakshan">
+ </div>
+ <h3>दसलक्षण</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/swadhyay.png" alt="Swadhyay">
+ </div>
+ <h3>स्वाध्याय</h3>
+               </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/praying.png" alt="Prarthna">
+ </div>
+ <h3>प्रार्थना</h3>
+               </div>
+                 <div class="card">
+      <div class="card-icon">
+          <img src="/images/shri sammed shikarji.png" alt="Shri sammed shikar Ji">
+      </div>
+      <h3>श्री सम्मेद शिखर</h3>
+  </div>
+                 <div class="card">
+      <div class="card-icon">
+          <img src="/images/Bal bodh.png" alt="Bal Bodh">
+      </div>
+      <h3>बाल बोध</h3>
+  </div>
+    <div class="card">
+      <div class="card-icon">
+          <img src="/images/Jain Stories.png" alt="Jain Stories">
+      </div>
+      <h3>जैन कहानियाँ </h3>
+  </div>
+                 <div class="card">
+                    <div class="card-icon">
+     <img src="/images/Jain history.png" alt="Jain History">
+ </div>
+ <h3>जैन इतिहास</h3>
+               </div>
+           </div>
+       </section>
+      <footer class="footer">
+           <div class="footer-head">
+               <h2>Jinendravani</h2>
+               <p>सभी भक्तों को प्रामाणिक जैन साहित्य, प्रार्थनाएँ, भजन और ज्ञान प्रदान करने के लिए समर्पित है।</p>
+           </div>
+          <div class="footer-social">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+               <a href="#"><i class="fab fa-youtube"></i></a>
+               <a href="#"><i class="fab fa-pinterest"></i></a>
+           </div>
+           <hr class="footer-hr"/>
+           <div class="footer-quick">
+               <div class="quick-link">
+               <p>Easy links:</p>
+               <ul>
+                   <li>Home</li>
+                   <li>Contact us</li>
+                   <li>Suggestions</li>
+                   <li>Donation</li>
+               </ul>
+               </div>
+               <div class="quick-link">
+                <p>Quick Links:</p>
                 <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> होम</a></li>
-                    <li><a href="#"><i class="fas fa-book"></i> साहित्य</a></li>
-                    <li><a href="#"><i class="fas fa-temple"></i> मंदिर</a></li>
-                    <li><a href="#"><i class="fas fa-calendar-alt"></i> कैलेंडर</a></li>
-                    <li><a href="#"><i class="fas fa-info-circle"></i> हमारे बारे में</a></li>
+                    <li>Privacy Policy</li>
+                    <li>About us</li>
+                    <li>Terms & cond</li>
+                    <li>Ads policy </li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Mobile Navigation -->
-    <div class="overlay" id="overlay"></div>
-    <div class="mobile-nav" id="mobileNav">
-        <div class="mobile-nav-top">
-            <div class="mobile-logo">
-                <div class="mobile-logo-img">
-                    <i class="fas fa-dharmachakra"></i>
-                </div>
-                <h2>जैन धर्म</h2>
-            </div>
-            <button class="close-btn" id="closeMenu">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <ul>
-            <li><a href="#"><i class="fas fa-home"></i> होम</a></li>
-            <li><a href="#"><i class="fas fa-book"></i> साहित्य</a></li>
-            <li><a href="#"><i class="fas fa-temple"></i> मंदिर</a></li>
-            <li><a href="#"><i class="fas fa-calendar-alt"></i> कैलेंडर</a></li>
-            <li class="mobile-dropdown">
-                <a href="#" id="categoriesDropdown">
-                    <span><i class="fas fa-th-large"></i> श्रेणियाँ</span>
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-                <div class="mobile-dropdown-content" id="dropdownContent">
-                    <a href="#"><i class="fas fa-book"></i> चालीसा</a>
-                    <a href="#"><i class="fas fa-fire"></i> आरती</a>
-                    <a href="#"><i class="fas fa-music"></i> भजन</a>
-                    <a href="#"><i class="fas fa-hands-praying"></i> पूजा</a>
-                    <a href="#"><i class="fas fa-pray"></i> स्तोत्र</a>
-                    <a href="#"><i class="fas fa-om"></i> जप मंत्र</a>
-                </div>
-            </li>
-            <li><a href="#"><i class="fas fa-info-circle"></i> हमारे बारे में</a></li>
-            <li><a href="#"><i class="fas fa-headset"></i> संपर्क</a></li>
-            <li><a href="#"><i class="fas fa-question-circle"></i> सहायता</a></li>
-        </ul>
-        
-        <div class="mobile-footer-links">
-            <a href="#"><i class="fas fa-shield-alt"></i> गोपनीयता</a>
-            <a href="#"><i class="fas fa-file-alt"></i> शर्तें</a>
-            <a href="#"><i class="fas fa-cookie-bite"></i> कुकीज़</a>
-            <a href="#"><i class="fas fa-balance-scale"></i> कानूनी</a>
-            <a href="#"><i class="fas fa-id-card"></i> संपर्क</a>
-            <a href="#"><i class="fas fa-map-marker-alt"></i> स्थान</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>जैन धर्म: अहिंसा, शांति और आत्मज्ञान का मार्ग</h2>
-            <p>अहिंसा परमो धर्मः - सभी जीवों के प्रति करुणा और अहिंसा ही सर्वोच्च धर्म है</p>
-            <a href="#" class="cta-button">आध्यात्मिक यात्रा प्रारंभ करें <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h2 class="section-title">आध्यात्मिक सामग्री</h2>
-            <p class="section-subtitle">जैन धर्म की समृद्ध आध्यात्मिक विरासत को अन्वेषण करें</p>
-            
-            <div class="cards-container">
-                <!-- Card 1 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2713/2713472.png" alt="Chalisa">
-                    </div>
-                    <h3>चालीसा</h3>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2107/2107899.png" alt="Aarti">
-                    </div>
-                    <h3>आरती</h3>
-                </div>
-                
-                <!-- Card 3 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3655/3655710.png" alt="Bhajan">
-                    </div>
-                    <h3>भजन</h3>
-                </div>
-                
-                <!-- Card 4 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2590/2590769.png" alt="Pooja">
-                    </div>
-                    <h3>पूजा</h3>
-                </div>
-                
-                <!-- Card 5 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135759.png" alt="Tirthankar">
-                    </div>
-                    <h3>तीर्थंकर</h3>
-                </div>
-                
-                <!-- Card 6 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Daily Path">
-                    </div>
-                    <h3>दैनिक पाठ</h3>
-                </div>
-                
-                <!-- Card 7 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135759.png" alt="Stotra">
-                    </div>
-                    <h3>स्तोत्र</h3>
-                </div>
-                
-                <!-- Card 8 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998660.png" alt="Jap Mantra">
-                    </div>
-                    <h3>जप मंत्र</h3>
-                </div>
-                
-                <!-- Card 9 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998660.png" alt="Navkar Mantra">
-                    </div>
-                    <h3>नवकार मंत्र</h3>
-                </div>
-                
-                <!-- Card 10 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135759.png" alt="Daslakshan">
-                    </div>
-                    <h3>दसलक्षण</h3>
-                </div>
-                
-                <!-- Card 11 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" alt="Swadhyay">
-                    </div>
-                    <h3>स्वाध्याय</h3>
-                </div>
-                
-                <!-- Card 12 -->
-                <div class="card">
-                    <div class="card-icon">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2590/2590769.png" alt="Prarthana">
-                    </div>
-                    <h3>प्रार्थना</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Premium Footer -->
-    <footer>
-        <div class="floating-elements">
-            <i class="fas fa-om"></i>
-            <i class="fas fa-dharmachakra"></i>
-            <i class="fas fa-lotus"></i>
-        </div>
-        
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <i class="fas fa-dharmachakra"></i>
-                        <span>जैन धर्म</span>
-                    </div>
-                    <p>जैन धर्म का यह प्रीमियम पोर्टल सभी भक्तों को प्रामाणिक जैन साहित्य, प्रार्थनाएँ, भजन और ज्ञान प्रदान करने के लिए समर्पित है। हमारा उद्देश्य जैन सिद्धांतों का प्रसार करना और आध्यात्मिक विकास में सहायता करना है।</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>मुख्य लिंक</h4>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> होम</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> हमारे बारे में</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> सेवाएँ</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> संपर्क करें</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> गोपनीयता नीति</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>श्रेणियाँ</h4>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> चालीसा</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> आरती</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> भजन</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> पूजा</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> स्तोत्र</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-contact">
-                    <h4>संपर्क सूचना</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> जैन मंदिर मार्ग, राजस्थान, भारत</p>
-                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
-                    <p><i class="fas fa-envelope"></i> contact@jaindharma.com</p>
-                    <p><i class="fas fa-clock"></i> सोम-शनि: 8:00 AM - 8:00 PM</p>
-                    <p><i class="fas fa-wifi"></i> www.jaindharma.com</p>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 जैन धर्म प्रीमियम पोर्टल. सर्वाधिकार सुरक्षित।</p>
-                <p>जैन धर्म के सिद्धांतों और मूल्यों का प्रचार करने के लिए समर्पित।</p>
-                
-                <div class="footer-bottom">
-                    <a href="#">गोपनीयता नीति</a>
-                    <a href="#">उपयोग की शर्तें</a>
-                    <a href="#">कुकीज़</a>
-                    <a href="#">कानूनी जानकारी</a>
-                    <a href="#">अनुपालन</a>
-                    <a href="#">साइटमैप</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileNav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('overlay');
-        const closeMenuBtn = document.getElementById('closeMenu');
-        const body = document.body;
-        const categoriesDropdown = document.getElementById('categoriesDropdown');
-        const dropdownContent = document.getElementById('dropdownContent');
-        
-        function openMenu() {
-            mobileNav.classList.add('show');
-            overlay.classList.add('show');
-            body.classList.add('menu-open');
-            // Hide hamburger icon
-            mobileMenuBtn.style.display = 'none';
-        }
-        
-        function closeMenu() {
-            mobileNav.classList.remove('show');
-            overlay.classList.remove('show');
-            body.classList.remove('menu-open');
-            // Show hamburger icon
-            mobileMenuBtn.style.display = 'block';
-            // Close dropdown if open
-            dropdownContent.classList.remove('show');
-            const icon = categoriesDropdown.querySelector('.fa-chevron-down');
-            icon.classList.remove('fa-chevron-up');
-        }
-        
-        mobileMenuBtn.addEventListener('click', openMenu);
-        closeMenuBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        
-        // Toggle dropdown menu
-        categoriesDropdown.addEventListener('click', function(e) {
-            e.preventDefault();
-            dropdownContent.classList.toggle('show');
-            const icon = this.querySelector('.fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        });
-        
-        // Close menu when clicking on links
-        const navLinks = document.querySelectorAll('.mobile-nav a:not(#categoriesDropdown)');
-        navLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-        
-        // Card Click Animation
-        const cards = document.querySelectorAll('.card');
-        
-        cards.forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'translateY(-10px)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 300);
-            });
-        });
-        
-        // Parallax Effect for Hero
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-        });
-        
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if(this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-    </script>
-</body>
+               </div>
+           </div>
+           <hr class="footer-hr"/>
+           <div class="footer-copyright">
+               <p>© 2025 Jinendravani - All rights are reserved.</p>
+           </div>
+       </footer>
+ <script src="script.js">script.js</script>
+    </body>
 </html>
