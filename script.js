@@ -81,22 +81,29 @@
 // audio of hero button 
 
 function toggleAudio(button) {
-  const audio = document.getElementById("mahaveerAudio");
-  const icon = button.querySelector("i");
-  
-  if (audio.paused) {
-    audio.play();
-    icon.className = "fa-solid fa-circle-pause";
-    icon.style.marginRight = "6px";
-  } else {
-    audio.pause();
-    icon.className = "fa-solid fa-headphones"; // Assuming you already styled this
-    icon.style.marginRight = ""; // Remove custom margin
+    const audio = document.getElementById("mahaveerAudio");
+    const icon = button.querySelector("i");
+    const word = button.querySelector(".action-word");
+
+    if (audio.paused) {
+      audio.play();
+      icon.className = "fa-solid fa-circle-pause hero-fas";
+      icon.style.marginRight = "6px"; // Add margin on pause icon
+      word.textContent = "रोके";
+      button.classList.add("pause");
+    } else {
+      audio.pause();
+      icon.className = "fa-solid fa-headphones hero-fas";
+      icon.style.marginRight = ""; // Remove margin
+      word.textContent = "सुने";
+      button.classList.remove("pause");
+    }
+
+    // Reset when audio ends
+    audio.onended = () => {
+      icon.className = "fa-solid fa-headphones hero-fas";
+      icon.style.marginRight = ""; // Remove margin
+      word.textContent = "सुने";
+      button.classList.remove("pause");
+    };
   }
-  
-  // Reset icon when audio ends
-  audio.onended = () => {
-    icon.className = "fa-solid fa-headphones";
-    icon.style.marginRight = "";
-  };
-}
