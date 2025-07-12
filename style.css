@@ -254,13 +254,14 @@ body.menu-open {
     color: #fff;
     font-size: 14px;
 }
-.hero-fas{
-    margin-left: 6px;
+#hero-button{
+    margin-right: 6px;
 }
-button:hover{
+
+.hero-cta.pause {
     background-color: #fff;
-    border: 1px solid #0AA8FF;
     color: #0AA8FF;
+    border: 1px solid #0AA8FF;
 }
 .main-section{
     margin-top: 30px;
