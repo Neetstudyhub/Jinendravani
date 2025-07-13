@@ -219,7 +219,7 @@ body.menu-open {
     margin-right: 3px;
 }
 .hero{
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/hero.jpeg');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Jinendravani/images/hero.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
