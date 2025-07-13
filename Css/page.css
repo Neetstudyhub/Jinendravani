@@ -1,0 +1,38 @@
+.main-page-area{
+  padding: 18px 12px;
+}
+.web-page{
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 18px 15px;
+  text-align: left;
+}
+.web-page-heading {
+  font-size: 25px;
+  text-align: left;
+}
+.web-page-hr {
+  margin-top: 12px;
+  opacity:0.4;
+}
+.web-page-body{
+  margin-top: 15px;
+}
+.web-page-body p{
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.web-page-body h3 {
+  margin-bottom: 14px;
+}
+.web-page-body ul{
+  padding: 0px 10px;
+  margin-left: 14px;
+  margin-bottom: 14px;
+}
+.web-page-body li{
+  margin-bottom: 12px;
+  font-size: 14px;
+}
