@@ -32,6 +32,9 @@
 margin-bottom: 14px;
   font-size: 22px;
 }
+.web-page-body hr{
+  margin-bottom: 14px;
+}
 .web-page-body ul{
   padding: 0px 10px;
   margin-left: 14px;
