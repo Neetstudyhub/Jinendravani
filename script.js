@@ -107,3 +107,51 @@ function toggleAudio(button) {
       button.classList.remove("pause");
     };
   }
+
+
+
+
+// ---------- GLOBAL SEARCH HANDLER (Optional if needed later) ----------
+
+// You can later use this to add live search features on homepage
+
+// ---------- SEARCH.HTML RESULTS RENDERING ----------
+function runSearchPage() {
+  const query = new URLSearchParams(window.location.search).get('q')?.toLowerCase();
+  const resultsContainer = document.getElementById('results');
+
+  if (!query || !resultsContainer) return;
+
+  fetch('cards.json')
+    .then(response => response.json())
+    .then(cards => {
+      const filtered = cards.filter(card =>
+        card.title.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = '<p>No results found.</p>';
+      } else {
+        resultsContainer.innerHTML = filtered.map(createCardHTML).join('');
+      }
+    });
+}
+
+// ---------- UTIL: Create a Card in Your Design ----------
+function createCardHTML(card) {
+  return `
+    <div class="card">
+      <a href="${card.link}" class="card-link">
+        <div class="card-icon">
+          <img src="${card.image}" alt="${card.title}">
+        </div>
+        <h3>${card.title}</h3>
+      </a>
+    </div>
+  `;
+}
+
+// Call search functionality only on search.html
+if (window.location.pathname.includes('search.html')) {
+  runSearchPage();
+}
