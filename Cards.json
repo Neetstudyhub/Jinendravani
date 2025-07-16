@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Adinath Chalisa",
+    "link": "chalisa/adinath.html",
+    "image": "images/adinath.jpg"
+  },
+  {
+    "title": "Mahavir Chalisa",
+    "link": "chalisa/mahavir.html",
+    "image": "images/mahavir.jpg"
+  },
+  {
+    "title": "Bhaktamar Stotra",
+    "link": "bhaktamar.html",
+    "image": "images/bhaktamar.jpg"
+  }
+]
