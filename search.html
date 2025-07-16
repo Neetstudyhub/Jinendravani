@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="style.css">
+          <!-- link sheets -->
+        <link rel="stylesheet" href="/Jinendravani/Css/style.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="/Jinendravani/Css/tablet.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="/Jinendravani/Css/desktop.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Change to your actual CSS path -->
+  <style>
+    .main-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center; margin-top: 20px;">Search Results</h2>
+<div id="results" class="main-cards"></div>
+
+<script>
+  const query = new URLSearchParams(window.location.search).get('q')?.toLowerCase();
+
+  if (query) {
+    fetch('cards.json')
+      .then(response => response.json())
+      .then(cards => {
+        const filtered = cards.filter(card =>
+          card.title.toLowerCase().includes(query)
+        );
+
+        const container = document.getElementById('results');
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<p>No results found.</p>';
+        } else {
+          container.innerHTML = filtered.map(card => `
+            <div class="card">
+              <a href="${card.link}" class="card-link">
+                <div class="card-icon">
+                  <img src="${card.image}" alt="${card.title}">
+                </div>
+                <h3>${card.title}</h3>
+              </a>
+            </div>
+          `).join('');
+        }
+      });
+  } else {
+    document.getElementById('results').innerHTML = '<p>Please enter a search query.</p>';
+  }
+</script>
+
+</body>
+</html>
