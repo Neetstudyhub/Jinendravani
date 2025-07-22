@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sitemap</title>
+  <style>
+    :root {
+      --primary: #0AA8FF;
+      --primary-dark: #0066cc;
+      --text-black: #111;
+      --bg-white: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f5faff;
+    }
+
+    /* Category Scroll Container */
+    .category-scroll {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px 5px;
+      gap: 10px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-button {
+      white-space: nowrap;
+      padding: 8px 16px;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      background-color: var(--primary);
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .category-button.active {
+      background-color: white;
+      color: black;
+      border: 2px solid var(--primary);
+    }
+
+    /* Card Container */
+    .main-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      padding: 10px;
+      justify-content: center;
+    }
+
+    .card, .skeleton-card {
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+      min-height: 140px;
+      background-color: #fff;
+      width: 37.13%;
+      border-radius: 17px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(33, 150, 243, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+      width: 100%;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .card-icon {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #e0f3ff, #cce8ff);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ffffff;
+    }
+
+    .card-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    .card h2 {
+      font-size: 1.18rem;
+      color: #0d3a70;
+      margin-bottom: 10px;
+    }
+
+    /* Skeleton animation */
+    .skeleton-card {
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+
+    .skeleton-box {
+      height: 40px;
+      width: 40px;
+      background: #dfefff;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+    }
+
+    .skeleton-text {
+      height: 16px;
+      width: 80%;
+      background: #e2e2e2;
+      margin: 0 auto;
+      border-radius: 6px;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Categories -->
+  <div class="category-scroll" id="categoryList">
+    <button class="category-button active" onclick="loadPosts('Chalisa', this)">Chalisa</button>
+    <button class="category-button" onclick="loadPosts('Bhajan', this)">Bhajan</button>
+    <button class="category-button" onclick="loadPosts('Pooja', this)">Pooja</button>
+    <button class="category-button" onclick="loadPosts('Aarti', this)">Aarti</button>
+    <button class="category-button" onclick="loadPosts('History', this)">History</button>
+    <button class="category-button" onclick="loadPosts('Tirth', this)">Tirth</button>
+    <button class="category-button" onclick="loadPosts('Stotra', this)">Stotra</button>
+    <button class="category-button" onclick="loadPosts('Story', this)">Story</button>
+    <!-- Add more buttons as needed -->
+  </div>
+
+  <!-- Cards -->
+  <div class="main-cards" id="cardContainer">
+    <!-- 8 Skeletons -->
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+    <div class="skeleton-card"><div class="skeleton-box"></div><div class="skeleton-text"></div></div>
+  </div>
+
+  <!-- Blogger JSON API Fetch Logic -->
+  <script>
+    async function loadPosts(label, btn) {
+      // Button toggle active state
+      document.querySelectorAll('.category-button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Show skeletons instantly
+      const container = document.getElementById('cardContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 8; i++) {
+        container.innerHTML += `
+          <div class="skeleton-card">
+            <div class="skeleton-box"></div>
+            <div class="skeleton-text"></div>
+          </div>`;
+      }
+
+      let postsHTML = '';
+      let start = 1;
+      let totalFetched = 0;
+      const maxResults = 150;
+
+      while (true) {
+        const url = `https://jinendra-vani.blogspot.com/feeds/posts/default/-/${label}?alt=json&start-index=${start}&max-results=50`;
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+          const entries = data.feed.entry || [];
+
+          for (let entry of entries) {
+            const title = entry.title.$t;
+            const link = entry.link.find(l => l.rel === 'alternate').href;
+            const mediaThumbnail = (entry.media$thumbnail && entry.media$thumbnail.url) || 'https://via.placeholder.com/70x70?text=?';
+            postsHTML += `
+              <div class="card">
+                <a class="card-link" href="${link}">
+                  <div class="card-icon">
+                    <img alt="${title}" src="${mediaThumbnail}">
+                  </div>
+                  <h2>${title}</h2>
+                </a>
+              </div>`;
+          }
+
+          totalFetched += entries.length;
+          if (entries.length < 50 || totalFetched >= maxResults) break;
+          start += 50;
+
+        } catch (e) {
+          break;
+        }
+      }
+
+      container.innerHTML = postsHTML || `<p style="text-align:center;margin-top:30px;color:#555;">No posts found for "${label}".</p>`;
+    }
+
+    // Load default label on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPosts('Chalisa', document.querySelector('.category-button.active'));
+    });
+  </script>
+
+</body>
+</html>
