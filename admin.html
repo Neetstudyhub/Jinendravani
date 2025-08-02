@@ -5,135 +5,89 @@
   <title>Audit Management</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
       padding: 20px;
-      background: #f5f7fa;
     }
     h1 {
-      color: #333;
+      color: #177AFF;
     }
-    form {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    input, select {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+    input, button {
+      margin: 6px 0;
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 16px;
     }
     button {
-      grid-column: span 2;
-      padding: 10px;
-      background-color: #007BFF;
+      background-color: #177AFF;
       color: white;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #125edb;
     }
-    table {
-      margin-top: 20px;
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
-    th {
-      background: #f0f0f0;
+    .form-section {
+      margin-bottom: 30px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Audit Management</h1>
+  <h1>Add Audit</h1>
 
-  <form id="auditForm">
-    <input type="text" name="Audit ID" placeholder="Audit ID" required>
-    <input type="text" name="Firm Name" placeholder="Firm Name" required>
-    <input type="text" name="Brand" placeholder="Brand" required>
-    <input type="text" name="Location" placeholder="Location" required>
-    <input type="text" name="City" placeholder="City" required>
-    <input type="text" name="TL Name" placeholder="TL Name" required>
-    <input type="date" name="Audit Date" required>
-    <input type="time" name="Start Time" required>
-    <input type="time" name="End Time" required>
-    <select name="Status" required>
-      <option value="">Select Status</option>
-      <option>Completed</option>
-      <option>Pending</option>
-    </select>
-    <input type="number" name="Expense" placeholder="Expense" required>
-    <button type="submit">Add Audit</button>
-  </form>
+  <div class="form-section">
+    <input type="text" id="auditId" placeholder="Audit ID">
+    <input type="text" id="firmName" placeholder="Firm Name">
+    <input type="text" id="brand" placeholder="Brand">
+    <input type="text" id="location" placeholder="Location">
+    <input type="text" id="city" placeholder="City">
+    <input type="text" id="tlName" placeholder="TL Name">
+    <input type="date" id="auditDate">
+    <input type="time" id="startTime">
+    <input type="time" id="endTime">
+    <input type="text" id="status" placeholder="Status">
+    <input type="number" id="expense" placeholder="Expense">
 
-  <h2>All Audits</h2>
-  <table id="auditTable">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+    <button onclick="addAudit()">Add Audit</button>
+    <p id="msg"></p>
+  </div>
 
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzQvSBuQMcYoBCMKT9rryKyo3ZICQbR7w9ScTkceHgVX4_AIlAj11Yk8gRp3ABfz0kZvg/exec';
 
-    // Submit form
-    document.getElementById('auditForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      const data = {};
-      formData.forEach((val, key) => data[key] = val);
+    function addAudit() {
+      const data = {
+        "Audit ID": document.getElementById("auditId").value,
+        "Firm Name": document.getElementById("firmName").value,
+        "Brand": document.getElementById("brand").value,
+        "Location": document.getElementById("location").value,
+        "City": document.getElementById("city").value,
+        "TL Name": document.getElementById("tlName").value,
+        "Audit Date": document.getElementById("auditDate").value,
+        "Start Time": document.getElementById("startTime").value,
+        "End Time": document.getElementById("endTime").value,
+        "Status": document.getElementById("status").value,
+        "Expense": document.getElementById("expense").value
+      };
 
-      try {
-        const res = await fetch(scriptURL, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const result = await res.json();
-        alert(result.message || 'Success!');
-        form.reset();
-        fetchAudits(); // refresh table
-      } catch (err) {
-        alert("Failed to add audit. " + err);
-      }
-    });
-
-    // Fetch audits from Google Sheets
-    async function fetchAudits() {
-      try {
-        const res = await fetch(scriptURL);
-        const audits = await res.json();
-        const tableHead = document.querySelector('#auditTable thead');
-        const tableBody = document.querySelector('#auditTable tbody');
-        tableHead.innerHTML = '';
-        tableBody.innerHTML = '';
-
-        if (audits.length > 0) {
-          const headers = Object.keys(audits[0]);
-          const headRow = headers.map(h => `<th>${h}</th>`).join('');
-          tableHead.innerHTML = `<tr>${headRow}</tr>`;
-
-          audits.forEach(row => {
-            const rowHTML = headers.map(h => `<td>${row[h] || ''}</td>`).join('');
-            tableBody.innerHTML += `<tr>${rowHTML}</tr>`;
-          });
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
         }
-      } catch (err) {
-        console.error("Error fetching audits:", err);
-      }
+      })
+      .then(res => res.json())
+      .then(response => {
+        document.getElementById("msg").innerText = "✅ Audit added successfully!";
+      })
+      .catch(error => {
+        console.error("Error!", error);
+        document.getElementById("msg").innerText = "❌ Failed to add audit: " + error.message;
+      });
     }
-
-    fetchAudits();
   </script>
 </body>
 </html>
