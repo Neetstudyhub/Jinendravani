@@ -1,0 +1,22 @@
+<div id="auditList"></div>
+
+<script>
+  const dataURL = 'https://script.google.com/macros/s/AKfycb.../exec'; // your web app URL
+
+  fetch(dataURL)
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("auditList");
+      data.forEach(audit => {
+        list.innerHTML += `
+          <div class="card">
+            <h3>${audit["Audit Title"]}</h3>
+            <p>${audit.Description}</p>
+            <small>Date: ${audit.Date}</small><br/>
+            <small>Assigned To: ${audit["Assigned To"]}</small><br/>
+            <strong>Status: ${audit.Status}</strong>
+          </div>
+        `;
+      });
+    });
+</script>
