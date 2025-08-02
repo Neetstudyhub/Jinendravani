@@ -1,31 +1,125 @@
-<form id="auditForm">
-  <input type="text" name="ID" placeholder="Audit ID" required />
-  <input type="text" name="Audit Title" placeholder="Title" required />
-  <input type="text" name="Description" placeholder="Description" required />
-  <input type="date" name="Date" required />
-  <input type="text" name="Assigned To" placeholder="Employee" required />
-  <select name="Status">
-    <option value="Pending">Pending</option>
-    <option value="Completed">Completed</option>
-  </select>
-  <button type="submit">Add Audit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audit Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: #f5f7fa; padding: 20px; color: #222; }
+    h1 { margin-bottom: 20px; }
+    .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    input, textarea, select, button { padding: 10px; margin: 8px 0; width: 100%; border: 1px solid #ccc; border-radius: 6px; }
+    button { background: #177aff; color: white; border: none; font-weight: 600; cursor: pointer; }
+    button:hover { background: #0e5ed9; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 12px; text-align: left; }
+    th { background: #f0f4fa; }
+    .flex { display: flex; gap: 10px; }
+    @media(max-width: 600px) {
+      .flex { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Audit Management System</h1>
 
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyPmS2z867GACah7H4Ar5vFshOJR0VaWiw3un9fMtpAG_NJJiD_c6K-8CLagZgexliLGw/exec'; // your web app URL
+    <div>
+      <h3>Add New Audit</h3>
+      <form id="auditForm">
+        <div class="flex">
+          <input type="text" id="title" placeholder="Audit Title" required />
+          <input type="date" id="date" required />
+        </div>
+        <textarea id="desc" placeholder="Audit Description" required></textarea>
+        <div class="flex">
+          <input type="text" id="assignedTo" placeholder="Assigned To" required />
+          <select id="status">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <button type="submit">Add Audit</button>
+      </form>
+    </div>
 
-  document.getElementById("auditForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const jsonData = {};
-    formData.forEach((value, key) => (jsonData[key] = value));
+    <hr style="margin: 30px 0;"/>
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(jsonData),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(() => alert("Audit Added!"));
-  });
-</script>
+    <div>
+      <h3>All Audits</h3>
+      <table id="auditTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyPmS2z867GACah7H4Ar5vFshOJR0VaWiw3un9fMtpAG_NJJiD_c6K-8CLagZgexliLGw/exec";
+
+    const form = document.getElementById("auditForm");
+    const tableBody = document.querySelector("#auditTable tbody");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const data = {
+        action: "add",
+        title: document.getElementById("title").value.trim(),
+        desc: document.getElementById("desc").value.trim(),
+        date: document.getElementById("date").value,
+        assignedTo: document.getElementById("assignedTo").value.trim(),
+        status: document.getElementById("status").value
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        alert("Audit Added Successfully!");
+        form.reset();
+        loadAudits(); // Reload data
+      })
+      .catch(err => alert("Error: " + err.message));
+    });
+
+    function loadAudits() {
+      fetch(scriptURL + "?action=get")
+        .then(res => res.json())
+        .then(data => {
+          tableBody.innerHTML = "";
+          data.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${row.ID}</td>
+              <td>${row.Title}</td>
+              <td>${row.Description}</td>
+              <td>${row.Date}</td>
+              <td>${row.AssignedTo}</td>
+              <td>${row.Status}</td>
+            `;
+            tableBody.appendChild(tr);
+          });
+        })
+        .catch(err => {
+          tableBody.innerHTML = "<tr><td colspan='6'>Error loading audits.</td></tr>";
+        });
+    }
+
+    window.onload = loadAudits;
+  </script>
+</body>
+</html>
