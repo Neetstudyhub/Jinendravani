@@ -1,0 +1,31 @@
+<form id="auditForm">
+  <input type="text" name="ID" placeholder="Audit ID" required />
+  <input type="text" name="Audit Title" placeholder="Title" required />
+  <input type="text" name="Description" placeholder="Description" required />
+  <input type="date" name="Date" required />
+  <input type="text" name="Assigned To" placeholder="Employee" required />
+  <select name="Status">
+    <option value="Pending">Pending</option>
+    <option value="Completed">Completed</option>
+  </select>
+  <button type="submit">Add Audit</button>
+</form>
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycb.../exec'; // your web app URL
+
+  document.getElementById("auditForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const jsonData = {};
+    formData.forEach((value, key) => (jsonData[key] = value));
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(jsonData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => alert("Audit Added!"));
+  });
+</script>
