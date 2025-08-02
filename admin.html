@@ -1,207 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Audit Management System</title>
+  <meta charset="UTF-8">
+  <title>Audit Management</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background: #f3f4f6;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  border-radius: 8px;
-  margin-top: 40px;
-}
-
-h1, h2 {
-  text-align: center;
-  color: #1f2937;
-}
-
-form {
-  margin-bottom: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-}
-
-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  margin-top: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 100%;
-}
-
-button:hover {
-  background-color: #1e40af;
-}
-
-#message {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #e5e7eb;
-  color: #111827;
-}
-
-tr:nth-child(even) {
-  background-color: #f9fafb;
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background: #f5f7fa;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      grid-column: span 2;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    th {
+      background: #f0f0f0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📝 Audit Management System</h1>
 
-    <form id="auditForm">
-      <div class="grid">
-        <input type="text" name="Audit ID" placeholder="Audit ID" required />
-        <input type="text" name="Firm Name" placeholder="Firm Name" required />
-        <input type="text" name="Brand" placeholder="Brand" />
-        <input type="text" name="Location" placeholder="Location" />
-        <input type="text" name="City" placeholder="City" />
-        <input type="text" name="TL Name" placeholder="TL Name" />
-        <input type="date" name="Audit Date" />
-        <input type="time" name="Start Time" />
-        <input type="time" name="End Time" />
-        <input type="text" name="Status" placeholder="Status" />
-        <input type="number" name="Expense" placeholder="Expense" />
-      </div>
-      <button type="submit">➕ Add Audit</button>
-      <div id="message"></div>
-    </form>
+  <h1>Audit Management</h1>
 
-    <h2>📋 All Audits</h2>
-    <div id="auditTableContainer">
-      <table id="auditTable">
-        <thead>
-          <tr>
-            <th>Audit ID</th>
-            <th>Firm</th>
-            <th>Brand</th>
-            <th>Location</th>
-            <th>City</th>
-            <th>TL</th>
-            <th>Date</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Status</th>
-            <th>Expense</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
+  <form id="auditForm">
+    <input type="text" name="Audit ID" placeholder="Audit ID" required>
+    <input type="text" name="Firm Name" placeholder="Firm Name" required>
+    <input type="text" name="Brand" placeholder="Brand" required>
+    <input type="text" name="Location" placeholder="Location" required>
+    <input type="text" name="City" placeholder="City" required>
+    <input type="text" name="TL Name" placeholder="TL Name" required>
+    <input type="date" name="Audit Date" required>
+    <input type="time" name="Start Time" required>
+    <input type="time" name="End Time" required>
+    <select name="Status" required>
+      <option value="">Select Status</option>
+      <option>Completed</option>
+      <option>Pending</option>
+    </select>
+    <input type="number" name="Expense" placeholder="Expense" required>
+    <button type="submit">Add Audit</button>
+  </form>
+
+  <h2>All Audits</h2>
+  <table id="auditTable">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzQvSBuQMcYoBCMKT9rryKyo3ZICQbR7w9ScTkceHgVX4_AIlAj11Yk8gRp3ABfz0kZvg/exec";
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQvSBuQMcYoBCMKT9rryKyo3ZICQbR7w9ScTkceHgVX4_AIlAj11Yk8gRp3ABfz0kZvg/exec';
 
-    const form = document.getElementById('auditForm');
-    const tableBody = document.querySelector("#auditTable tbody");
-    const message = document.getElementById('message');
-
-    form.addEventListener('submit', async (e) => {
+    // Submit form
+    document.getElementById('auditForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const form = e.target;
       const formData = new FormData(form);
       const data = {};
       formData.forEach((val, key) => data[key] = val);
 
       try {
-        const res = await fetch(API_URL, {
+        const res = await fetch(scriptURL, {
           method: 'POST',
           body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Content-Type': 'application/json' }
         });
         const result = await res.json();
-        if (result.status === 'success') {
-          message.textContent = "✅ Audit added successfully!";
-          message.style.color = "green";
-          form.reset();
-          loadAudits();
-        } else {
-          message.textContent = "❌ Error: " + result.message;
-          message.style.color = "red";
-        }
+        alert(result.message || 'Success!');
+        form.reset();
+        fetchAudits(); // refresh table
       } catch (err) {
-        message.textContent = "❌ Network Error";
-        message.style.color = "red";
+        alert("Failed to add audit. " + err);
       }
     });
 
-    async function loadAudits() {
-      tableBody.innerHTML = "<tr><td colspan='11'>Loading...</td></tr>";
+    // Fetch audits from Google Sheets
+    async function fetchAudits() {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(scriptURL);
         const audits = await res.json();
-        tableBody.innerHTML = audits.map(audit => `
-          <tr>
-            <td>${audit["Audit ID"] || ''}</td>
-            <td>${audit["Firm Name"] || ''}</td>
-            <td>${audit["Brand"] || ''}</td>
-            <td>${audit["Location"] || ''}</td>
-            <td>${audit["City"] || ''}</td>
-            <td>${audit["TL Name"] || ''}</td>
-            <td>${audit["Audit Date"] || ''}</td>
-            <td>${audit["Start Time"] || ''}</td>
-            <td>${audit["End Time"] || ''}</td>
-            <td>${audit["Status"] || ''}</td>
-            <td>${audit["Expense"] || ''}</td>
-          </tr>
-        `).join('');
+        const tableHead = document.querySelector('#auditTable thead');
+        const tableBody = document.querySelector('#auditTable tbody');
+        tableHead.innerHTML = '';
+        tableBody.innerHTML = '';
+
+        if (audits.length > 0) {
+          const headers = Object.keys(audits[0]);
+          const headRow = headers.map(h => `<th>${h}</th>`).join('');
+          tableHead.innerHTML = `<tr>${headRow}</tr>`;
+
+          audits.forEach(row => {
+            const rowHTML = headers.map(h => `<td>${row[h] || ''}</td>`).join('');
+            tableBody.innerHTML += `<tr>${rowHTML}</tr>`;
+          });
+        }
       } catch (err) {
-        tableBody.innerHTML = "<tr><td colspan='11'>❌ Failed to load audits</td></tr>";
+        console.error("Error fetching audits:", err);
       }
     }
 
-    loadAudits();
+    fetchAudits();
   </script>
 </body>
 </html>
