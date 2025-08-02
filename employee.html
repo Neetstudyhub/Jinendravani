@@ -1,22 +1,93 @@
-<div id="auditList"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Audit Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
+      padding: 20px;
+    }
+    h1 {
+      color: #177AFF;
+    }
+    input, button {
+      margin: 6px 0;
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #177AFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #125edb;
+    }
+    .form-section {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
 
-<script>
-  const dataURL = 'https://script.google.com/macros/s/AKfycbyPmS2z867GACah7H4Ar5vFshOJR0VaWiw3un9fMtpAG_NJJiD_c6K-8CLagZgexliLGw/exec'; // your web app URL
+  <h1>Add Audit</h1>
 
-  fetch(dataURL)
-    .then(res => res.json())
-    .then(data => {
-      const list = document.getElementById("auditList");
-      data.forEach(audit => {
-        list.innerHTML += `
-          <div class="card">
-            <h3>${audit["Audit Title"]}</h3>
-            <p>${audit.Description}</p>
-            <small>Date: ${audit.Date}</small><br/>
-            <small>Assigned To: ${audit["Assigned To"]}</small><br/>
-            <strong>Status: ${audit.Status}</strong>
-          </div>
-        `;
+  <div class="form-section">
+    <input type="text" id="auditId" placeholder="Audit ID">
+    <input type="text" id="firmName" placeholder="Firm Name">
+    <input type="text" id="brand" placeholder="Brand">
+    <input type="text" id="location" placeholder="Location">
+    <input type="text" id="city" placeholder="City">
+    <input type="text" id="tlName" placeholder="TL Name">
+    <input type="date" id="auditDate">
+    <input type="time" id="startTime">
+    <input type="time" id="endTime">
+    <input type="text" id="status" placeholder="Status">
+    <input type="number" id="expense" placeholder="Expense">
+
+    <button onclick="addAudit()">Add Audit</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQvSBuQMcYoBCMKT9rryKyo3ZICQbR7w9ScTkceHgVX4_AIlAj11Yk8gRp3ABfz0kZvg/exec';
+
+    function addAudit() {
+      const data = {
+        "Audit ID": document.getElementById("auditId").value,
+        "Firm Name": document.getElementById("firmName").value,
+        "Brand": document.getElementById("brand").value,
+        "Location": document.getElementById("location").value,
+        "City": document.getElementById("city").value,
+        "TL Name": document.getElementById("tlName").value,
+        "Audit Date": document.getElementById("auditDate").value,
+        "Start Time": document.getElementById("startTime").value,
+        "End Time": document.getElementById("endTime").value,
+        "Status": document.getElementById("status").value,
+        "Expense": document.getElementById("expense").value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        document.getElementById("msg").innerText = "✅ Audit added successfully!";
+      })
+      .catch(error => {
+        console.error("Error!", error);
+        document.getElementById("msg").innerText = "❌ Failed to add audit: " + error.message;
       });
-    });
-</script>
+    }
+  </script>
+</body>
+</html>
