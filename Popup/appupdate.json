@@ -1,0 +1,7 @@
+{
+  "title": "App Update Available!",
+  "message": "A new version is available with exciting features.",
+  "image": "https://example.com/update.png",
+  "button_text": "Update Now",
+  "button_link": "https://play.google.com/store/apps/details?id=com.example.app"
+}
