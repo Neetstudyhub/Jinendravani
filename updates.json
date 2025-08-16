@@ -1,5 +1,12 @@
-{
-  "title": "✨ New Update!",
-  "message": "We have added Shri Parshvanath Chalisa. Go check it now 🙏",
-  "date": "2025-08-16"
-}
+[
+  {
+    "title": "New Version 1.1",
+    "message": "Bug fixes and performance improvements.",
+    "icon": "file:///android_asset/icons/update.png"
+  },
+  {
+    "title": "Welcome Feature",
+    "message": "Introducing a new feature in the app!",
+    "icon": "file:///android_asset/icons/feature.png"
+  }
+]
