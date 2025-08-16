@@ -1,12 +1,7 @@
 [
   {
-    "title": "Current Version 1.0 New Version 1.1",
-    "message": "Bug fixes and performance improvements.",
-    "icon": "file:///android_asset/icons/update.png"
-  },
-  {
-    "title": "Welcome Feature",
-    "message": "Introducing a new feature in the app!",
-    "icon": "file:///android_asset/icons/feature.png"
+    "title": "Happy Diwali!",
+    "message": "Wishing you a sparkling Diwali 🎉. Update now for festive features!",
+    "image": "https://example.com/diwali.jpg"
   }
 ]
