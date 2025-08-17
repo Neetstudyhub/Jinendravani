@@ -5,6 +5,6 @@
   "image": "https://neetstudyhub.github.io/Jinendravani/images/images.jpeg",
   "button_text": "Update Now",
   "button_link": "https://play.google.com/store/apps/details?id=yourapp",
-  "show_later_button": true,
+  "show_later_button": false,
   "later_text": "Maybe Later"
 }
