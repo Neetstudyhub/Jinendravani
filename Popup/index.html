@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jinendravani</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #000000, #0d47a1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        opacity: 1;
+        transition: opacity 1s ease; /* Fade-out */
+    }
+
+    .logo-container {
+        text-align: center;
+        animation: fadeIn 1.5s ease forwards;
+    }
+
+    .app-name {
+        font-size: 2.8em;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 2px;
+        opacity: 0;
+        animation: slideUp 1.5s ease forwards;
+        animation-delay: 0.5s;
+    }
+
+    .tagline {
+        font-size: 1em;
+        color: #90caf9;
+        margin-top: 10px;
+        opacity: 0;
+        animation: fadeIn 1.5s ease forwards;
+        animation-delay: 1.2s; /* Starts after app name */
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="app-name">Jinendravani</div>
+        <div class="tagline">Spreading Devotion & Peace</div>
+    </div>
+
+<script>
+    // Duration of all animations before fade-out starts
+    const animationEndTime = 1200 + 1500; // tagline delay (1.2s) + tagline fade in (1.5s) = 2.7s
+
+    // Add a small pause after animations, then fade-out
+    setTimeout(() => {
+        document.body.style.opacity = '0';
+    }, animationEndTime + 900); // fade-out starts at ~3.2s
+
+    // Redirect after fade-out completes
+    setTimeout(() => {
+        window.location.href = "homepage.html";
+    }, animationEndTime + 1500); // ~4.2s total
+</script>
+</body>
+</html>
