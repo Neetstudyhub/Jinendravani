@@ -1,0 +1,4071 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html expr:dir='data:blog.languageDirection' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <b:include data='blog' name='all-head-content'/>
+  <title><data:blog.pageTitle/></title>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <link href='https://fonts.googleapis.com/css2?family=Inter :wght@400;500;600&amp;display=swap' rel='stylesheet'/>
+<!-- Font Awesome for Icons -->
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css ' rel='stylesheet'/>
+  <b:skin><![CDATA[/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Jain Study Hub - Loader Only Button
+Designer: Your Name
+URL:      https://yourwebsite.com/ 
+Date:     2025
+-----------------------------------------------
+*/
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  
+  color: black;
+height: 100%;
+  background-color: #f7f7f7;
+  
+}
+a{
+
+text-decoration: none; ! important
+color: #3FA2FF;
+}
+
+/* header */
+
+
+    /* Voice Popup Styles */
+    #voice-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99999;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    #mic-pulse {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      position: relative;
+    }
+    #mic-pulse i {
+      font-size: 26px;
+      color: #5f6368;
+      z-index: 1;
+    }
+    #pulse-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #5f6368;
+      opacity: 0.6;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    #popup-status {
+      margin: 0;
+      font-size: 18px;
+      color: #5f6368;
+      font-weight: 500;
+    }
+    #popup-transcript {
+      margin-top: 12px;
+      font-size: 15px;
+      color: #333;
+      min-height: 20px;
+    }
+    #try-again-btn {
+      margin-top: 20px;
+      display: none;
+      background: linear-gradient(to right, #1a73e8, #155ea3);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    #try-again-btn:hover {
+      background: linear-gradient(to right, #155ea3, #10498b);
+      transform: translateY(-1px);
+    }
+    .close-popup {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 20px;
+      color: #999;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .close-popup:hover {
+      color: #333;
+    }
+
+    /* Header Styles */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ffffff;
+      position: fixed;
+      z-index: 999;
+      width: 100%;
+      height: 70px;
+      padding: 0 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    @media (min-width: 765px) {
+      .header {
+        justify-content: space-around;
+      }
+    }
+    .logo-wrapper {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    @media (max-width: 764px) {
+      .logo-wrapper {
+        font-weight: 700;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    .search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: #eee;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .search-icon i {
+      color: #666;
+      transition: color 0.3s ease;
+    }
+    .search-icon:hover,
+    .search-icon:focus,
+    .search-icon.active {
+      background-color: #ddd;
+    }
+    .search-icon:hover i,
+    .search-icon.active i {
+      color: #000;
+    }
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      height: 70px;
+      background-color: #ffffff;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+    .search-bar.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .search-inner {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      margin: auto;
+    }
+    .search-inner input[type="text"] {
+      width: 100%;
+      height: 100%;
+      padding: 0 40px 0 40px;
+      font-size: 1rem;
+      border: none;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 0 0 1px #ccc;
+      transition: box-shadow 0.3s ease;
+    }
+    .search-inner input:focus {
+      box-shadow: 0 0 0 2px #aaa;
+    }
+    .search-inner input::placeholder {
+      color: #aaa;
+    }
+    .search-inner .icon-left,
+    .search-inner .icon-clear,
+    .search-inner .icon-mic {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #000;
+      font-size: 1.2rem;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .search-inner .icon-left {
+      left: 10px;
+      display: none;
+    }
+    .search-inner .icon-clear {
+      right: 60px;
+      display: none;
+    }
+    .search-inner .icon-mic {
+      right: 10px;
+      display: none;
+    }
+    @media (min-width: 765px) {
+      .search-inner input:focus + .icon-left {
+        display: inline-block;
+      }
+      .search-inner .icon-left {
+        display: inline-block;
+      }
+    }
+    @media (max-width: 764px) {
+      .search-inner input:focus {
+        padding-left: 40px;
+      }
+      .search-inner .icon-left {
+        display: inline-block;
+      }
+      .search-inner .icon-clear {
+        right: 60px;
+      }
+      .search-inner .icon-mic {
+        right: 10px;
+      }
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .bar {
+      width: 24px;
+      height: 3px;
+      background-color: #333;
+      border-radius: 2px;
+    }
+    @media (max-width: 764px) {
+      .hamburger {
+        display: flex;
+      }
+      .desktop-nav,
+      .desktop-nav > li:hover .dropdown {
+        display: none !important;
+      }
+    }
+    @media (min-width: 765px) {
+      .nav-container {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
+      .desktop-nav {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+      .desktop-nav > li {
+        position: relative;
+        list-style: none;
+      }
+      .desktop-nav a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        font-size: 1rem;
+      }
+      .desktop-nav a:hover {
+        color: #f39c12;
+      }
+      
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        list-style: none;
+        padding: 0.5rem 0;
+        min-width: 160px;
+        z-index: 998;
+      }
+      .dropdown li a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #333;
+        text-decoration: none;
+        font-weight: normal;
+      }
+      .dropdown li a:hover {
+        background-color: #f0f0f0;
+      }
+      .desktop-nav > li:hover .dropdown {
+        display: block;
+      }
+      .search-bar .icon-clear,
+      .search-bar .icon-mic {
+        display: none;
+      }
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 93.5vh;
+      background-color: #1a1f36;
+      color: white;
+      z-index: 1001;
+      transition: left 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    .sidebar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: #14182b;
+    }
+    .sidebar-logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .close-btn {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #ccc;
+    }
+    .close-btn:hover {
+      color: white;
+    }
+    .sidebar-menu {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 0.5rem 0;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      color: #dcdcdc;
+      text-decoration: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .sidebar ul li a:hover,
+    .sidebar ul li a:focus {
+      background-color: #2a2f4a;
+      color: #fff;
+    }
+    .menu-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 1.5rem;
+    }
+    .submenu {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease-out;
+    }
+    .submenu.open {
+      max-height: 200px;
+    }
+    .submenu li a {
+      font-size: 0.95rem;
+      color: #bbb;
+      padding-left: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .has-submenu > a {
+      position: relative;
+      padding-right: 2.5rem;
+    }
+    .has-submenu > a .submenu-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: #aaa;
+      transition: transform 0.3s ease;
+    }
+    .has-submenu.open > a .submenu-icon {
+      transform: translateY(-50%) rotate(180deg);
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1000;
+    }
+    .overlay.active {
+      display: block;
+    }
+    body.sidebar-open {
+      overflow: hidden;
+    }
+    body.sidebar-open .sidebar {
+      pointer-events: auto;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem 0;
+    }
+    .social-icons a {
+      color: #ccc;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      color: #fff;
+    }
+    .sidebar-footer {
+      padding: 0.75rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .footer-pages {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .footer-pages a {
+      color: #ccc;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-pages a:hover {
+      color: #fff;
+    }
+
+/* logo color */
+
+.logo12{
+
+  text-decoration: none;
+  color: #000;;
+}
+
+.logo13{
+
+  text-decoration: none;
+  color: white;
+}
+
+
+/* Main Content */
+#content {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 14px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card-post {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.card-post.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.card-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card-thumbnail:hover img {
+  transform: scale(1.05);
+}
+
+.card-thumbnail .brand-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-thumbnail:hover .brand-overlay {
+  opacity: 1;
+}
+
+.card-thumbnail::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 70%);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card-thumbnail:hover::after {
+  opacity: 0.7;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.card-tag {
+  background: #e8f0fe;
+  color: #007bff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-title {
+  font-size: 20px;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.card-title a {
+  color: #222;
+  text-decoration: none;
+}
+
+.card-excerpt {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.card-meta-footer {
+  font-size: 12px;
+  color: #999;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+
+/* Load More Button */
+#load-more-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+#load-more-btn {
+  background-color: #336EA0;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+#load-more-btn:hover:not(.done) {
+  background-color: #2a5c8d;
+}
+
+.load-more-loader {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  animation: spin 1.2s linear infinite;
+}
+
+.load-more-loader circle {
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+  fill: none;
+  transform-origin: center;
+  animation: dash 1.2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes dash {
+  0% { stroke-dashoffset: 80; }
+  50% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 80; }
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+#load-more-btn.loading .btn-text {
+  opacity: 0;
+}
+
+#load-more-btn.loading {
+  background-color: transparent;
+}
+
+#load-more-btn.done {
+  background-color: #ccc !important;
+  color: #666;
+  cursor: default;
+  pointer-events: none;
+}
+
+
+/* search and lable heading */
+
+
+    
+      
+    .premium-label-search-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: bold;
+  color: #0074D9;
+  letter-spacing: 1px;
+  position: relative;
+  padding-left: 1rem;
+}
+
+/* Highlight the label name */
+.label-name {
+  color: #D32F2F; /* Deep red for emphasis */
+  font-style: italic;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Add a decorative line under the title */
+.premium-label-search-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #0074D9;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+@media (max-width: 600px) {
+  .premium-label-search-title {
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+  }
+}
+
+/* Hero section  */
+   .hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 0;
+  background: linear-gradient(to bottom right, white, #e0f2ff);
+  overflow: hidden;
+  
+  }
+  
+  .background-squares {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  }
+  
+  .square {
+  position: absolute;
+  bottom: -100px;
+  background: rgba(30, 64, 175, 0.2);
+  border-radius: 6px;
+  animation: floatUp 10s linear infinite;
+  }
+  
+  @keyframes floatUp {
+  0% {
+  transform: translateY(0) rotate(0deg);
+  opacity: 0.4;
+  }
+  50% {
+  opacity: 0.2;
+  }
+  100% {
+  transform: translateY(-120vh) rotate(360deg);
+  opacity: 0;
+  }
+  }
+  
+  .square:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; animation-delay: 0s; }
+  .square:nth-child(2) { width: 25px; height: 25px; left: 20%; animation-duration: 14s; animation-delay: 1s; }
+  .square:nth-child(3) { width: 50px; height: 50px; left: 30%; animation-duration: 11s; animation-delay: 2s; }
+  .square:nth-child(4) { width: 30px; height: 30px; left: 40%; animation-duration: 13s; animation-delay: 0.5s; }
+  .square:nth-child(5) { width: 20px; height: 20px; left: 50%; animation-duration: 15s; animation-delay: 1.5s; }
+  .square:nth-child(6) { width: 35px; height: 35px; left: 60%; animation-duration: 12s; animation-delay: 2.5s; }
+  .square:nth-child(7) { width: 28px; height: 28px; left: 70%; animation-duration: 10s; animation-delay: 1s; }
+  .square:nth-child(8) { width: 42px; height: 42px; left: 80%; animation-duration: 13s; animation-delay: 0.8s; }
+  .square:nth-child(9) { width: 18px; height: 18px; left: 90%; animation-duration: 14s; animation-delay: 1.2s; }
+  .square:nth-child(10) { width: 32px; height: 32px; left: 95%; animation-duration: 11s; animation-delay: 0.3s; }
+  
+  .hero-inner {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  }
+  
+  .hero-content {
+  text-align: center;
+  margin-top: 2rem;
+  }
+  
+  .hero h1 {
+  font-size: 3rem;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+  }
+  
+  .hero h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  }
+  
+  .hero p {
+  max-width: 500px;
+  margin: 0 auto 1.5rem auto;
+  color: #333;
+  }
+  
+ .button-wrapper1 {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 1rem;
+
+  justify-content: center;
+
+  margin-top: 1rem;
+
+  }
+
+  
+
+  .button-wrapper1 a {
+
+  padding: 0.75rem 1.5rem;
+
+  border: 2px solid #1e40af;
+
+  color: #1e40af;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  border-radius: 30px;
+
+  background: transparent;
+
+  transition: all 0.3s ease;
+
+  }
+
+  
+
+  .button-wrapper1 a:hover {
+
+  background: #1e40af;
+
+  color: white;
+
+  border-color: #1e3a8a;
+
+  }
+
+  .button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  }
+  
+  .button-wrapper a {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #1e40af;
+  color: #1e40af;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  background: transparent;
+  transition: all 0.3s ease;
+  }
+  
+  .button-wrapper a:hover {
+  background: #1e40af;
+  color: white;
+  border-color: #1e3a8a;
+  }
+  
+  .hero-images {
+  display: none;
+  }
+@media (max-width: 767px) {
+.button-wrapper{
+
+display:none;
+
+}
+}
+  
+  @media (min-width: 768px) {
+  .hero {
+  flex-direction: row;
+  justify-content: center;
+  padding: 4rem 2rem;
+  }
+  
+  .hero-inner {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  }
+  
+  .hero-content {
+  text-align: left;
+  margin-top: 0;
+  max-width: 600px;
+  }
+  
+  .button-wrapper {
+  justify-content: flex-start;
+  }
+  
+  .hero-images {
+  display: flex;
+  align-items: center;
+  position: relative;
+  }
+  
+  .hero-images img {
+  max-height: 240px;
+  width: auto;
+  }
+.button-wrapper1{
+display:none;
+}
+  }
+
+
+/* post page */
+.main-post-page{
+  
+}
+.post-page{
+  background: white;
+  margin: 9px 3px;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.top-post-heading{
+  line-height: 1.3;
+  font-size: 28px;
+  margin: 14px 10px;
+  font-weight: 600;
+}
+.top-post-meta{
+  display: flex;
+  margin: 10px 13px;
+  gap: 20px;
+  font-size: 10px;
+}
+.meta-time::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400; /* Solid style */
+  content: "\f017";
+  margin-right: 2px;
+  font-size: 10px
+}
+.meta-date::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400; /* Solid style */
+  content: "\f073";
+  margin-right: 6px;
+  font-size: 10px
+}
+.top-post-author{
+  display: flex;
+  margin: 13px 10px;
+  gap: 7px;
+  justify-content: left;
+  align-items: center;
+}
+.top-post-author img{
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  border: 1px solid gray;
+}
+.author-name{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#post-share-btn{
+  
+  padding: 4px;
+  border-radius: 50%;
+  justify-content: center;
+  color: #000000;
+  font-size: 13px;
+}
+
+#post-share-btn:hover{
+  transition: 0.3s ease-in-out;
+  color: #554747;
+}
+
+.top-hr{
+  margin-top: 10px;
+  opacity: 0.3;
+}
+.post-body{
+  margin: 14px 8px;
+}
+.post-body img{
+  width: 100%;
+  border-radius: 13px;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);
+}
+.rp-heading{
+  display: flex;
+  align-items: center;
+  
+}
+.rp-main-heading{
+  margin: 20px 3px;
+  font-size: 21px;
+  justify-self: left;
+}
+.rp-main-heading::after{
+  content: ' ';
+}
+.rp-main-heading::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 800; /* Solid style */
+  content: "\f0c1";
+  margin-right: 6px;
+  font-size: 21px
+}
+.see-more{
+  font-size: 14px;
+  margin: 20px 6px;
+  position: absolute;
+  right: 3px;
+  font-weight: bold;
+  color: #1D72EB;
+}
+.see-more::after{
+  content: '';
+  margin-right: 10px;
+}
+.related-posts-containers{
+  margin: 9px 3px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.related-posts{
+  height: auto;
+  background: white;
+  border-radius: 13px;
+  flex: 1 1 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+.related-posts img{
+  width: 100%;
+  height: auto;
+  border-top-right-radius: 13px;
+  border-top-left-radius: 13px;
+}
+.rp-tittle {
+
+  padding: 6px 8px;
+  font-size: 14px;
+  line-height: 1.25;
+  height: auto;
+ font-weight: 550;
+  overflow: hidden;
+  text-decoration: none;
+}
+.rp-tittle a{
+text-decoration: none;
+color: black;
+}
+.related-posts:hover{
+  transform: scale(1.02);
+}
+.rp-hr{
+  opacity: 0.3;
+}
+.rp-meta{
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+.labels-heading{
+  margin: 23px 3px;
+  margin-bottom:12px;
+  font-size: 21px;
+  justify-self: left;
+}
+.labels-heading::after{
+  content: ' ';
+}
+.labels-heading::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 500; /* Solid style */
+  content: "\f02e";
+  margin-right: 9px;
+  font-size: 21px;
+}
+.labels-container{
+  height: auto;
+  border-radius: 12px;
+  background: #FFFFFF;
+  margin: 21px 3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px 16px;
+  
+}
+.lables-1{
+  padding-bottom: 15px;
+  font-weight: 500;
+  font-size: 16px;
+}
+.lables-1::before{
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ-qZvVK2D6M9ETMZqGCGW4F9jtUUklFQK7LEnuGm2GKaeKoe7550do0CRtEI5e-ZkQKxkauu82Yi1jCZlgrBpe_u3lxUZXf-WufaOnfNdGoALl8LeRpMRaoDYHn-vFaO-Tt6j1YMucrxbqfIfENlvHNVQ1l6nfu-Xo-912ayCPOJr9EnYmzSJLKlXxGku/s1600/1000047774.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 9px;
+  vertical-align: middle;
+}
+.lables-1:hover::before{
+  content: "";
+display: inline-block;
+width: 16px;
+height: 16px;
+background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiml5KuOrw06AsxY5IPlzSSmjc59gVwuPeZ3P0XP20zY0m3o095MXwlW7gNQ9uXpNlN0TEFgSRhUscZSlLiYYcgZtJ9jOEqls2T3UQ-2x3ldBl5MYgm4Aq1qnpceVrLvlsVp3y5SwWw9LzBH_aKLxas5u_nKckys420nJP97g7gU22SLmua3ykiyUyZoAI1/s195/1000047773.png');
+background-size: contain;
+background-repeat: no-repeat;
+margin-right: 9px;
+vertical-align: middle;
+}
+
+.lables-1:hover{
+  color: #fe386d;
+}
+
+@media (min-width: 766px) {
+  
+  .main-post-page{
+    display:flex;
+gap:12px;
+  }
+
+
+  .page-6{
+    width: 74%;
+  }
+#post-share-btn{
+  
+  padding: 4px;
+  border-radius: 50%;
+  justify-content: center;
+  color: #000000;
+  font-size: 13px;
+}
+
+#post-share-btn:hover{
+  transition: 0.3s ease-in-out;
+  color: #554747;
+}
+  .post-page-labels{
+    width:25%;
+  }
+  .see-more{
+    justify-content: left;
+    position: absolute;
+    right: 26%;
+  }
+  .related-posts{
+    height: auto;
+    flex:  32%;
+  }
+  .related-posts img{
+    height: 170px;
+  }
+  .rp-tittle{
+  padding: 6px 8px;
+  font-size: 15px;
+  line-height: 1.3;
+  height: auto;
+ 
+  overflow: hidden;
+}
+.labels-heading{
+  font-size: 15px;
+}
+labels-heading::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 500; /* Solid style */
+  content: "\f02e";
+  margin-right: 9px;
+  font-size: 15px;
+}
+
+
+
+.ads-section{
+
+   display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+   height: 200px;
+   border-radius: 12px;
+   background: #FFFFFF;
+   margin: 19px 7px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   padding: 15px 16px;
+}
+.ads-section .brand {
+      font-size: 12px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ads-section h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #222;
+      text-align: center;
+      margin: 8px 0;
+    }
+
+    .ads-section p {
+      font-size: 13px;
+      color: #444;
+      text-align: center;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .ads-section a {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 6px;
+    }
+
+    .ads-section a:hover {
+      background-color: #0056b3;
+      box-shadow: 0 4px 10px rgba(0, 91, 187, 0.3);
+    }
+
+.text-section{
+   height: auto;
+   border-radius: 12px;
+   background: #FFFFFF;
+   margin: 19px 7px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   padding: 15px 16px;
+}
+.text-section p{
+  line-height: 1.6;
+}
+}
+
+@media (max-width: 765px){
+  .ads-section{
+    display:none;
+  }
+.text-section{
+ display:none;
+}
+}
+/* Share Modal Overlay */
+.modal-share-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 9998;
+  backdrop-filter: blur(2px);
+}
+.modal-share {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  font-family: Segoe UI, sans-serif;
+  width: 350px;
+  max-width: 90%;
+}
+.modal-share h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.share-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.share-icons a {
+  flex: 1 1 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f1f1f1;
+  color: #333;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+.share-icons a:hover {
+  background: #ddd;
+}
+.share-icons i {
+  font-size: 16px;
+}
+#close-modal-btn {
+  background: #ccc;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+.whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.facebook {
+  background: #1877F2;
+  color: #fff;
+}
+.twitter {
+  background: #1DA1F2;
+  color: #fff;
+}
+.telegram {
+  background: #0088cc;
+  color: #fff;
+}
+.copy {
+  background: #777;
+  color: #fff;
+}
+.email {
+  background: #dd4b39;
+  color: #fff;
+}
+
+/* footer */
+
+.site-footer {
+  background-color: #ffffff; /* White background */
+  color: black;
+  padding: 40px 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-jinendra h1,
+.footer-links div,
+.footer-social .social-header h1 {
+  margin-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.footer-jinendra h1 i {
+  color: #00bcd4;
+  margin-right: 6px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #00bcd4;
+}
+
+.footer-jinendra p {
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Social Media Alignment Fix */
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-social .social-header {
+  margin-bottom: 10px;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+/* Uniform Social Icons */
+.social-icons a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #e0e0e0; /* Light gray background */
+  color: black;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Show real logo colors on hover */
+.social-icons a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.facebook:hover {
+  background-color: #4267B2;
+  color: white;
+}
+
+.twitter:hover {
+  background-color: #1DA1F2;
+  color: white;
+}
+
+.instagram:hover {
+  background-image: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  
+}
+
+.linkedin:hover {
+  background-color: #0077B5;
+  color: white;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-bottom-inner p {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.footer-bottom-links a,
+.footer-bottom-links span {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: #00bcd4;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .footer-social {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-social .social-icons {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+a {
+
+  text-decoration: none;
+
+  color: black;
+
+}
+ .ad-post-card {
+  
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+ height: auto;
+
+  border-radius: 12px;
+
+  background: #FFFFFF;
+
+  margin: 21px 3px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  padding: 15px 16px;
+
+}
+
+.ad-post-card .brand {
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.ad-post-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 8px;
+}
+
+.ad-post-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.ad-post-card a {
+  align-self: flex-start;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.ad-post-card a:hover {
+  background-color: #0056b3;
+}
+
+@media (min-width: 766px) {
+  .ad-post-card {
+    display:none;
+  }
+}
+
+
+/* web page */
+.webpage{
+  background: white;
+  margin: 9px 3px;
+  padding: 10px;
+  padding-top: 6px;
+border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.top-page-heading{
+  line-height: 1.3;
+  font-size: 28px;
+  margin: 6px 10px;
+  font-weight: 600;
+}
+.webpage-meta-user::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900; /* Solid style */
+  content: "\f007";
+  margin-right: 6px;
+  font-size: 12px
+}
+.top-page-meta{
+  display: flex;
+  margin: 10px 10px;
+  gap: 25px;
+  font-size: 13px;
+}
+.webpage-meta-date::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400; /* Solid style */
+  content: "\f073";
+  margin-right: 6px;
+  font-size: 12px
+}
+.top-webpage-hr{
+  margin-top: 20px;
+  opacity: 0.3;
+}
+.webpage-body{
+  margin: 14px 8px;
+}
+.webpage-body img{
+  width: 100%;
+  border-radius: 13px;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 766px) {
+  
+  .main-webpage{
+    display:flex;
+gap:12px;
+  }
+  .page-7{
+    width: 74%;
+  }
+.post-page-labels{
+
+    width:25%;
+
+  }
+}
+/* webpage tropgraohy */
+
+.webpage-body h1{
+margin-bottom: 15px;
+  font-size: 27px;
+  line-height: 1.4;
+}
+.webpage-body h2{
+margin-bottom: 15px;
+  font-size: 24px;
+  line-height: 1.3;
+}
+.webpage-body h3{
+margin-bottom: 15px;
+margin-top: 8px;
+  font-size: 20px;
+  line-height: 1.2;
+  
+}
+.webpage-body h4{
+margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.webpage-body p{
+margin-bottom: 15px;
+  line-height: 1.9;
+  font-size: 15.3px;
+}
+.webpage-body div{
+margin-bottom: 15px;
+  line-height: 1.8;
+  font-size: 15px;
+}
+.webpage-body ul li{
+  margin-left: 26px;
+  font-size: 15.8px;
+margin-bottom: 10px;
+}
+.webpage-body ol li{
+  margin-left: 26px;
+  font-size: 17.8px;
+  font-weight: bold;
+margin-bottom: 10px;
+}
+.webpage-body ol div{
+  margin-left: 26px;
+  font-size: 14.8px;
+  margin-top: 0px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+.webpage-body ol div::before{
+  content: '»';
+  color: black;
+  margin-right: 3px;
+}
+.webpage-body h3::before{
+font-family: "Font Awesome 6 Free";
+  font-weight: 600; /* Solid style */
+  content: "\f0da";
+  margin-right: 9px;
+  font-size: 19px;
+}
+.webpage-body a{
+  text-decoration: none;
+  color: #3FA2FF;
+}
+
+/* No result page */
+
+.no-results{
+  background: white;
+margin: 21px 3px;
+text-align: center;
+padding: 30px 13px;
+border-radius: 12px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* no result */
+
+.no-results i.fas.fa-search {
+  font-size: 60px;
+  color: #007BFF;
+  animation: bounce 2s infinite;
+  margin-bottom: 25px;
+  display: inline-block;
+}
+.no-results h2 {
+  color: #0d1729;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.no-results p {
+  color: #5a5f66;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+.input-1 {
+        padding: 14px 20px;
+        width: 86%;
+        border: 2px solid #e2e8f0;
+        border-radius: 30px;
+        outline: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        font-family: inherit;
+      }
+        . input-1:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+      }
+
+      .no-results button {
+        padding: 14px 24px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        font-family: inherit;
+      }
+
+      .no-results button:hover {
+        background-color: #005bb5;
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+@media (min-width: 766px) {
+  
+  .no-results-page{
+    display:flex;
+  }
+  .page-9{
+    width: 74%;
+  }
+ 
+}
+
+/* error page */
+.error-content{
+  background: white;
+margin: 21px 3px;
+text-align: center;
+padding: 30px 40px;
+border-radius: 12px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-content i.fas.fa-exclamation-triangle {
+  font-size: 60px;
+  color: #007BFF;
+  animation: bounce 2s infinite;
+  margin-bottom: 25px;
+  display: inline-block;
+}
+.error-content h2 {
+  color: #0d1729;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.error-content p {
+  color: #5a5f66;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+.input-1 {
+        padding: 14px 20px;
+        width: 86%;
+        border: 2px solid #e2e8f0;
+        border-radius: 30px;
+        outline: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        font-family: inherit;
+      }
+        . input-1:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+      }
+
+      .error-content button {
+        padding: 14px 24px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        font-family: inherit;
+      }
+
+      .error-content button:hover {
+        background-color: #005bb5;
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+@media (min-width: 766px) {
+  
+  .error-page{
+    display:flex;
+  }
+  .page-5{
+    width: 74%;
+  }
+  .quote {
+    display:none;
+}
+}
+/* post page tropgraohy */
+
+.post-body h1{
+margin-bottom: 20px;
+  font-size: 27px;
+  line-height: 1.3;
+}
+.post-body h2{
+margin-bottom: 15px;
+  font-size: 24px;
+  line-height: 1.7;
+}
+.post-body h3{
+margin-bottom: 15px;
+margin-top: 8px;
+  font-size: 20px;
+  line-height: 1.3;
+  
+}
+.post-body h4{
+margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 1.3;
+}
+.post-body p{
+  line-height: 1.6;
+  font-size: 15px;
+}
+.post-body div{
+line-height: 1.6;
+  font-size: 15px;
+}
+.post-body ul li{
+  margin-left: 26px;
+  font-size: 15.8px;
+margin-bottom: 10px;
+}
+.post-body ol li{
+  margin-left: 26px;
+  font-size: 17.8px;
+  font-weight: bold;
+margin-bottom: 10px;
+}
+.post-body ol div{
+  margin-left: 26px;
+  font-size: 14.8px;
+  margin-top: 0px;
+  line-height: 1;
+  font-weight: 400;
+}
+.post-body ol div::before{
+  content: '»';
+  color: black;
+  margin-right: 3px;
+}
+
+.post-body a{
+  text-decoration: none;
+  color: #3FA2FF;
+}
+
+.post-body hr { 
+border: none; 
+border-top: 1px solid #ccc; 
+margin: 15px 0; 
+}
+ .quote {
+
+    font-style: italic;
+    color: #444;
+    margin-top: 15px;
+    font-size: 0.89rem;
+
+  }
+]]></b:skin>
+</head>
+
+<body>
+  
+      <!-- Header -->
+  <header class='header' id='main-header'>
+    <button aria-label='Toggle navigation menu' class='hamburger' id='hamburger'>
+      <span class='bar'/>
+      <span class='bar'/>
+      <span class='bar'/>
+    </button>
+    <div class='logo-wrapper'><a class='logo12' href='/'><data:blog.title/></a></div>
+    <div class='nav-container'>
+      <ul class='desktop-nav'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='https://neet-study-hub.blogspot.com/search/label/Neet'>Neet</a></li>
+        <li><a href='https://neet-study-hub.blogspot.com/search/label/Staretgies'>Staretgies</a></li>
+        <li>
+          <a href='#'><pre>Pooja &#9662;</pre></a>
+          <ul class='dropdown'>
+            <li><a href='#'>Naimittik Pooja</a></li>
+            <li><a href='#'>Nitya Pooja</a></li>
+            <li><a href='#'>Parv Pooja</a></li>
+            <li><a href='#'>Teerthanker Pooja</a></li>
+          </ul>
+        </li>
+        <li><a href='#'>Contact</a></li>
+      </ul>
+    </div>
+    <div aria-label='Open search bar' class='search-icon' id='search-icon' role='button' tabindex='0'>
+      <i class='fas fa-search'/>
+    </div>
+    <div class='search-bar' id='search-bar'>
+      <div class='search-inner'>
+        <i class='fas fa-arrow-left icon-left' id='search-back' style='display: none;' title='Back'/>
+        <input aria-label='Search Jain Pathshala' placeholder='Search Jain Pathshala...' type='text'/>
+        <i class='fas fa-times icon-clear' id='search-clear' style='display: none;' title='Clear search'/>
+        <i class='fas fa-microphone icon-mic' id='search-mic' style='display: none;' title='Voice Search'/>
+      </div>
+    </div>
+  </header>
+
+  <!-- Voice Search Pop-up -->
+  <div id='voice-popup'>
+    <button class='close-popup' id='close-popup'>&amp;times;</button>
+    <div id='mic-pulse'>
+      <i class='fas fa-microphone'/>
+      <div id='pulse-ring'/>
+    </div>
+    <p id='popup-status'>Listening...</p>
+    <p id='popup-transcript'/>
+    <button id='try-again-btn'>Try Again</button>
+  </div>
+
+
+  <!-- Sidebar Menu -->
+  <nav class='sidebar' id='sidebar'>
+    <div class='sidebar-top'>
+<div class='sidebar-logo'><a class='logo13' href='/'><data:blog.title/></a></div>
+      <div class='close-btn' id='close-btn'>&amp;times;</div>
+    </div>
+    <div class='sidebar-menu'>
+      <ul>
+        <li><a href='#'><i class='fas fa-home fa-fw'/> Home</a></li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li><a href='#'><i class='fas fa-book-open fa-fw'/> Bhaktamar</a></li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li><a href='#'><i class='fas fa-bell fa-fw'/> Aarti</a></li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li><a href='#'><i class='fas fa-pray fa-fw'/> Mantra</a></li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li><a href='#'><i class='fas fa-chalkboard-teacher fa-fw'/> Chalisa</a></li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li class='has-submenu'>
+          <a aria-expanded='false' aria-haspopup='true' href='javascript:void(0);'>
+            <i class='fas fa-hands-praying fa-fw'/> Pooja
+            <i aria-hidden='true' class='fas fa-chevron-down submenu-icon'/>
+          </a>
+          <ul class='submenu'>
+            <li><a href='#'><i class='fas fa-fire-alt fa-fw'/> Naimittik Pooja</a></li>
+            <li><a href='#'><i class='fas fa-sun fa-fw'/> Nitya Pooja</a></li>
+            <li><a href='#'><i class='fas fa-calendar-day fa-fw'/> Parv Pooja</a></li>
+            <li><a href='#'><i class='fas fa-mosque fa-fw'/> Teerthanker Pooja</a></li>
+          </ul>
+        </li>
+        <li aria-hidden='true' class='menu-divider'/>
+        <li><a href='#'><i class='fas fa-dove fa-fw'/> Jain Dharma</a></li>
+      </ul>
+    </div>
+    
+    <div class='menu-divider'/>
+    <div class='sidebar-footer'>
+      <div class='footer-pages'>
+        <a href='https://jinendra-vani.blogspot.com/p/about-us.html?m=1'>About Us</a>
+        <a href='https://jinendra-vani.blogspot.com/p/privacy-policy.html'>Privacy Policy</a>
+        <a href='#'>Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div/><!-- Overlay -->
+  <div class='overlay' id='overlay'/>
+  
+    <br/>
+  <br/>
+  <br/>
+  
+  <!-- Hero section -->
+<b:if cond='data:view.isHomepage'>
+  <section class='hero' id='home'>
+    
+    <!-- Animated Background Squares -->
+    <div class='background-squares'>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+      <div class='square'/>
+    </div>
+
+    <div class='hero-inner'>
+
+      <!-- Image -->
+      <div class='hero-images'>
+        <img alt='Mahavir Bhagwan' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOCtiOKtmDMkkmYjh0ndgZUoO97I5XxW9M1aj0gEnNSLkU8W_i17r00wNGxXi0warDe6-eKHTgGJHKwGDvqmWVG08yZ5p_d2gvratDOEXi49dKs-tAoEa67xd5KBtXbGXKjDjUmVoqVxV71QJ43S7qkGQbjVhfGmZtl-8mIv9i5acFCHcFzYWajzWm7aG4/s1600/1000046846.png'/>
+      </div>
+
+      <!-- Content -->
+      <div class='hero-content'>
+        <h1>Jai Jinendra</h1>
+        <h2>Welcome to <data:blog.title/></h2>
+        <p>We provide <strong>Chalisa</strong>, <strong>Bhaktamber</strong>, <strong>Bhajans</strong> and more Jain spiritual content.</p>
+         <div class='button-wrapper1'>
+
+          
+          <a class='listen-button' onclick='toggleBhaktamber()'>      <i class='fas fa-headphones' id='iconState'/> <span id='buttonText'> Navkar Mantra</span></a>
+
+         
+        </div>
+        
+        <div class='button-wrapper'>
+          <a href='#chalisa'>Chalisa</a>
+          <a href='#bhaktamber'>Bhaktamber</a>
+          <a href='#bhajan'>Bhajan</a>
+        </div>
+         <div class='quote'>&quot;Ahimsa Parmo Dharma&quot;</div>
+         <!-- Audio Element -->
+
+ <audio crossorigin='anonymous' id='bhaktamberAudio'>
+    <source src='https://neetstudyhub.github.io/Neetstudyhub/AudioCutter_108 Navkar Mantra (Namokar mantra) _ नवकार मंत्र _ Original tune _ C(6).mp3' type='audio/mp3'/>
+    Your browser does not support the audio element.
+  </audio>
+      </div>
+
+    </div>
+  </section>
+
+</b:if>
+
+<!-- Main Content (Only on Homepage) -->
+  
+    <div id='content'>
+      <b:section class='main' id='main-section' preferred='yes'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+          <b:widget-settings>
+            <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+            <b:widget-setting name='commentLabel'>$type={blogger}</b:widget-setting>
+            <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+            <b:widget-setting name='authorLabel'>By</b:widget-setting>
+            <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+            <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showAuthor'>false</b:widget-setting>
+            <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+            <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='timestampLabel'>&#8226;</b:widget-setting>
+            <b:widget-setting name='reactionsLabel'/>
+            <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+            <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+            <b:widget-setting name='showLabels'>true</b:widget-setting>
+            <b:widget-setting name='showLocation'>false</b:widget-setting>
+            <b:widget-setting name='postLabelsLabel'>Tags:</b:widget-setting>
+            <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+            <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+            <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+            <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+            <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+            <b:widget-setting name='showReactions'>false</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+                    
+           <b:if cond='data:view.isPost'>
+	<div class='main-post-page'>
+		<b:loop values='data:posts' var='post'>
+			<div class='page-6'>
+			<div class='post-page'>
+				<div class='top-post-container'>
+					<h1 class='top-post-heading'>
+						<data:post.title/> 
+					</h1>
+					
+					<div class='top-post-author'>
+						<span><img alt='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgO1h1RPaf5zjtJThngFMKYG_eOBzFIlIjdvBHO22OR2Vh7CLwPnUc-pktAqpLfXxk_HMy75UdGbopfbmMrbRvCZRivvNUPgzLijJS-7zmmV-C1e3LC_yVv0fO-rJrXUUYuId9NYdiYF7czxoVdojX1ybLEtAVeBFGE6F9WXBGmW4GFO7OrqdUR45oROc3z/s554/1000066541.png' class='author-logo' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgO1h1RPaf5zjtJThngFMKYG_eOBzFIlIjdvBHO22OR2Vh7CLwPnUc-pktAqpLfXxk_HMy75UdGbopfbmMrbRvCZRivvNUPgzLijJS-7zmmV-C1e3LC_yVv0fO-rJrXUUYuId9NYdiYF7czxoVdojX1ybLEtAVeBFGE6F9WXBGmW4GFO7OrqdUR45oROc3z/s554/1000066541.png'/></span>
+						<span class='author-name'><data:blog.title/></span>
+						<span class='share-button-1'><i class='fa-solid fa-up-right-from-square' id='post-share-btn'/></span>
+					</div>
+					
+
+	<div class='top-post-meta'>
+						
+						<span class='meta-date'><data:post.timestamp iso8601='true'/></span>
+                      <span class='meta-time'>
+                       Just Now </span></div>
+
+	
+
+	
+
+	
+					<hr class='top-hr'/>
+				</div>
+				<div class='Post-Container'>
+					<div class='post-body'>
+						<data:post.body/>
+					</div> 
+				</div>
+			</div>
+				<div class='related-post-section'>
+					<div class='rp-heading'>
+						<span>
+							<h1 class='rp-main-heading'>Related posts &#8250;</h1>
+						</span>
+                           
+          <!-- see more button currently working on this 
+						<span class='see-more'>
+							See More
+						</span>
+                     -->
+					</div>
+					<div class='related-posts-containers'>
+					<div class='related-posts'>
+						
+					</div>
+									
+					</div>
+						
+	</div>
+	</div>
+		
+			
+				<div class='post-page-labels'>
+					<h1 class='labels-heading'>
+						Category &#8250;
+					</h1>
+					<div class='labels-container'>
+						<p class='lables-1'>Chalisa</p>
+						<p class='lables-1'>Bhaktamber</p>
+						<p class='lables-1'>Nitya Pooja</p>
+						<p class='lables-1'>Aarti</p>
+						<p class='lables-1'>Bhajan</p>
+						<p class='lables-1'>Jain History</p>
+						<p class='lables-1'>Jain Mandir</p>
+					</div>
+                  
+                  					<!-- Ad Post Card -->
+<div class='ad-post-card'>
+	<div class='brand'>Jinendra Vani</div>
+	<h2>Your Ad Here</h2>
+	<p>Showcase your business or services to a spiritually active and engaged audience on Jinendra Vani.</p>
+	<a href='https://jinendra-vani.blogspot.com/p/advertise-with-us.html?m=1'>Reach Us</a>
+</div>
+			
+                  
+                  <div class='text-container'>
+						<div class='text-section'>
+							<p><b>Jinendra vani</b> is an original web-site work dedicated to <b>Jinvani Sangrah </b>from Agamas and worship and stotras and all religious Jain praise books composed by various scholars based on <b>
+								Jain philosophy
+							</b>.</p>
+						</div>
+						
+						
+					</div>
+					
+                  					<div class='ads-container'>
+						<div class='ads-section'>
+							  <div class='brand'>Jinendra Vani</div>
+  <h4>Your Ad 1 Here</h4>
+  <p>Promote your brand with us.<br/>Reach spiritual &amp; engaged audiences.</p>
+  <a href='https://jinendra-vani.blogspot.com/p/advertise-with-us.html?m=1'>Reach Us</a></div>
+						<div class='ads-section'>
+							<div class='brand'>Jinendra Vani</div>
+  <h4>Your Ad 2 Here</h4>
+  <p>Promote your brand with us.<br/>Reach spiritual &amp; engaged audiences.</p>
+   <a href='https://jinendra-vani.blogspot.com/p/advertise-with-us.html?m=1'>Reach Us</a>						</div>
+						<div class='ads-section'>
+							  <div class='brand'>Jinendra Vani</div>
+  <h4>Your Ad 3 Here</h4>
+  <p>Promote your brand with us.<br/>Reach spiritual &amp; engaged audiences.</p>
+   <a href='https://jinendra-vani.blogspot.com/p/advertise-with-us.html?m=1'>Reach Us</a>						</div>
+						<div class='ads-section'>
+							  <div class='brand'>Jinendra Vani</div>
+  <h4>Your Ad 4 Here</h4>
+  <p>Promote your brand with us.<br/>Reach spiritual &amp; engaged audiences.</p>
+  <a href='https://jinendra-vani.blogspot.com/p/advertise-with-us.html?m=1'>Reach Us</a>
+						</div>
+                                
+					</div>
+				</div>
+		</b:loop>
+		</div>
+</b:if>
+            
+           <!-- Individual Post Page Layout -->
+<b:if cond='data:view.isPage'>
+  <b:if cond='data:view.isSingleItem'>
+    <b:loop values='data:posts' var='post'>
+      <div class='ad-post-card'>
+        ad is here 
+        </div>
+    		<div class='main-webpage'>
+			<div class='page-7'>
+			<div class='webpage'>
+				<div class='top-page-container'>
+					<h1 class='top-page-heading'>
+							<data:post.title/>
+					</h1>
+				<div class='top-page-meta'>
+	<span class='webpage-meta-user'>Shivanshu Jain</span>
+	<span class='webpage-meta-date'><data:post.timestamp iso8601='true'/></span>
+</div>
+					<hr class='top-webpage-hr'/>
+	</div>
+	<div class='webpage-Container'>
+		<div class='webpage-body'>
+			<data:post.body/>
+								</div>
+					</div>
+					</div>
+					
+					</div>
+					
+					<div class='post-page-labels'>
+						<h1 class='labels-heading'>
+							Category
+						</h1>
+						<div class='labels-container'>
+							<p class='lables-1'>Chalisa</p>
+							<p class='lables-1'>Bhaktamber</p>
+							<p class='lables-1'>Nitya Pooja</p>
+							<p class='lables-1'>Aarti</p>
+							<p class='lables-1'>Bhajan</p>
+							<p class='lables-1'>Jain History</p>
+							<p class='lables-1'>Jain Mandir</p>
+						</div>
+										</div>
+				
+				</div>
+    </b:loop>
+  </b:if>
+</b:if>
+            
+              <!-- Share Modal -->
+  <b:if cond='data:view.isPost'>
+    <div class='modal-share-overlay' id='share-modal-overlay'>
+      <div class='modal-share' id='share-modal'>
+        <h4>Share this post</h4>
+        <div class='share-icons'>
+          <a class='whatsapp' href='#' onclick='shareTo(&quot;whatsapp&quot;)' target='_blank'>
+            <i class='fab fa-whatsapp'/> WhatsApp
+          </a>
+          <a class='facebook' href='#' onclick='shareTo(&quot;facebook&quot;)' target='_blank'>
+            <i class='fab fa-facebook'/> Facebook
+          </a>
+          <a class='twitter' href='#' onclick='shareTo(&quot;twitter&quot;)' target='_blank'>
+            <i class='fab fa-twitter'/> Twitter
+          </a>
+          <a class='telegram' href='#' onclick='shareTo(&quot;telegram&quot;)' target='_blank'>
+            <i class='fab fa-telegram'/> Telegram
+          </a>
+          <a class='copy' href='#' onclick='copyLink()'>
+            <i class='far fa-copy'/> Copy Link
+          </a>
+          <a class='email' href='#' onclick='shareTo(&quot;email&quot;)'>
+            <i class='far fa-envelope'/> Email
+          </a>
+        </div>
+        <button id='close-modal-btn'>Close</button>
+      </div>
+    </div>
+  </b:if>
+
+  <!-- Share Script -->
+  <b:if cond='data:view.isPost'>
+    <script type='text/javascript'>
+    //<![CDATA[
+    document.addEventListener('DOMContentLoaded', function () {
+      const shareBtn = document.getElementById('post-share-btn');
+      const modalOverlay = document.getElementById('share-modal-overlay');
+      if (!shareBtn || !modalOverlay) return;
+      const postUrl = window.location.href;
+      const postTitle = document.querySelector('.post-title')?.innerText || 'Check out this post';
+      shareBtn.addEventListener('click', function () {
+        modalOverlay.style.display = 'block';
+      });
+      const closeModal = () => {
+        modalOverlay.style.display = 'none';
+      };
+      modalOverlay.addEventListener('click', function (e) {
+        if (e.target === modalOverlay) closeModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+      document.getElementById('close-modal-btn')?.addEventListener('click', closeModal);
+      window.shareTo = function(platform) {
+        const encodedUrl = encodeURIComponent(postUrl);
+        const encodedTitle = encodeURIComponent(postTitle);
+        let shareUrl = '';
+        switch (platform) {
+          case 'whatsapp':
+            shareUrl = `https://wa.me/?text= ${encodedTitle} ${encodedUrl}`;
+            break;
+          case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer.php?u= ${encodedUrl}&t=${encodedTitle}`;
+            break;
+          case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?url= ${encodedUrl}&text=${encodedTitle}`;
+            break;
+          case 'telegram':
+            shareUrl = `https://t.me/share/url?url= ${encodedUrl}&text=${encodedTitle}`;
+            break;
+          case 'email':
+            shareUrl = `mailto:?subject=${encodedTitle}&body=Check out this post: ${encodedUrl}`;
+            break;
+        }
+        if (shareUrl) window.open(shareUrl, '_blank');
+        closeModal();
+      };
+      window.copyLink = function () {
+        navigator.clipboard.writeText(postUrl).then(() => {
+          alert('Link copied to clipboard!');
+        }).catch(err => {
+          alert('Failed to copy link.');
+          console.error('Copy failed:', err);
+        });
+        closeModal();
+      };
+    });
+    //]]>
+    </script>
+  </b:if>
+            
+              <b:if cond='data:view.isLabelSearch or data:view.isSearch'>
+     
+  <h1 class='premium-label-search-title'>Results For 
+   <span class='label-name'> </span>
+    <data:blog.searchQuery/>
+          <data:blog.searchLabel/> &#8250;
+  </h1>
+  </b:if>
+            
+    <!-- no result found -->
+
+            <b:if cond='data:view.isSearch'>
+  <b:if cond='data:posts.isEmpty'>
+    
+    <style>
+      #load-more-container {
+
+  display: none !important;
+
+}
+      </style>
+    <!-- Main Wrapper -->
+    		<div class='no-results-page'>
+			<div class='page-9'>
+			<div class='no-results'>
+					
+						 <i class='fas fa-search'/>
+						 <h2>No Results Found</h2>
+						 <p>Sorry, we couldn&#39;t find any posts matching your search. Please try another keyword.</p>
+						 <form expr:action='data:blog.url' method='get'>
+						 	<input class='input-1' name='q' placeholder='Search again...' type='text'/>
+						 	<button type='submit'>Search</button>
+						 	</form>
+			
+				
+			</div>
+			</div>
+			
+				<div class='post-page-labels'>
+					<h1 class='labels-heading'>
+						Category
+					</h1>
+					<div class='labels-container'>
+						<p class='lables-1'>Chalisa</p>
+						<p class='lables-1'>Bhaktamber</p>
+						<p class='lables-1'>Nitya Pooja</p>
+						<p class='lables-1'>Aarti</p>
+						<p class='lables-1'>Bhajan</p>
+						<p class='lables-1'>Jain History</p>
+						<p class='lables-1'>Jain Mandir</p>
+					</div>
+     <!-- ADS of website -->
+				</div>
+			
+		</div>
+              </b:if>
+</b:if>
+            
+                        
+            
+            
+            
+            <b:if cond='data:view.isError'>
+ 		<div class='error-page'>
+			<div class='page-5'>
+			<div class='error-content'>
+					
+ <i class='fas fa-exclamation-triangle'/>
+ <h2>404 - Page Not Found</h2>
+ <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+						 <form expr:action='data:blog.url' method='get'>
+						 	<input class='input-1' name='q' placeholder='Search again...' type='text'/>
+						 	<button type='submit'>Search</button>
+						 	</form>
+			
+				
+			</div>
+			</div>
+			
+				<div class='post-page-labels'>
+					<h1 class='labels-heading'>
+						Category
+					</h1>
+					<div class='labels-container'>
+						<p class='lables-1'>Chalisa</p>
+						<p class='lables-1'>Bhaktamber</p>
+						<p class='lables-1'>Nitya Pooja</p>
+						<p class='lables-1'>Aarti</p>
+						<p class='lables-1'>Bhajan</p>
+						<p class='lables-1'>Jain History</p>
+						<p class='lables-1'>Jain Mandir</p>
+					</div>
+     <!-- ADS of website -->
+				</div>
+			
+		</div>
+
+
+</b:if>
+      
+            <b:if cond='data:view.isHomepage or data:view.isLabelSearch or data:view.isSearch '>
+            <div class='card-grid' id='post-list'>
+              <b:loop values='data:posts' var='post'>
+                <b:include data='post' name='post'/>
+              </b:loop>
+            </div>
+          
+            </b:if>
+          </b:includable>
+          <b:includable id='backlinkDeleteIcon' var='backlink'/>
+          <b:includable id='backlinks' var='post'/>
+          <b:includable id='comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <h4 id='comment-post-message'>
+        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+          <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+          <b:includable id='comment_count_picker' var='post'>
+  <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
+    <data:post.commentLabelFull/>:
+  </a>
+</b:includable>
+          <b:includable id='comment_picker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threaded_comments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+          <b:includable id='comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+      <h4><data:post.commentLabelFull/>:</h4>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
+              &#160;
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
+              &#160;
+          </b:if>
+
+          <data:post.commentRangeText/>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
+            &#160;
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
+          </b:if>
+        </span>
+      </b:if>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
+          <b:loop values='data:post.comments' var='comment'>
+            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+              <b:if cond='data:comment.favicon'>
+                <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
+              </b:if>
+              <a expr:name='data:comment.anchorName'/>
+              <b:if cond='data:blog.enabledCommentProfileImages'>
+                <data:comment.authorAvatarImage/>
+              </b:if>
+              <b:if cond='data:comment.authorUrl'>
+                <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
+              <b:else/>
+                <data:comment.author/>
+              </b:if>
+              <data:commentPostedByMsg/>
+            </dt>
+            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
+              <b:if cond='data:comment.isDeleted'>
+                <span class='deleted-comment'><data:comment.body/></span>
+              <b:else/>
+                <p>
+                  <data:comment.body/>
+                </p>
+              </b:if>
+            </dd>
+            <dd class='comment-footer'>
+              <span class='comment-timestamp'>
+                <a expr:href='data:comment.url' title='comment permalink'>
+                  <data:comment.timestamp/>
+                </a>
+                <b:include data='comment' name='commentDeleteIcon'/>
+              </span>
+            </dd>
+          </b:loop>
+        </dl>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <span class='paging-control-container'>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+            <data:post.oldestLinkText/>
+          </a>
+          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+            <data:post.olderLinkText/>
+          </a>
+          &#160;
+          <data:post.commentRangeText/>
+          &#160;
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+            <data:post.newerLinkText/>
+          </a>
+          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+            <data:post.newestLinkText/>
+          </a>
+        </span>
+      </b:if>
+
+      <p class='comment-footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='comment-form'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:elseif cond='data:post.allowComments'/>
+          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a>
+        </b:if>
+      </p>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+  </div>
+</b:includable>
+          <b:includable id='feedLinks'>
+  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:include cond='data:post.allowComments and data:post.feedLinks' data='post.feedLinks' name='feedLinksBody'/>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+          <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:feedLinksMsg/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+          <b:includable id='iframe_comments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+          <b:includable id='mobile-index-post' var='post'>
+  <div class='mobile-date-outer date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <div class='date-header'>
+        <span><data:post.dateHeader/></span>
+      </div>
+    </b:if>
+
+    <div class='mobile-post-outer'>
+      <a expr:href='data:post.url'>
+        <h3 class='mobile-index-title entry-title' itemprop='name'>
+          <data:post.title/>
+        </h3>
+
+        <div class='mobile-index-arrow'>&amp;rsaquo;</div>
+
+        <div class='mobile-index-contents'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <div class='mobile-index-thumbnail'>
+              <div class='Image'>
+                <img expr:src='data:post.thumbnailUrl'/>
+              </div>
+            </div>
+          </b:if>
+
+          <div class='post-body'>
+            <b:if cond='data:post.snippet'><data:post.snippet/></b:if>
+          </div>
+        </div>
+
+        <div style='clear: both;'/>
+      </a>
+
+      <div class='mobile-index-comment'>
+        <b:include cond='data:blog.pageType != &quot;static_page&quot;                          and data:post.allowComments                          and data:post.numComments != 0' data='post' name='comment_count_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='mobile-main' var='top'>
+    <!-- posts -->
+    <div class='blog-posts hfeed'>
+
+      <b:include data='top' name='status-message'/>
+
+      <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-index-post'/>
+        </b:loop>
+      <b:else/>
+        <b:loop values='data:posts' var='post'>
+          <b:include data='post' name='mobile-post'/>
+        </b:loop>
+      </b:if>
+    </div>
+
+   <b:include name='mobile-nextprev'/>
+</b:includable>
+          <b:includable id='mobile-nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'>&amp;lsaquo;</a>
+      </div>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <div class='mobile-link-button' id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'>&amp;rsaquo;</a>
+      </div>
+    </b:if>
+
+    <div class='mobile-link-button' id='blog-pager-home-link'>
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+    </div>
+
+    <div class='mobile-desktop-link'>
+      <a class='home-link' expr:href='data:desktopLinkUrl'><data:desktopLinkMsg/></a>
+    </div>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+          <b:includable id='mobile-post' var='post'>
+  <div class='date-outer'>
+    <b:if cond='data:post.dateHeader'>
+      <h2 class='date-header'><span><data:post.dateHeader/></span></h2>
+    </b:if>
+    <div class='date-posts'>
+      <div class='post-outer'>
+
+        <div class='post hentry uncustomized-post-template' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+          <b:if cond='data:post.thumbnailUrl'>
+            <meta expr:content='data:post.thumbnailUrl' itemprop='image_url'/>
+          </b:if>
+          <meta expr:content='data:blog.blogId' itemprop='blogId'/>
+          <meta expr:content='data:post.id' itemprop='postId'/>
+
+          <a expr:name='data:post.id'/>
+          <b:if cond='data:post.title'>
+            <h3 class='post-title entry-title' itemprop='name'>
+              <b:if cond='data:post.link'>
+                <a expr:href='data:post.link'><data:post.title/></a>
+              <b:elseif cond='data:post.url and data:blog.url != data:post.url'/>
+                <a expr:href='data:post.url'><data:post.title/></a>
+              <b:else/>
+                <data:post.title/>
+              </b:if>
+            </h3>
+          </b:if>
+
+          <div class='post-header'>
+            <div class='post-header-line-1'/>
+          </div>
+
+          <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
+            <data:post.body/>
+            <div style='clear: both;'/> <!-- clear for photos floats -->
+          </div>
+
+          <div class='post-footer'>
+            <div class='post-footer-line post-footer-line-1'>
+              <span class='post-author vcard'>
+                <b:if cond='data:top.showAuthor'>
+                  <b:if cond='data:post.authorProfileUrl'>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <meta expr:content='data:post.authorProfileUrl' itemprop='url'/>
+                      <a expr:href='data:post.authorProfileUrl' rel='author' title='author profile'>
+                        <span itemprop='name'><data:post.author/></span>
+                      </a>
+                    </span>
+                  <b:else/>
+                    <span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+                      <span itemprop='name'><data:post.author/></span>
+                    </span>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-timestamp'>
+                <b:if cond='data:top.showTimestamp'>
+                  <data:top.timestampLabel/>
+                  <b:if cond='data:post.url'>
+                    <meta expr:content='data:post.url.canonical' itemprop='url'/>
+                    <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'><abbr class='published' expr:title='data:post.timestampISO8601' itemprop='datePublished'><data:post.timestamp/></abbr></a>
+                  </b:if>
+                </b:if>
+              </span>
+
+              <span class='post-comment-link'>
+                <b:include cond='data:blog.pageType not in {&quot;item&quot;,&quot;static_page&quot;}                                  and data:post.allowComments' data='post' name='comment_count_picker'/>
+              </span>
+            </div>
+
+            <div class='post-footer-line post-footer-line-2'>
+              <b:if cond='data:top.showMobileShare'>
+                <div class='mobile-link-button goog-inline-block' id='mobile-share-button'>
+                  <a href='javascript:void(0);'><data:shareMsg/></a>
+                </div>
+              </b:if>
+            </div>
+
+          </div>
+        </div>
+
+        <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='nextprev'>
+  <div class='blog-pager' id='blog-pager'>
+    <b:if cond='data:newerPageUrl'>
+      <span id='blog-pager-newer-link'>
+      <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:newerPageTitle'><data:newerPageTitle/></a>
+      </span>
+    </b:if>
+
+    <b:if cond='data:olderPageUrl'>
+      <span id='blog-pager-older-link'>
+      <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:olderPageTitle'><data:olderPageTitle/></a>
+      </span>
+    </b:if>
+
+    <a class='home-link' expr:href='data:blog.homepageUrl'><data:homeMsg/></a>
+
+    <b:if cond='data:mobileLinkUrl'>
+      <div class='blog-mobile-link'>
+        <a expr:href='data:mobileLinkUrl'><data:mobileLinkMsg/></a>
+      </div>
+    </b:if>
+
+  </div>
+  <div class='clear'/>
+</b:includable>
+          <b:includable id='post' var='post'>
+            <b:if cond='data:view.isHomepage or data:view.isLabelSearch or data:view.isSearch '>
+            <div class='post-card card-post'>
+              <a expr:href='data:post.url'>
+              <div class='card-thumbnail'>
+              
+                <b:if cond='data:post.firstImageUrl'>
+                  <img alt='Thumbnail' expr:src='data:post.firstImageUrl'/>
+                <b:else/>
+                  <img alt='Fallback' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png '/>
+                     
+                </b:if>
+                 
+                <div class='brand-overlay'><data:blog.title/></div>
+              </div>
+                </a>
+              <div class='card-body'>
+                <div class='card-tags'>
+                  <b:loop values='data:post.labels' var='label'>
+                    <span class='card-tag'><data:label.name/></span>
+                  </b:loop>
+                </div>
+                <h2 class='card-title'>
+                  <a expr:href='data:post.url'><data:post.title/></a>
+                </h2>
+                <div class='card-excerpt'>
+                  <b:if cond='data:post.hasJumpLink'>
+                    <data:post.body/>
+                  <b:else/>
+                    <b:if cond='data:post.summary'>
+                      <data:post.summary/>
+                    <b:else/>
+                      <data:post.snippet length='140'/>
+                    </b:if>
+                  <b:else/>
+                   </b:if>
+                </div>
+                <div class='card-meta-footer'>
+                  By &amp;ndash; <data:blog.title/>&amp;nbsp;|&amp;nbsp;<data:post.timestamp datetime='true' iso8601='true'/>
+                </div>
+              </div>
+            </div>
+          </b:if>
+          </b:includable>
+          <b:includable id='postQuickEdit' var='post'>
+  <b:if cond='data:post.editUrl'>
+    <span expr:class='&quot;item-control &quot; + data:post.adminClass'>
+      <a expr:href='data:post.editUrl' expr:title='data:top.editPostMsg'>
+        <img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+      </a>
+    </span>
+  </b:if>
+</b:includable>
+          <b:includable id='shareButtons' var='post'>
+  <b:if cond='data:top.showEmailButton'><a class='goog-inline-block share-button sb-email' expr:href='data:post.sharePostUrl + &quot;&amp;target=email&quot;' expr:title='data:top.emailThisMsg' target='_blank'><span class='share-button-link-text'><data:top.emailThisMsg/></span></a></b:if><b:if cond='data:top.showBlogThisButton'><a class='goog-inline-block share-button sb-blog' expr:href='data:post.sharePostUrl + &quot;&amp;target=blog&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' expr:title='data:top.blogThisMsg' target='_blank'><span class='share-button-link-text'><data:top.blogThisMsg/></span></a></b:if><b:if cond='data:top.showTwitterButton'><a class='goog-inline-block share-button sb-twitter' expr:href='data:post.sharePostUrl + &quot;&amp;target=twitter&quot;' expr:title='data:top.shareToTwitterMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToTwitterMsg/></span></a></b:if><b:if cond='data:top.showFacebookButton'><a class='goog-inline-block share-button sb-facebook' expr:href='data:post.sharePostUrl + &quot;&amp;target=facebook&quot;' expr:onclick='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' expr:title='data:top.shareToFacebookMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToFacebookMsg/></span></a></b:if><b:if cond='data:top.showPinterestButton'><a class='goog-inline-block share-button sb-pinterest' expr:href='data:post.sharePostUrl + &quot;&amp;target=pinterest&quot;' expr:title='data:top.shareToPinterestMsg' target='_blank'><span class='share-button-link-text'><data:top.shareToPinterestMsg/></span></a></b:if>
+</b:includable>
+          <b:includable id='status-message'>
+  <b:if cond='data:navMessage'>
+  <div class='status-msg-wrap'>
+    <div class='status-msg-body'>
+      <data:navMessage/>
+    </div>
+    <div class='status-msg-border'>
+      <div class='status-msg-bg'>
+        <div class='status-msg-hidden'><data:navMessage/></div>
+      </div>
+    </div>
+  </div>
+  <div style='clear: both;'/>
+  </b:if>
+</b:includable>
+          <b:includable id='threaded-comment-form' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <b:if cond='data:mobile'>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+    <b:else/>
+      <p><data:blogCommentMessage/></p>
+      <data:blogTeamBlogMessage/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    </b:if>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+          <b:includable id='threaded_comment_js' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+
+  <script type='text/javascript'>
+    (function() {
+      var items = <data:post.commentJso/>;
+      var msgs = <data:post.commentMsgs/>;
+      var config = <data:post.commentConfig/>;
+
+// <![CDATA[
+      var cursor = null;
+      if (items && items.length > 0) {
+        cursor = parseInt(items[items.length - 1].timestamp) + 1;
+      }
+
+      var bodyFromEntry = function(entry) {
+        var text = (entry &&
+                    ((entry.content && entry.content.$t) ||
+                     (entry.summary && entry.summary.$t))) ||
+            '';
+        if (entry && entry.gd$extendedProperty) {
+          for (var k in entry.gd$extendedProperty) {
+            if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
+              return '<span class="deleted-comment">' + text + '</span>';
+            }
+          }
+        }
+        return text;
+      }
+
+      var parse = function(data) {
+        cursor = null;
+        var comments = [];
+        if (data && data.feed && data.feed.entry) {
+          for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
+            var comment = {};
+            // comment ID, parsed out of the original id format
+            var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
+            comment.id = id ? id[2] : null;
+            comment.body = bodyFromEntry(entry);
+            comment.timestamp = Date.parse(entry.published.$t) + '';
+            if (entry.author && entry.author.constructor === Array) {
+              var auth = entry.author[0];
+              if (auth) {
+                comment.author = {
+                  name: (auth.name ? auth.name.$t : undefined),
+                  profileUrl: (auth.uri ? auth.uri.$t : undefined),
+                  avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
+                };
+              }
+            }
+            if (entry.link) {
+              if (entry.link[2]) {
+                comment.link = comment.permalink = entry.link[2].href;
+              }
+              if (entry.link[3]) {
+                var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
+                if (pid && pid[1]) {
+                  comment.parentId = pid[1];
+                }
+              }
+            }
+            comment.deleteclass = 'item-control blog-admin';
+            if (entry.gd$extendedProperty) {
+              for (var k in entry.gd$extendedProperty) {
+                if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
+                  comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
+                } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
+                  comment.displayTime = entry.gd$extendedProperty[k].value;
+                }
+              }
+            }
+            comments.push(comment);
+          }
+        }
+        return comments;
+      };
+
+      var paginator = function(callback) {
+        if (hasMore()) {
+          var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
+          if (cursor) {
+            url += '&published-min=' + new Date(cursor).toISOString();
+          }
+          window.bloggercomments = function(data) {
+            var parsed = parse(data);
+            cursor = parsed.length < 50 ? null
+                : parseInt(parsed[parsed.length - 1].timestamp) + 1
+            callback(parsed);
+            window.bloggercomments = null;
+          }
+          url += '&callback=bloggercomments';
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        }
+      };
+      var hasMore = function() {
+        return !!cursor;
+      };
+      var getMeta = function(key, comment) {
+        if ('iswriter' == key) {
+          var matches = !!comment.author
+              && comment.author.name == config.authorName
+              && comment.author.profileUrl == config.authorUrl;
+          return matches ? 'true' : '';
+        } else if ('deletelink' == key) {
+          return config.baseUri + '/comment/delete/'
+               + config.blogId + '/' + comment.id;
+        } else if ('deleteclass' == key) {
+          return comment.deleteclass;
+        }
+        return '';
+      };
+
+      var replybox = null;
+      var replyUrlParts = null;
+      var replyParent = undefined;
+
+      var onReply = function(commentId, domId) {
+        if (replybox == null) {
+          // lazily cache replybox, and adjust to suit this style:
+          replybox = document.getElementById('comment-editor');
+          if (replybox != null) {
+            replybox.height = '250px';
+            replybox.style.display = 'block';
+            replyUrlParts = replybox.src.split('#');
+          }
+        }
+        if (replybox && (commentId !== replyParent)) {
+          replybox.src = '';
+          document.getElementById(domId).insertBefore(replybox, null);
+          replybox.src = replyUrlParts[0]
+              + (commentId ? '&parentID=' + commentId : '')
+              + '#' + replyUrlParts[1];
+          replyParent = commentId;
+        }
+      };
+
+      var hash = (window.location.hash || '#').substring(1);
+      var startThread, targetComment;
+      if (/^comment-form_/.test(hash)) {
+        startThread = hash.substring('comment-form_'.length);
+      } else if (/^c[0-9]+$/.test(hash)) {
+        targetComment = hash.substring(1);
+      }
+
+      // Configure commenting API:
+      var configJso = {
+        'maxDepth': config.maxThreadDepth
+      };
+      var provider = {
+        'id': config.postId,
+        'data': items,
+        'loadNext': paginator,
+        'hasMore': hasMore,
+        'getMeta': getMeta,
+        'onReply': onReply,
+        'rendered': true,
+        'initComment': targetComment,
+        'initReplyThread': startThread,
+        'config': configJso,
+        'messages': msgs
+      };
+
+      var render = function() {
+        if (window.goog && window.goog.comments) {
+          var holder = document.getElementById('comment-holder');
+          window.goog.comments.render(holder, provider);
+        }
+      };
+
+      // render now, or queue to render when library loads:
+      if (window.goog && window.goog.comments) {
+        render();
+      } else {
+        window.goog = window.goog || {};
+        window.goog.comments = window.goog.comments || {};
+        window.goog.comments.loadQueue = window.goog.comments.loadQueue || [];
+        window.goog.comments.loadQueue.push(render);
+      }
+    })();
+// ]]>
+  </script>
+</b:includable>
+          <b:includable id='threaded_comments' var='post'>
+  <div class='comments' id='comments'>
+    <a name='comments'/>
+    <h4><data:post.commentLabelFull/>:</h4>
+
+    <div class='comments-content'>
+      <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threaded-comment-form'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+
+    <div id='backlinks-container'>
+    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+    </div>
+    </div>
+  </div>
+</b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+
+
+    <!-- Load More Button -->
+     <b:if cond='data:view.isHomepage or data:view.isLabelSearch or data:view.isSearch '>
+    <div id='load-more-container'>
+      <button id='load-more-btn'>
+        <span class='btn-text'>Load More</span>
+        <span class='load-more-loader'>
+          <svg viewBox='0 0 32 32'>
+            <circle cx='16' cy='16' r='14'/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </b:if>
+
+  <!-- Footer -->
+    <footer class='site-footer'>
+    <div class='footer-grid'>
+      <!-- Jinendra Vani Section -->
+      <div class='footer-jinendra'>
+        <h1>Jinendra Vani</h1>
+        <p>We provide Chalisa, Bhaktamber, Bhajan and more related to Jain Dharma.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class='footer-links'>
+        <div>Quick Links</div>
+        <ul>
+          <li><a href='#'><i class='fas fa-home'/> Home</a></li>
+          <li><a href='#'><i class='fas fa-concierge-bell'/> Services</a></li>
+          <li><a href='#'><i class='fas fa-envelope'/> Contact</a></li>
+          <li><a href='#'><i class='fas fa-lock'/> Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class='footer-social'>
+        <div class='social-header'>
+          <h3>Follow Us</h3>
+        </div>
+        <div class='social-icons'>
+          <a class='facebook' href='#'><i class='fab fa-facebook-f'/></a>
+          <a class='twitter' href='#'><i class='fab fa-twitter'/></a>
+          <a class='instagram' href='#'><i class='fab fa-instagram'/></a>
+          <a class='linkedin' href='#'><i class='fab fa-linkedin-in'/></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class='footer-bottom'>
+      <div class='footer-bottom-inner'>
+        <p id='copyright'>&amp;copy; <span id='current-year'>2025 </span> <a href='/'><data:blog.title/></a>. All rights reserved.</p>
+        <div class='footer-bottom-links'>
+          <a href='https://jinendra-vani.blogspot.com'>Home</a>
+          <span>|</span>
+          <a href='https://jinendra-vani.blogspot.com/p/about-us.html?m=1'>About us</a>
+          <span>|</span>
+          <a href='https://jinendra-vani.blogspot.com/p/privacy-policy.html'>Privacy Policy</a>
+          <span>|</span>
+          <a href='https://jinendra-vani.blogspot.com/p/contact-us.html'>Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+
+  <!-- Script to auto update year -->
+  <script>
+    document.getElementById(&quot;current-year&quot;).textContent = new Date().getFullYear();
+  </script>
+
+
+  <!-- Load More Script -->
+  <b:if cond='data:view.isHomepage or data:view.isLabelSearch or data:view.isSearch '>
+    <script type='text/javascript'>
+    //<![CDATA[
+    document.addEventListener('DOMContentLoaded', function () {
+      const postList = document.getElementById('post-list');
+      const posts = Array.from(postList?.getElementsByClassName('post-card') || []);
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      const loader = document.querySelector('.load-more-loader');
+      const btnText = document.querySelector('.btn-text');
+
+      let currentIndex = 6;
+
+      // Initially hide extra posts
+      if (posts.length > 0) {
+        posts.forEach((post, index) => {
+          if (index >= currentIndex) {
+            post.style.display = 'none';
+          } else {
+            post.classList.add('visible');
+          }
+        });
+      }
+
+      // Show loader only
+      function showLoader() {
+        loadMoreBtn.classList.add('loading');
+        loader.style.display = 'inline-block';
+        btnText.textContent = '';
+        loadMoreBtn.disabled = true;
+      }
+
+      // Hide loader and restore "Load More"
+      function hideLoaderAndCheck() {
+        loadMoreBtn.classList.remove('loading');
+        loader.style.display = 'none';
+        btnText.textContent = 'Load More';
+        loadMoreBtn.disabled = false;
+      }
+
+      // Load More Button Click
+      if (loadMoreBtn && posts.length > 6) {
+        loadMoreBtn.addEventListener('click', function () {
+          if (currentIndex >= posts.length) return;
+
+          showLoader();
+
+          setTimeout(() => {
+            const nextPosts = posts.slice(currentIndex, currentIndex + 6);
+
+            nextPosts.forEach(post => {
+              post.style.display = 'flex';
+              post.classList.add('visible');
+            });
+
+            currentIndex += 6;
+            hideLoaderAndCheck();
+
+            if (currentIndex >= posts.length) {
+              btnText.textContent = 'That\'s All!';
+              loader.style.display = 'none';
+              loadMoreBtn.disabled = true;
+              loadMoreBtn.classList.add('done');
+            }
+          }, 1000); // 1 sec delay
+        });
+      }
+
+      // If already at limit
+      if (posts.length <= 6) {
+        btnText.textContent = 'That\'s All!';
+        loader.style.display = 'none';
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.classList.add('done');
+      }
+    });
+    //]]>
+    </script>
+</b:if>
+  
+<!-- JavaScript to search and sidebar-->
+
+<script>
+  // <![CDATA[
+  document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close-btn');
+    const searchIcon = document.getElementById('search-icon');
+    const searchBar = document.getElementById('search-bar');
+    const searchInput = document.querySelector('#search-bar input');
+    const searchClear = document.getElementById('search-clear');
+    const searchMic = document.getElementById('search-mic');
+    const searchBack = document.getElementById('search-back');
+    let recognition;
+    let isListening = false;
+    let finalTranscript = '';
+    let voiceTimeout;
+    
+    // Initialize Web Speech API with better sensitivity
+    function initSpeechRecognition() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("Your browser does not support voice search.");
+        return;
+      }
+      
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 3;
+      
+      recognition.onstart = () => {
+        isListening = true;
+        finalTranscript = '';
+        document.getElementById('mic-pulse').style.borderColor = '#1a73e8';
+        document.getElementById('popup-status').textContent = 'Listening...';
+        document.getElementById('popup-transcript').textContent = '';
+        document.getElementById('try-again-btn').style.display = 'none';
+        
+        // Show pop-up
+        document.getElementById('voice-popup').style.display = 'block';
+        
+        // Auto-stop after 5 seconds
+        voiceTimeout = setTimeout(() => {
+          recognition.stop();
+          performSearch(finalTranscript.trim());
+        }, 5000);
+      };
+      
+      recognition.onresult = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i][0];
+          if (result.confidence > 0.4) { // Only consider confident results
+            finalTranscript += result.transcript.trim() + ' ';
+          }
+        }
+        if (finalTranscript.trim()) {
+          document.getElementById('popup-transcript').textContent = finalTranscript.trim();
+        }
+      };
+      
+      recognition.onerror = (event) => {
+        clearTimeout(voiceTimeout);
+        document.getElementById('popup-status').textContent = 'Error occurred.';
+        document.getElementById('popup-transcript').textContent = event.error;
+        document.getElementById('try-again-btn').style.display = 'inline-block';
+      };
+      
+      recognition.onend = () => {
+        isListening = false;
+        document.getElementById('mic-pulse').style.borderColor = '#ccc';
+        const transcript = document.getElementById('popup-transcript').textContent.trim();
+        
+        if (!transcript) {
+          document.getElementById('popup-status').textContent = 'No input detected.';
+          document.getElementById('try-again-btn').style.display = 'inline-block';
+        } else {
+          document.getElementById('popup-status').textContent = 'Processing...';
+          setTimeout(() => {
+            performSearch(transcript);
+            document.getElementById('voice-popup').style.display = 'none';
+          }, 500);
+        }
+      };
+    }
+    
+    // Perform search with query
+    function performSearch(query) {
+      if (!query) return;
+      
+      // Redirect to Blogger search page
+      window.location.href = '/search?q=' + encodeURIComponent(query);
+    }
+    
+    // Voice Search Button
+    searchMic.addEventListener('click', () => {
+      if (!recognition) initSpeechRecognition();
+      if (!isListening) {
+        searchInput.value = '';
+        document.getElementById('voice-popup').style.display = 'block';
+        recognition.start();
+      } else {
+        recognition.stop();
+        document.getElementById('voice-popup').style.display = 'none';
+      }
+    });
+    
+    // Try Again Button
+    document.getElementById('try-again-btn').addEventListener('click', () => {
+      document.getElementById('popup-transcript').textContent = '';
+      document.getElementById('popup-status').textContent = 'Listening...';
+      document.getElementById('try-again-btn').style.display = 'none';
+      recognition.start();
+    });
+    
+    // Close Popup on Click
+    document.getElementById('close-popup')?.addEventListener('click', () => {
+      document.getElementById('voice-popup').style.display = 'none';
+      if (isListening) recognition.stop();
+    });
+    
+    // Text Search - Press Enter
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const query = this.value.trim();
+        if (query) performSearch(encodeURIComponent(query));
+      }
+    });
+    
+    // Open Sidebar
+    hamburger.addEventListener('click', () => {
+      if (searchBar.classList.contains('active')) return;
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      document.body.classList.add('sidebar-open');
+      trapFocus(sidebar);
+    });
+    
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.classList.remove('sidebar-open');
+      document.querySelectorAll('.has-submenu').forEach(item => {
+        item.classList.remove('open');
+        const submenu = item.querySelector('.submenu');
+        if (submenu) submenu.style.maxHeight = null;
+      });
+    }
+    
+    // Trap Focus Inside Sidebar
+    function trapFocus(container) {
+      const focusableEls = Array.from(container.querySelectorAll('a[href], button, input'));
+      const firstFocusableEl = focusableEls[0];
+      const lastFocusableEl = focusableEls[focusableEls.length - 1];
+      
+      document.addEventListener('keydown', function(e) {
+        if (!sidebar.classList.contains('active')) return;
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === firstFocusableEl) {
+            e.preventDefault();
+            lastFocusableEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastFocusableEl) {
+            e.preventDefault();
+            firstFocusableEl.focus();
+          }
+        }
+      });
+    }
+    
+    // ESC key closes sidebar or search bar
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeSidebar();
+        if (searchBar.classList.contains('active')) {
+          searchBar.classList.remove('active');
+          searchIcon.classList.remove('active');
+          searchInput.value = '';
+          searchClear.style.display = 'none';
+          searchMic.style.display = 'none';
+          searchBack.style.display = 'none';
+          header.classList.remove('search-active');
+          logo.style.display = 'block';
+          navContainer.style.display = 'flex';
+          searchIcon.style.display = 'flex';
+        }
+      }
+    });
+    
+    // Clear Text
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      searchInput.focus();
+    });
+    
+    // Show/hide icons based on input
+    searchInput.addEventListener('input', () => {
+      searchClear.style.display = searchInput.value ? 'inline-block' : 'none';
+    });
+    
+    // Back Arrow Click
+    searchBack.addEventListener('click', () => {
+      searchBar.classList.remove('active');
+      searchIcon.classList.remove('active');
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      searchMic.style.display = 'none';
+      searchBack.style.display = 'none';
+      header.classList.remove('search-active');
+      logo.style.display = 'block';
+      navContainer.style.display = 'flex';
+      searchIcon.style.display = 'flex';
+    });
+    
+    // Open Search Bar
+    searchIcon.addEventListener('click', () => {
+      searchBar.classList.add('active');
+      searchIcon.classList.add('active');
+      searchInput.focus();
+      searchBack.style.display = 'inline-block';
+      searchClear.style.display = searchInput.value ? 'inline-block' : 'none';
+      searchMic.style.display = 'inline-block';
+      header.classList.add('search-active');
+      logo.style.display = 'none';
+      navContainer.style.display = 'none';
+      searchIcon.style.display = 'none';
+    });
+    
+    searchIcon.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        searchIcon.click();
+      }
+    });
+    
+    // Close on Outside Click
+    document.addEventListener('click', function(e) {
+      const popup = document.getElementById('voice-popup');
+      if (popup && popup.style.display === 'block' && !popup.contains(e.target) && e.target !== searchMic) {
+        popup.style.display = 'none';
+        if (isListening) recognition.stop();
+      }
+    });
+    
+    // Close on ESC
+    document.addEventListener('keydown', function(e) {
+      const popup = document.getElementById('voice-popup');
+      if (e.key === 'Escape' && popup) {
+        popup.style.display = 'none';
+        if (isListening) recognition.stop();
+      }
+    });
+
+
+  // Text Search - Press Enter
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      const query = encodeURIComponent(this.value.trim());
+      if (query) window.location.href = '/search?q=' + query;
+    }
+  });
+  
+  // Open Sidebar
+  hamburger.addEventListener('click', () => {
+    if (searchBar.classList.contains('active')) return;
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+    document.body.classList.add('sidebar-open');
+    trapFocus(sidebar);
+  });
+  
+  function closeSidebar() {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.classList.remove('sidebar-open');
+    document.querySelectorAll('.has-submenu').forEach(item => {
+      item.classList.remove('open');
+      const submenu = item.querySelector('.submenu');
+      if (submenu) submenu.style.maxHeight = null;
+    });
+  }
+  
+  closeBtn.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  
+  // Toggle Submenu
+  document.querySelectorAll('.has-submenu > a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      const submenu = this.nextElementSibling;
+      const isOpen = parent.classList.contains('open');
+      parent.classList.toggle('open');
+      submenu.style.maxHeight = isOpen ? null : submenu.scrollHeight + "px";
+      this.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+  
+  // Trap Focus Inside Sidebar
+  function trapFocus(container) {
+    const focusableEls = Array.from(container.querySelectorAll('a[href], button, input'));
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+    
+    document.addEventListener('keydown', function(e) {
+      if (!sidebar.classList.contains('active')) return;
+      if (e.key === 'Tab') {
+        if (e.shiftKey && document.activeElement === firstFocusableEl) {
+          e.preventDefault();
+          lastFocusableEl.focus();
+        } else if (!e.shiftKey && document.activeElement === lastFocusableEl) {
+          e.preventDefault();
+          firstFocusableEl.focus();
+        }
+      }
+    });
+  }
+  
+  // Close sidebar if focus moves out
+  document.addEventListener('focusin', function() {
+    if (!sidebar.classList.contains('active')) return;
+    if (!sidebar.contains(document.activeElement)) {
+      closeSidebar();
+    }
+  });
+  
+  // Click/tap outside closes sidebar
+  document.addEventListener('click', function(e) {
+    if (!sidebar.classList.contains('active')) return;
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target) && !searchIcon.contains(e.target)) {
+      closeSidebar();
+    }
+  });
+  
+  // ESC key closes sidebar or search bar
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeSidebar();
+      if (searchBar.classList.contains('active')) {
+        searchBar.classList.remove('active');
+        searchIcon.classList.remove('active');
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        searchMic.style.display = 'none';
+        searchBack.style.display = 'none';
+        header.classList.remove('search-active');
+        logo.style.display = 'block';
+        navContainer.style.display = 'flex';
+        searchIcon.style.display = 'flex';
+      }
+    }
+  });
+  
+  // Open Search Bar
+  searchIcon.addEventListener('click', () => {
+    searchBar.classList.add('active');
+    searchIcon.classList.add('active');
+    searchInput.focus();
+    searchBack.style.display = 'inline-block';
+    searchClear.style.display = searchInput.value ? 'inline-block' : 'none';
+    searchMic.style.display = 'inline-block';
+    header.classList.add('search-active');
+    logo.style.display = 'none';
+    navContainer.style.display = 'none';
+    searchIcon.style.display = 'none';
+  });
+  
+  searchIcon.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      searchIcon.click();
+    }
+  });
+  
+  // Back Arrow Click
+  searchBack.addEventListener('click', () => {
+    searchBar.classList.remove('active');
+    searchIcon.classList.remove('active');
+    searchInput.value = '';
+    searchClear.style.display = 'none';
+    searchMic.style.display = 'none';
+    searchBack.style.display = 'none';
+    header.classList.remove('search-active');
+    logo.style.display = 'block';
+    navContainer.style.display = 'flex';
+    searchIcon.style.display = 'flex';
+  });
+  
+  // Clear Text
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.style.display = 'none';
+    searchInput.focus();
+  });
+  
+  // Show/hide icons based on input
+  searchInput.addEventListener('input', () => {
+    searchClear.style.display = searchInput.value ? 'inline-block' : 'none';
+  });
+  
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.length > 0) {
+      searchClear.style.display = 'inline-block';
+    }
+    searchMic.style.display = 'inline-block';
+  });
+  
+  searchInput.addEventListener('blur', () => {
+  setTimeout(() => {
+    if (!searchBar.contains(document.activeElement)) {
+      searchBar.classList.remove('active');
+      searchIcon.classList.remove('active');
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      searchMic.style.display = 'none';
+      searchBack.style.display = 'none';
+      header.classList.remove('search-active');
+      logo.style.display = 'block';
+      navContainer.style.display = 'flex';
+      searchIcon.style.display = 'flex';
+    }
+  }, 100);
+  });
+  
+  });
+  // ]]>
+</script>
+  <!-- JavaScript to Related Posts-->
+ <script>
+//<![CDATA[
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function renderRelatedPosts(container, data) {
+  const blogName = data.feed.title.$t || 'Unknown Blog';
+  const currentPostUrl = window.location.href.split('?')[0];
+  let posts = [];
+
+  data.feed.entry.forEach(entry => {
+    const title = entry.title.$t;
+    const link = entry.link.find(l => l.rel === 'alternate').href;
+
+    if (link === currentPostUrl) return;
+
+    let image = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYONw4JEOOZD7-wy7_5BvaDea9rJSaN8WgBcR2AvSpw3A-JLYNIIu0C4rLx23_uybDT-WfvFlILBbSFiGi6k_ssgUy2VN6HcP_UcmkiWk5e8uF-RIVysM_TlKnVwGC_OvwTzwR6WiURT-1SUvCkLx-CRIXJe1U3s2cLadHOnu-r0yTE_AcfHSDdnzIGhwW/s988/1000046130.png ';
+    if (entry.media$thumbnail) {
+      image = entry.media$thumbnail.url.replace(/\/s72-c/, '/s320');
+    } else if (entry.content.$t && /<img.*?src=["'](.*?)["']/i.test(entry.content.$t)) {
+      image = entry.content.$t.match(/<img.*?src=["'](.*?)["']/i)[1];
+    }
+
+    posts.push({ title, link, image });
+  });
+
+  shuffleArray(posts);
+
+  // Determine how many posts to display
+  const isDesktop = window.matchMedia("(min-width: 766px)").matches;
+  const postCount = isDesktop ? 6 : 4;
+
+  const displayedPosts = posts.slice(0, postCount);
+
+  const html = displayedPosts.map(post => {
+  // Truncate title if longer than 70 characters
+  const truncatedTitle = post.title.length > 46
+ ? post.title.substring(0, 46) + '...' 
+    : post.title;
+
+  return `
+    <div class="related-posts">
+      <img src="${post.image}" alt="${truncatedTitle}" />
+      <h1 class="rp-tittle">
+        <a href="${post.link}">${truncatedTitle}</a>
+      </h1>
+      <hr class="rp-hr" />
+      <div class="rp-meta">
+        <span>By:</span> <span>${blogName}</span>
+      </div>
+    </div>
+  `;
+}).join('');
+
+  container.innerHTML = html;
+}
+
+function fetchRelatedPosts() {
+  const container = document.querySelector('.related-posts-containers');
+  if (!container) return;
+
+  // Avoid refetching if already fetched
+  if (container.dataset.loaded === 'true') return;
+
+  fetch('/feeds/posts/default?alt=json&max-results=50')
+    .then(res => res.json())
+    .then(data => {
+      renderRelatedPosts(container, data);
+      container.dataset.loaded = 'true'; // Mark as loaded
+    })
+    .catch(err => console.error('Error fetching related posts:', err));
+}
+
+window.addEventListener('DOMContentLoaded', fetchRelatedPosts);
+
+//]]>
+</script>
+  <!-- JavaScript to read time -->
+  <script type='text/javascript'>
+//<![CDATA[
+function getReadingTime(text) {
+  const wordsPerMinute = 200;
+  const wordCount = text.trim().split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute); // in minutes
+}
+
+function getContentHash(content) {
+  let hash = 0;
+  for (let i = 0; i < content.length; i++) {
+    const char = content.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash |= 0;
+  }
+  return hash;
+}
+
+// Store session start time per post
+const postSessionStartTimes = {};
+
+function initPostTimers() {
+  const posts = document.querySelectorAll('.Post-Container');
+
+  const now = new Date();
+
+  posts.forEach(post => {
+    const content = post.querySelector('.post-body').textContent;
+    const postId = getContentHash(content);
+
+    // Only initialize if not already tracking
+    if (!(postId in postSessionStartTimes)) {
+      postSessionStartTimes[postId] = now;
+    }
+  });
+}
+
+function updateReadingProgress() {
+  const now = new Date();
+
+  document.querySelectorAll('.Post-Container').forEach(post => {
+    const content = post.querySelector('.post-body').textContent;
+    const metaTime = post.querySelector('.meta-time');
+    const postId = getContentHash(content);
+
+    const startTime = postSessionStartTimes[postId];
+    const secondsElapsed = Math.floor((now - startTime) / 1000);
+    const minutesRead = Math.floor(secondsElapsed / 60);
+    const secondsRead = secondsElapsed % 60;
+
+    const totalReadingTime = getReadingTime(content); // in minutes
+
+    if (secondsElapsed < 10) {
+      metaTime.textContent = "Just Now";
+    } else {
+      metaTime.textContent = `${minutesRead} min ${secondsRead} sec read of ${totalReadingTime} min`;
+    }
+  });
+}
+
+// Initialize when script loads
+initPostTimers();
+
+// Start updating every second
+updateReadingProgress();
+setInterval(updateReadingProgress, 1000);
+//]]>
+</script>
+  <!-- JavaScript to Play Audio -->
+
+<script>
+  const audio = document.getElementById(&quot;bhaktamberAudio&quot;);
+  const icon = document.getElementById(&quot;iconState&quot;);
+  const buttonText = document.getElementById(&quot;buttonText&quot;);
+
+  function toggleBhaktamber() {
+    if (audio.paused) {
+      audio.play().then(() =&gt; {
+        icon.className = &quot;fas fa-pause-circle&quot;;
+        buttonText.textContent = &quot; Navkar Mantra&quot;;
+      }).catch(err =&gt; {
+        alert(&quot;Tap to allow audio.&quot;);
+      });
+    } else {
+      audio.pause();
+      icon.className = &quot;fas fa-headphones&quot;;
+      buttonText.textContent = &quot;Navkar Mantra&quot;;
+    }
+  }
+
+  audio.addEventListener(&quot;ended&quot;, () =&gt; {
+    icon.className = &quot;fas fa-headphones&quot;;
+    buttonText.textContent = &quot; Navkar Mantra&quot;;
+  });
+</script>
+ </body>
+  </html>
