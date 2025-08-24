@@ -1,1 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AuditPro — Barcode Auditor</title>
+  <meta name="theme-color" content="#111827" />
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827; /* gray-900 */
+      --muted:#1f2937; /* gray-800 */
+      --text:#e5e7eb; /* gray-200 */
+      --sub:#9ca3af; /* gray-400 */
+      --brand:#22c55e; /* emerald-500 */
+      --brand-2:#16a34a; /* emerald-600 */
+      --accent:#38bdf8; /* sky-400 */
+      --danger:#ef4444; /* red-500 */
+      --warn:#f59e0b; /* amber-500 */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      background:linear-gradient(180deg,var(--bg),#0b1220 60%, #0a0f1a);
+      color:var(--text);
+    }
+    .app{max-width:980px;margin:0 auto;min-height:100%;display:grid;grid-template-rows:auto 1fr auto;}
+    header{
+      position:sticky;top:0;z-index:30;background:rgba(17,24,39,.85);backdrop-filter:blur(8px);
+      border-bottom:1px solid #1f2937;
+    }
+    .bar{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700}
+    .brand .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--accent));display:grid;place-items:center;box-shadow:0 8px 30px rgba(56,189,248,.25)}
+    .brand .logo svg{width:18px;height:18px;fill:white}
+    .tag{font-size:.75rem;color:var(--sub);margin-left:auto}
+    .pill{padding:.25rem .6rem;border:1px solid #334155;border-radius:999px;color:var(--sub)}
+
+    main{padding:1rem;}
+    .grid{display:grid;gap:1rem}
+    @media(min-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);overflow:hidden}
+    .card-h{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1rem;border-bottom:1px solid #1f2937;background:rgba(255,255,255,.02)}
+    .card-b{padding:1rem}
+    .card-h .title{font-weight:600}
+    .muted{color:var(--sub)}
+
+    .btn{appearance:none;border:1px solid #1f2937;background:var(--muted);color:var(--text);padding:.75rem 1rem;border-radius:12px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;gap:.5rem;align-items:center;justify-content:center}
+    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px)}
+    .btn.brand{background:linear-gradient(135deg,var(--brand),var(--brand-2));border-color:transparent}
+    .btn.ghost{background:transparent}
+    .btn.warn{background:linear-gradient(135deg,var(--warn),#f97316);border-color:transparent}
+    .btn.danger{background:linear-gradient(135deg,var(--danger),#b91c1c);border-color:transparent}
+    .btn.small{padding:.5rem .6rem;border-radius:10px;font-size:.9rem}
+
+    .row{display:flex;gap:.6rem;flex-wrap:wrap}
+    .field{display:grid;gap:.4rem}
+    .field label{font-size:.85rem;color:var(--sub)}
+    .input, select, textarea{background:#0b1320;border:1px solid #1f2937;color:var(--text);padding:.7rem .8rem;border-radius:12px;outline:none}
+    .input:focus, select:focus, textarea:focus{border-color:var(--accent)}
+
+    .tile{display:flex;align-items:center;gap:.9rem;padding:1rem;border:1px solid #1f2937;border-radius:14px;background:linear-gradient(180deg,rgba(148,163,184,.06),rgba(30,41,59,.15))}
+    .tile .ic{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,rgba(56,189,248,.25),rgba(34,197,94,.25));display:grid;place-items:center}
+    .tile .ic svg{width:22px;height:22px}
+    .tile .meta{line-height:1.2}
+    .tile .meta .k{font-size:.8rem;color:var(--sub)}
+    .tile .meta .v{font-size:1.15rem;font-weight:700}
+
+    .video-wrap{position:relative;border-radius:16px;overflow:hidden;border:1px solid #1f2937;background:#000}
+    video{width:100%;height:auto;display:block}
+    .overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+    .reticle{width:70%;max-width:420px;height:48%;border:2px dashed rgba(56,189,248,.9);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,.3) inset}
+
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #1f2937;padding:.7rem .6rem;text-align:left}
+    th{color:var(--sub);font-weight:600}
+    tbody tr:hover{background:rgba(148,163,184,.06)}
+
+    .bottom-nav{position:sticky;bottom:0;background:rgba(17,24,39,.9);backdrop-filter:blur(8px);border-top:1px solid #1f2937}
+    .tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+    .tab{display:grid;place-items:center;padding:.7rem .5rem;color:var(--sub);text-decoration:none}
+    .tab.active{color:var(--text);font-weight:700}
+
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .6rem;border-radius:999px;border:1px solid #334155;font-size:.85rem;color:#cbd5e1}
+
+    .empty{padding:2rem;text-align:center;color:var(--sub)}
+    .divider{height:1px;background:#1f2937;margin:.6rem 0}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="bar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 16 0v5a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-5Zm4 6h8a2 2 0 0 0 2-2v-4H6v4a2 2 0 0 0 2 2Zm-2-8h12a6 6 0 1 0-12 0Z"/></svg>
+          </div>
+          <div>AuditPro</div>
+        </div>
+        <span class="tag">Barcode Auditor • Offline-first</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="view-home" class="view">
+        <div class="grid">
+          <div class="card">
+            <div class="card-h">
+              <div class="title">Quick Actions</div>
+              <div class="row">
+                <button class="btn small brand" id="btnStartScan">Start Scan</button>
+                <button class="btn small" id="btnNewSession">New Session</button>
+                <button class="btn small ghost" id="btnExportCSV">Export CSV</button>
+              </div>
+            </div>
+            <div class="card-b">
+              <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+                <div class="tile">
+                  <div class="ic">📦</div>
+                  <div class="meta">
+                    <div class="k">Total Scans</div>
+                    <div class="v" id="statTotal">0</div>
+                  </div>
+                </div>
+                <div class="tile">
+                  <div class="ic">🕒</div>
+                  <div class="meta">
+                    <div class="k">Today</div>
+                    <div class="v" id="statToday">0</div>
+                  </div>
+                </div>
+                <div class="tile">
+                  <div class="ic">🧾</div>
+                  <div class="meta">
+                    <div class="k">Active Session</div>
+                    <div class="v" id="statSession">—</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-h">
+              <div class="title">Recent Scans</div>
+              <button class="btn small ghost" id="btnViewReports">View All</button>
+            </div>
+            <div class="card-b" id="recentScans"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCAN -->
+      <section id="view-scan" class="view" hidden>
+        <div class="card">
+          <div class="card-h">
+            <div class="title">Live Scanner</div>
+            <div class="row">
+              <button class="btn small" id="btnTorch" title="Toggle torch">🔦 Torch</button>
+              <select id="cameraSelect" class="input small"></select>
+              <button class="btn small ghost" id="btnStop">Stop</button>
+            </div>
+          </div>
+          <div class="card-b">
+            <div class="video-wrap">
+              <video id="video" autoplay playsinline></video>
+              <div class="overlay"><div class="reticle"></div></div>
+            </div>
+            <div class="row" style="margin-top:.8rem">
+              <div class="chip">Session: <span id="scanSessionLabel" style="margin-left:.35rem"></span></div>
+              <div class="chip">Mode: <span id="modeLabel">Single</span></div>
+              <button class="btn small" id="btnMode">Toggle Auto-Add</button>
+            </div>
+            <div class="row" style="margin-top:.8rem">
+              <input class="input" id="manualCode" placeholder="Manual barcode / SKU" />
+              <input type="number" class="input" id="qty" min="1" value="1" style="max-width:120px"/>
+              <button class="btn brand" id="btnAddManual">Add</button>
+            </div>
+            <div class="divider"></div>
+            <div id="scanLog"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REPORTS -->
+      <section id="view-reports" class="view" hidden>
+        <div class="card">
+          <div class="card-h">
+            <div class="title">Reports</div>
+            <div class="row">
+              <input id="filterText" class="input" placeholder="Search barcode / notes / session" />
+              <select id="filterSession" class="input"></select>
+              <button class="btn small ghost" id="btnClearFilters">Clear</button>
+              <button class="btn small" id="btnExportCSV2">Export CSV</button>
+            </div>
+          </div>
+          <div class="card-b">
+            <div class="row" style="margin-bottom:.6rem">
+              <span class="chip">Rows: <span id="rowCount">0</span></span>
+              <span class="chip">Unique Barcodes: <span id="uniqueCount">0</span></span>
+            </div>
+            <div class="table-wrap">
+              <table id="tblScans">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Barcode</th>
+                    <th>Qty</th>
+                    <th>Session</th>
+                    <th>Note</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="row" style="margin-top:.8rem">
+              <button class="btn warn" id="btnClearToday">Clear Today</button>
+              <button class="btn danger" id="btnClearAll">Clear ALL</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS / MASTER DATA -->
+      <section id="view-settings" class="view" hidden>
+        <div class="card">
+          <div class="card-h"><div class="title">Settings</div></div>
+          <div class="card-b">
+            <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+              <div class="field">
+                <label>Operator Name</label>
+                <input id="operator" class="input" placeholder="e.g., Shivanshu" />
+              </div>
+              <div class="field">
+                <label>Default Quantity</label>
+                <input id="defaultQty" type="number" class="input" value="1"/>
+              </div>
+              <div class="field">
+                <label>Vibrate on scan</label>
+                <select id="vibrate" class="input"><option value="on">On</option><option value="off">Off</option></select>
+              </div>
+              <div class="field">
+                <label>Active Session</label>
+                <div class="row">
+                  <input id="sessionName" class="input" placeholder="e.g., Stock Count Aug" />
+                  <button class="btn" id="btnSetSession">Set</button>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <h3>Product Master (optional)</h3>
+            <p class="muted">Import a CSV with columns: <code>barcode,name,unit,price</code>. When scanning, details will be linked.</p>
+            <div class="row">
+              <input type="file" id="csvFile" accept=".csv" class="input" />
+              <button class="btn" id="btnImportCSV">Import CSV</button>
+              <button class="btn ghost" id="btnExportMaster">Export Master</button>
+              <button class="btn danger" id="btnClearMaster">Clear Master</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <div class="tabs">
+        <a href="#home" class="tab active" data-tab="home">🏠<div style="font-size:.8rem">Home</div></a>
+        <a href="#scan" class="tab" data-tab="scan">📷<div style="font-size:.8rem">Scan</div></a>
+        <a href="#reports" class="tab" data-tab="reports">📑<div style="font-size:.8rem">Reports</div></a>
+        <a href="#settings" class="tab" data-tab="settings">⚙️<div style="font-size:.8rem">Settings</div></a>
+      </div>
+    </nav>
+  </div>
+
+  <template id="rowTpl">
+    <tr>
+      <td class="time"></td>
+      <td class="code"></td>
+      <td class="qty"></td>
+      <td class="sess"></td>
+      <td class="note"></td>
+      <td><button class="btn small ghost del">Delete</button></td>
+    </tr>
+  </template>
+
+  <script>
+  // ======= Tiny Utils =======
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  const fmtTime = ts => new Date(ts).toLocaleString();
+  const sleep = ms => new Promise(r=>setTimeout(r,ms));
+  const todayKey = () => new Date().toISOString().slice(0,10);
+  const download = (name, content, type='text/csv') => {
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href);
+  };
+
+  // ======= IndexedDB Wrapper =======
+  const DB = (()=>{
+    const dbName='AuditProDB';
+    let db;
+    function open(){
+      return new Promise((res,rej)=>{
+        const req=indexedDB.open(dbName,1);
+        req.onupgradeneeded=e=>{
+          const db=e.target.result;
+          const scans=db.createObjectStore('scans',{keyPath:'id',autoIncrement:true});
+          scans.createIndex('by_date','date');
+          scans.createIndex('by_session','session');
+          const prod=db.createObjectStore('products',{keyPath:'barcode'});
+        };
+        req.onsuccess=()=>{db=req.result;res(db)};
+        req.onerror=()=>rej(req.error);
+      });
+    }
+    async function tx(store,mode,fn){ db = db||await open(); return await new Promise((res,rej)=>{
+      const t=db.transaction(store,mode); const s=t.objectStore(store); const out=fn(s);
+      t.oncomplete=()=>res(out); t.onerror=()=>rej(t.error);
+    });}
+    return {
+      addScan: (scan)=>tx('scans','readwrite',s=>s.add(scan)),
+      getScans: ()=>tx('scans','readonly',s=>new Promise(r=>{const a=[];s.openCursor(null,'prev').onsuccess=e=>{const c=e.target.result;if(c){a.push(c.value);c.continue()}else r(a)};})),
+      deleteScan: (id)=>tx('scans','readwrite',s=>s.delete(id)),
+      clearScans: ()=>tx('scans','readwrite',s=>s.clear()),
+      addProduct: (p)=>tx('products','readwrite',s=>s.put(p)),
+      getProduct: (code)=>tx('products','readonly',s=>new Promise(r=>{const req=s.get(code);req.onsuccess=()=>r(req.result||null)})),
+      getAllProducts: ()=>tx('products','readonly',s=>new Promise(r=>{const arr=[];s.openCursor().onsuccess=e=>{const c=e.target.result;if(c){arr.push(c.value);c.continue()}else r(arr)}})),
+      clearProducts: ()=>tx('products','readwrite',s=>s.clear()),
+    };
+  })();
+
+  // ======= State =======
+  const State = {
+    session: localStorage.getItem('session') || 'Default',
+    operator: localStorage.getItem('operator') || '',
+    defaultQty: +(localStorage.getItem('defaultQty')||1),
+    vibrate: localStorage.getItem('vibrate')||'on',
+    autoAdd:false,
+    stream:null,
+    track:null,
+    detector:null,
+    scanning:false
+  };
+
+  function savePrefs(){
+    localStorage.setItem('session', State.session);
+    localStorage.setItem('operator', State.operator);
+    localStorage.setItem('defaultQty', State.defaultQty);
+    localStorage.setItem('vibrate', State.vibrate);
+    $('#scanSessionLabel').textContent = State.session;
+    $('#statSession').textContent = State.session;
+  }
+
+  // ======= Router =======
+  function show(tab){
+    $$('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===tab));
+    $$('.view').forEach(v=>v.hidden=true);
+    $('#view-'+tab).hidden=false;
+    if(tab==='scan' && !State.scanning){ startScanner(); }
+    if(tab!=='scan'){ stopScanner(); }
+    if(tab==='home'){ refreshHome(); }
+    if(tab==='reports'){ renderTable(); }
+  }
+  window.addEventListener('hashchange',()=>{
+    const tab=location.hash.replace('#','')||'home'; show(tab);
+  });
+
+  // ======= Scanner =======
+  async function listCameras(){
+    const devs = await navigator.mediaDevices.enumerateDevices();
+    const cams = devs.filter(d=>d.kind==='videoinput');
+    const sel = $('#cameraSelect'); sel.innerHTML='';
+    cams.forEach((c,i)=>{
+      const o=document.createElement('option');
+      o.value=c.deviceId; o.textContent=c.label||`Camera ${i+1}`; sel.appendChild(o);
+    });
+  }
+
+  async function startScanner(){
+    try{
+      await listCameras();
+      const deviceId = $('#cameraSelect').value || undefined;
+      const constraints = {video:{facingMode:'environment', deviceId: deviceId?{exact:deviceId}:undefined}};
+      State.stream = await navigator.mediaDevices.getUserMedia(constraints);
+      const v = $('#video'); v.srcObject = State.stream; await v.play();
+      State.track = State.stream.getVideoTracks()[0];
+      $('#btnTorch').disabled = !('torch' in (State.track.getCapabilities?.()||{}));
+      if('BarcodeDetector' in window){
+        const formats = ['ean_13','ean_8','upc_a','upc_e','code_128','code_39','qr_code','itf','codabar'];
+        State.detector = new BarcodeDetector({formats});
+        State.scanning = true; scanLoop();
+      } else {
+        logMsg('⚠️ BarcodeDetector not supported on this browser. Use manual input.');
+      }
+    }catch(err){
+      logMsg('Camera error: '+err.message);
+    }
+  }
+
+  async function scanLoop(){
+    while(State.scanning){
+      try{
+        const det = await State.detector.detect($('#video'));
+        if(det.length){
+          const code = det[0].rawValue;
+          await handleScan(code, State.autoAdd ? State.defaultQty : 1);
+          if(!State.autoAdd){ State.scanning=false; break; }
+          await sleep(600); // debounce
+        }
+      }catch(e){/* ignore transient */}
+      await sleep(120);
+    }
+  }
+
+  function stopScanner(){
+    State.scanning=false;
+    if(State.stream){ State.stream.getTracks().forEach(t=>t.stop()); }
+    State.stream=null; State.track=null; State.detector=null;
+  }
+
+  async function toggleTorch(){
+    try{
+      const cap = State.track?.getCapabilities?.();
+      if(cap && cap.torch){
+        const on = !(State._torchOn);
+        await State.track.applyConstraints({advanced:[{torch:on}]});
+        State._torchOn = on;
+      }
+    }catch(e){ logMsg('Torch not available'); }
+  }
+
+  function vibrate(){ if(State.vibrate==='on' && navigator.vibrate) navigator.vibrate(30); }
+
+  async function handleScan(code, qty){
+    if(!code) return;
+    const note='';
+    const prod = await DB.getProduct(code);
+    const scan = { barcode:code, qty:+qty||1, date:Date.now(), session:State.session, operator:State.operator, note, product:prod||null, day: todayKey() };
+    await DB.addScan(scan);
+    vibrate();
+    addScanLog(scan);
+    refreshHome();
+    if($('#filterText')) renderTable();
+  }
+
+  function addScanLog(scan){
+    const box = $('#scanLog');
+    const name = scan.product?.name ? ` — ${scan.product.name}` : '';
+    const div = document.createElement('div');
+    div.className='tile';
+    div.innerHTML = `<div class="ic">✅</div>
+      <div class="meta"><div class="k">Added</div><div class="v">${scan.barcode}${name} · Qty ${scan.qty}</div><div class="k">${fmtTime(scan.date)} | ${scan.session}</div></div>`;
+    box.prepend(div);
+  }
+
+  function logMsg(msg){
+    const box = $('#scanLog');
+    const div = document.createElement('div'); div.className='empty'; div.textContent = msg; box.prepend(div);
+  }
+
+  // ======= Reports =======
+  async function renderTable(){
+    const data = await DB.getScans();
+    const q = $('#filterText').value.trim().toLowerCase();
+    const sess = $('#filterSession').value;
+    const rows = data.filter(r=>{
+      const matchQ = !q || [r.barcode, r.note, r.session, r.product?.name].join(' ').toLowerCase().includes(q);
+      const matchS = !sess || r.session===sess;
+      return matchQ && matchS;
+    });
+    const tbody = $('#tblScans tbody'); tbody.innerHTML='';
+    const tpl = $('#rowTpl');
+    rows.forEach(r=>{
+      const tr = tpl.content.firstElementChild.cloneNode(true);
+      tr.querySelector('.time').textContent = fmtTime(r.date);
+      tr.querySelector('.code').textContent = r.barcode + (r.product?` — ${r.product.name}`:'');
+      tr.querySelector('.qty').textContent = r.qty;
+      tr.querySelector('.sess').textContent = r.session;
+      tr.querySelector('.note').textContent = r.note||'';
+      tr.querySelector('.del').addEventListener('click', async ()=>{ await DB.deleteScan(r.id); renderTable(); refreshHome();});
+      tbody.appendChild(tr);
+    });
+    $('#rowCount').textContent = rows.length;
+    $('#uniqueCount').textContent = new Set(rows.map(r=>r.barcode)).size;
+
+    // build session filter options
+    const sessions = [...new Set(data.map(r=>r.session))];
+    const sel = $('#filterSession');
+    const prev = sel.value; sel.innerHTML='';
+    const opt0=document.createElement('option'); opt0.value=''; opt0.textContent='All sessions'; sel.appendChild(opt0);
+    sessions.forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o); });
+    if(sessions.includes(prev)) sel.value=prev;
+  }
+
+  async function exportCSV(){
+    const data = await DB.getScans();
+    const rows = [['time','barcode','qty','session','operator','note','name','unit','price']];
+    data.forEach(r=>rows.push([
+      new Date(r.date).toISOString(), r.barcode, r.qty, r.session, r.operator||'', r.note||'', r.product?.name||'', r.product?.unit||'', r.product?.price||''
+    ]));
+    const csv = rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');
+    download(`auditpro_scans_${Date.now()}.csv`, csv);
+  }
+
+  async function exportMaster(){
+    const rows = [['barcode','name','unit','price']];
+    const prods = await DB.getAllProducts();
+    prods.forEach(p=>rows.push([p.barcode,p.name||'',p.unit||'',p.price||'']));
+    const csv = rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');
+    download(`auditpro_master_${Date.now()}.csv`, csv);
+  }
+
+  function parseCSV(text){
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    const head = lines.shift().split(',').map(s=>s.trim());
+    const out=[];
+    for(const ln of lines){
+      const cols = ln.match(/\s*(?:"([^"]*(?:""[^"]*)*)"|([^,]*))\s*(?:,|$)/g) || [];
+      const values = cols.map(c=>c.replace(/^[,\s]*|[\s,]*$/g,'').replace(/^"|"$/g,'').replace(/""/g,'"'));
+      const row={}; head.forEach((h,i)=>row[h]=values[i]); out.push(row);
+    }
+    return out;
+  }
+
+  // ======= Home widgets =======
+  async function refreshHome(){
+    const all = await DB.getScans();
+    $('#statTotal').textContent = all.length;
+    $('#statToday').textContent = all.filter(x=>x.day===todayKey()).length;
+    $('#statSession').textContent = State.session;
+    const box = $('#recentScans'); box.innerHTML='';
+    if(all.length===0){ box.innerHTML = '<div class="empty">No scans yet — start scanning!</div>'; return; }
+    all.slice(0,5).forEach(s=>{
+      const name = s.product?.name ? ` — ${s.product.name}` : '';
+      const div=document.createElement('div'); div.className='tile';
+      div.innerHTML = `<div class="ic">📎</div><div class="meta"><div class="k">${fmtTime(s.date)}</div><div class="v">${s.barcode}${name}</div><div class="k">Qty ${s.qty} · ${s.session}</div></div>`;
+      box.appendChild(div);
+    });
+  }
+
+  // ======= Events =======
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    // Prefill settings
+    $('#operator').value = State.operator; $('#defaultQty').value=State.defaultQty; $('#vibrate').value=State.vibrate; $('#sessionName').value=State.session; $('#scanSessionLabel').textContent=State.session;
+
+    // Tabs
+    $$('.tab').forEach(t=>t.addEventListener('click',e=>{ const tab=t.dataset.tab; show(tab);}));
+    show((location.hash||'#home').replace('#',''));
+
+    // Home actions
+    $('#btnStartScan').addEventListener('click',()=>{ location.hash='#scan'; });
+    $('#btnViewReports').addEventListener('click',()=>{ location.hash='#reports'; });
+
+    // Scanner controls
+    $('#btnStop').addEventListener('click', stopScanner);
+    $('#btnTorch').addEventListener('click', toggleTorch);
+    $('#cameraSelect').addEventListener('change', ()=>{ stopScanner(); startScanner(); });
+    $('#btnMode').addEventListener('click',()=>{ State.autoAdd=!State.autoAdd; $('#modeLabel').textContent = State.autoAdd? 'Auto-Add' : 'Single'; });
+    $('#btnAddManual').addEventListener('click', async ()=>{ const c=$('#manualCode').value.trim(); const q=$('#qty').value; if(c){ await handleScan(c,q); $('#manualCode').value=''; }});
+
+    // Reports
+    $('#filterText').addEventListener('input', renderTable);
+    $('#filterSession').addEventListener('change', renderTable);
+    $('#btnClearFilters').addEventListener('click',()=>{ $('#filterText').value=''; $('#filterSession').value=''; renderTable(); });
+    $('#btnClearAll').addEventListener('click', async ()=>{ if(confirm('Delete ALL scans?')){ await DB.clearScans(); renderTable(); refreshHome(); }});
+    $('#btnClearToday').addEventListener('click', async ()=>{
+      const all = await DB.getScans();
+      const today = todayKey();
+      const toDelete = all.filter(x=>x.day===today);
+      for(const r of toDelete){ await DB.deleteScan(r.id); }
+      renderTable(); refreshHome();
+    });
+
+    // Settings
+    $('#btnSetSession').addEventListener('click',()=>{ State.session=$('#sessionName').value.trim()||'Default'; savePrefs(); alert('Session set.'); });
+    $('#operator').addEventListener('change',e=>{ State.operator=e.target.value; savePrefs(); });
+    $('#defaultQty').addEventListener('change',e=>{ State.defaultQty=+e.target.value||1; savePrefs(); });
+    $('#vibrate').addEventListener('change',e=>{ State.vibrate=e.target.value; savePrefs(); });
+
+    // New Session shortcut
+    $('#btnNewSession').addEventListener('click',()=>{ const n=prompt('Name this session','Stock Audit'); if(n){ State.session=n; $('#sessionName').value=n; savePrefs(); }});
+
+    // CSV Import/Export
+    $('#btnExportCSV').addEventListener('click', exportCSV);
+    $('#btnExportCSV2').addEventListener('click', exportCSV);
+    $('#btnExportMaster').addEventListener('click', exportMaster);
+    $('#btnImportCSV').addEventListener('click', async ()=>{
+      const f=$('#csvFile').files[0]; if(!f){alert('Choose a CSV file first'); return;}
+      const text = await f.text();
+      const rows = parseCSV(text);
+      let n=0; for(const r of rows){ if(!r.barcode) continue; await DB.addProduct({barcode:r.barcode, name:r.name||'', unit:r.unit||'', price:r.price||''}); n++; }
+      alert(`Imported ${n} products.`);
+    });
+    $('#btnClearMaster').addEventListener('click', async ()=>{ if(confirm('Clear product master?')){ await DB.clearProducts(); alert('Master cleared'); }});
+
+    // Export on Reports header button
+    refreshHome();
+  });
+  </script>
+</body>
+</html>
 
