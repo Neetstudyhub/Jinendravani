@@ -1,73 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Website Home</title>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f9f9f9; }
-    header { background-color: #004080; color: white; padding: 20px 40px; text-align: center; }
-    nav { background: #0066cc; padding: 10px 40px; }
-    nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 600; }
-    nav a:hover { text-decoration: underline; }
-    .hero { background-image: url('https://via.placeholder.com/1500x500'); background-size: cover; background-position: center; color: white; padding: 100px 40px; text-align: center; }
-    .hero h1 { font-size: 3rem; margin-bottom: 10px; }
-    .hero p { font-size: 1.2rem; margin-bottom: 30px; }
-    .btn-primary { background-color: #0066cc; color: white; padding: 15px 30px; font-size: 1rem; border: none; border-radius: 5px; cursor: pointer; }
-    .btn-primary:hover { background-color: #004080; }
-    .content { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-    .section { margin-bottom: 60px; }
-    .section h2 { font-size: 2rem; color: #004080; margin-bottom: 20px; }
-    .cards { display: flex; gap: 20px; flex-wrap: wrap; }
-    .card { background: white; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); flex: 1; min-width: 280px; padding: 20px; }
-    .card h3 { margin-top: 0; color: #0066cc; }
-    footer { background-color: #004080; color: white; text-align: center; padding: 15px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a253c;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --text-color: #bdc3c7;
+            --font-family: 'Poppins', sans-serif;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+
+        /* Login Screen */
+        #login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #login-form {
+            background: var(--secondary-color);
+            padding: 2.5rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: var(--accent-color);
+            color: #fff;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .btn:hover { background-color: #2980b9; }
+
+        /* Admin Layout */
+        #admin-panel {
+            display: none;
+            flex-direction: row;
+            height: 100vh;
+        }
+
+        #sidebar {
+            width: 250px;
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #sidebar h2 { text-align: center; margin-bottom: 2rem; }
+        
+        #sidebar nav a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        #sidebar nav a i { margin-right: 10px; }
+        
+        #sidebar nav a.active, #sidebar nav a:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+        
+        #logout-btn {
+            margin-top: auto;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 1rem 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: var(--font-family);
+        }
+        #logout-btn:hover { background: var(--accent-color); color: #fff; }
+
+        #main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        main > section { display: none; }
+        main > section.active { display: block; }
+        
+        /* Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .stat-card {
+            background-color: var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        .stat-card h3 { color: var(--accent-color); }
+        .stat-card p { font-size: 2rem; font-weight: 600; }
+        
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--primary-color); }
+        th { background: var(--secondary-color); }
+        
+        .action-buttons button { margin-right: 5px; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px; right: 20px;
+            font-size: 2rem; cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #admin-panel { flex-direction: column; }
+            #sidebar { width: 100%; height: auto; flex-direction: row; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; }
+            #sidebar h2 { display: none; }
+            #sidebar nav { display: flex; }
+            #sidebar nav a { padding: 0.75rem; }
+            #logout-btn { margin-top: 0; padding: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Our Website</h1>
-  </header>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <section class="hero">
-    <h1>Your Partner in Success</h1>
-    <p>Delivering quality solutions tailored to your needs.</p>
-    <button class="btn-primary">Get Started</button>
-  </section>
-  <div class="content">
-    <section id="about" class="section">
-      <h2>About Us</h2>
-      <p>We are a dedicated team committed to building powerful web solutions that empower businesses worldwide.</p>
-    </section>
-    <section id="services" class="section">
-      <h2>Our Services</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Web Development</h3>
-          <p>Custom websites and applications tailored to your business goals.</p>
+
+    <div id="login-screen">
+        <form id="login-form">
+            <h2>Admin Login</h2>
+            <div class="form-group">
+                <label for="admin-email">Email</label>
+                <input type="email" id="admin-email" required>
+            </div>
+            <div class="form-group">
+                <label for="admin-password">Password</label>
+                <input type="password" id="admin-password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+    <div id="admin-panel">
+        <aside id="sidebar">
+            <h2>Admin</h2>
+            <nav>
+                <a href="#dashboard" class="nav-link"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                <a href="#products" class="nav-link"><i class="fas fa-box"></i>Products</a>
+                <a href="#orders" class="nav-link"><i class="fas fa-shopping-cart"></i>Orders</a>
+                <a href="#messages" class="nav-link"><i class="fas fa-envelope"></i>Messages</a>
+            </nav>
+            <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </aside>
+
+        <main id="main-content">
+            <section id="dashboard">
+                <h1>Dashboard</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Products</h3>
+                        <p id="total-products">0</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3>Total Orders</h3>
+                        <p id="total-orders">0</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3>Total Users</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3>Total Messages</h3>
+                        <p id="total-messages">0</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="products">
+                <h1>Manage Products <button id="add-product-btn" class="btn" style="width: auto; float: right;">Add New</button></h1>
+                <div class="table-container">
+                    <table id="products-table">
+                        <thead>
+                            <tr><th>Image</th><th>Name</th><th>Price</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="orders">
+                <h1>Customer Orders</h1>
+                 <div class="table-container">
+                    <table id="orders-table">
+                        <thead>
+                            <tr><th>Order ID</th><th>User</th><th>Date</th><th>Total</th><th>Status</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section id="messages">
+                <h1>Contact Messages</h1>
+                 <div class="table-container">
+                    <table id="messages-table">
+                        <thead>
+                            <tr><th>Date</th><th>Name</th><th>Email</th><th>Message</th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                 <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" rows="4" style="width:100%; background: var(--primary-color); color: white; border: none; padding: 0.5rem;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price</label>
+                    <input type="number" id="product-price" step="0.01" required>
+                </div>
+                 <div class="form-group">
+                    <label for="product-image">Image URL</label>
+                    <input type="url" id="product-image" required>
+                </div>
+                <button type="submit" class="btn">Save Product</button>
+            </form>
         </div>
-        <div class="card">
-          <h3>SEO Optimization</h3>
-          <p>Improve your site's ranking and visibility with our SEO experts.</p>
-        </div>
-        <div class="card">
-          <h3>Consulting</h3>
-          <p>Strategic advice to drive growth and innovation in your company.</p>
-        </div>
-      </div>
-    </section>
-    <section id="contact" class="section">
-      <h2>Contact Us</h2>
-      <p>If you have any questions or want to work with us, feel free to reach out!</p>
-    </section>
-  </div>
-  <footer>
-    &copy; 2025 Our Website Inc. All rights reserved.
-  </footer>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+        import { getDatabase, ref, set, get, onValue, push, remove, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+        // =================================================================
+        // 🔥🔥🔥 PASTE YOUR FIREBASE CONFIGURATION CODE HERE 🔥🔥🔥
+        // =================================================================
+        // 
+        // 1. Go to your Firebase project settings.
+        // 2. Find your "Web app" configuration.
+        // 3. Copy the 'firebaseConfig' object.
+        // 4. Replace the entire object below with your copied code.
+        //
+        const firebaseConfig = {
+  apiKey: "AIzaSyBzFiwY6meSej0zzkyKk1SvSKlFbGH0n48",
+  authDomain: "jinendravani22.firebaseapp.com",
+  databaseURL: "https://jinendravani22-default-rtdb.firebaseio.com",
+  projectId: "jinendravani22",
+  storageBucket: "jinendravani22.firebasestorage.app",
+  messagingSenderId: "533508022241",
+  appId: "1:533508022241:web:4f867d63616bbe6b8f3ca0",
+  measurementId: "G-E7S11FGDCC"
+};
+        // =================================================================
+        // =================================================================
+        // =================================================================
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Auth
+        onAuthStateChanged(auth, user => {
+            if(user) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'flex';
+                navigate(); // Navigate to initial page after login
+            } else {
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('admin-panel').style.display = 'none';
+            }
+        });
+        
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .catch(error => alert(error.message));
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // SPA Routing
+        const navigate = () => {
+            const path = window.location.hash || '#dashboard';
+            document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+            document.querySelector(path)?.classList.add('active');
+
+            document.querySelectorAll('#sidebar nav a').forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === path);
+            });
+            
+            // Load content for active page
+            switch(path) {
+                case '#dashboard': loadDashboardStats(); break;
+                case '#products': loadProducts(); break;
+                case '#orders': loadOrders(); break;
+                case '#messages': loadMessages(); break;
+            }
+        };
+
+        window.addEventListener('hashchange', navigate);
+        window.addEventListener('load', () => {
+             // onAuthStateChanged handles initial navigation
+        });
+
+        // Dashboard
+        const loadDashboardStats = () => {
+            onValue(ref(db), (snapshot) => {
+                const data = snapshot.val();
+                document.getElementById('total-products').textContent = data.products ? Object.keys(data.products).length : 0;
+                document.getElementById('total-orders').textContent = data.orders ? Object.keys(data.orders).length : 0;
+                document.getElementById('total-users').textContent = data.users ? Object.keys(data.users).length : 0;
+                document.getElementById('total-messages').textContent = data.messages ? Object.keys(data.messages).length : 0;
+            });
+        };
+        
+        // Product Management
+        const productModal = document.getElementById('product-modal');
+        document.getElementById('add-product-btn').onclick = () => {
+            document.getElementById('product-form').reset();
+            document.getElementById('product-id').value = '';
+            productModal.style.display = 'flex';
+        };
+        document.querySelector('#product-modal .modal-close').onclick = () => productModal.style.display = 'none';
+
+        document.getElementById('product-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const productId = document.getElementById('product-id').value;
+            const productData = {
+                name: document.getElementById('product-name').value,
+                description: document.getElementById('product-description').value,
+                price: parseFloat(document.getElementById('product-price').value),
+                imageUrl: document.getElementById('product-image').value
+            };
+            
+            const refPath = productId ? `products/${productId}` : push(ref(db, 'products')).key;
+            const updates = {};
+            updates[`/products/${refPath}`] = productData;
+            
+            update(ref(db), updates)
+                .then(() => {
+                    productModal.style.display = 'none';
+                    loadProducts();
+                })
+                .catch(err => alert(err.message));
+        });
+
+        const loadProducts = () => {
+            const productsRef = ref(db, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                const tbody = document.querySelector('#products-table tbody');
+                tbody.innerHTML = '';
+                if (data) {
+                    for (const id in data) {
+                        const product = data[id];
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><img src="${product.imageUrl}" width="50" height="50" style="object-fit: cover;"></td>
+                                <td>${product.name}</td>
+                                <td>$${product.price.toFixed(2)}</td>
+                                <td class="action-buttons">
+                                    <button class="btn edit-product" data-id="${id}">Edit</button>
+                                    <button class="btn delete-product" data-id="${id}" style="background: #e74c3c;">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                }
+            });
+        };
+
+        document.querySelector('#products-table').addEventListener('click', (e) => {
+            const target = e.target;
+            const id = target.dataset.id;
+            if (target.classList.contains('edit-product')) {
+                get(ref(db, `products/${id}`)).then(snapshot => {
+                    const product = snapshot.val();
+                    document.getElementById('product-id').value = id;
+                    document.getElementById('product-name').value = product.name;
+                    document.getElementById('product-description').value = product.description;
+                    document.getElementById('product-price').value = product.price;
+                    document.getElementById('product-image').value = product.imageUrl;
+                    productModal.style.display = 'flex';
+                });
+            } else if (target.classList.contains('delete-product')) {
+                if (confirm('Are you sure you want to delete this product?')) {
+                    remove(ref(db, `products/${id}`));
+                }
+            }
+        });
+        
+        // Order Management
+        const loadOrders = () => {
+            const ordersRef = ref(db, 'orders');
+            onValue(ordersRef, snapshot => {
+                const data = snapshot.val();
+                const tbody = document.querySelector('#orders-table tbody');
+                tbody.innerHTML = '';
+                if (data) {
+                    Object.entries(data).forEach(([id, order]) => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${id.substring(0,8)}...</td>
+                                <td>${order.email}</td>
+                                <td>${new Date(order.date).toLocaleDateString()}</td>
+                                <td>$${order.total.toFixed(2)}</td>
+                                <td>
+                                    <select class="order-status" data-id="${id}">
+                                        <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                        <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                                        <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                                        <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            });
+        };
+        
+        document.querySelector('#orders-table').addEventListener('change', e => {
+            if (e.target.classList.contains('order-status')) {
+                const orderId = e.target.dataset.id;
+                const newStatus = e.target.value;
+                const statusRef = ref(db, `orders/${orderId}/status`);
+                set(statusRef, newStatus);
+            }
+        });
+
+        // Messages
+        const loadMessages = () => {
+            const messagesRef = ref(db, 'messages');
+            onValue(messagesRef, snapshot => {
+                 const data = snapshot.val();
+                 const tbody = document.querySelector('#messages-table tbody');
+                 tbody.innerHTML = '';
+                 if (data) {
+                     Object.values(data).reverse().forEach(msg => {
+                         tbody.innerHTML += `
+                            <tr>
+                                <td>${new Date(msg.date).toLocaleString()}</td>
+                                <td>${msg.name}</td>
+                                <td>${msg.email}</td>
+                                <td>${msg.message}</td>
+                            </tr>
+                         `;
+                     });
+                 }
+            });
+        };
+
+    </script>
 </body>
 </html>
