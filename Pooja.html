@@ -1,1 +1,80 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple App with Admin Panel</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        header { background: #333; color: white; padding: 10px 20px; text-align: center; }
+        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 5px; }
+        form { display: flex; flex-direction: column; }
+        input, button { margin: 10px 0; padding: 10px; font-size: 1rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #555; color: white; }
+        .admin-panel { margin-top: 40px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simple App</h1>
+    </header>
+    <div class="container">
+        <h2>User Input Form</h2>
+        <form id="dataForm">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="email" id="email" placeholder="Email" required />
+            <button type="submit">Submit</button>
+        </form>
+        <button id="showAdminBtn">Show Admin Panel</button>
+        <div class="admin-panel hidden" id="adminPanel">
+            <h2>Admin Panel</h2>
+            <table id="dataTable">
+                <thead>
+                    <tr><th>Name</th><th>Email</th></tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const dataForm = document.getElementById('dataForm');
+        const adminPanel = document.getElementById('adminPanel');
+        const showAdminBtn = document.getElementById('showAdminBtn');
+        const dataTableBody = document.querySelector('#dataTable tbody');
+
+        let dataStore = JSON.parse(localStorage.getItem('dataStore') || '[]');
+
+        function renderTable() {
+            dataTableBody.innerHTML = '';
+            dataStore.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${entry.name}</td><td>${entry.email}</td>`;
+                dataTableBody.appendChild(row);
+            });
+        }
+
+        dataForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            if(name && email) {
+                dataStore.push({name, email});
+                localStorage.setItem('dataStore', JSON.stringify(dataStore));
+                dataForm.reset();
+                alert('Data saved');
+                renderTable();
+            }
+        });
+
+        showAdminBtn.addEventListener('click', () => {
+            adminPanel.classList.toggle('hidden');
+            renderTable();
+        });
+    </script>
+</body>
+</html>
