@@ -1,80 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Simple App with Admin Panel</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
-        header { background: #333; color: white; padding: 10px 20px; text-align: center; }
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 5px; }
-        form { display: flex; flex-direction: column; }
-        input, button { margin: 10px 0; padding: 10px; font-size: 1rem; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #555; color: white; }
-        .admin-panel { margin-top: 40px; }
-        .hidden { display: none; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Home</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f9f9f9; }
+    header { background-color: #004080; color: white; padding: 20px 40px; text-align: center; }
+    nav { background: #0066cc; padding: 10px 40px; }
+    nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 600; }
+    nav a:hover { text-decoration: underline; }
+    .hero { background-image: url('https://via.placeholder.com/1500x500'); background-size: cover; background-position: center; color: white; padding: 100px 40px; text-align: center; }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+    .btn-primary { background-color: #0066cc; color: white; padding: 15px 30px; font-size: 1rem; border: none; border-radius: 5px; cursor: pointer; }
+    .btn-primary:hover { background-color: #004080; }
+    .content { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    .section { margin-bottom: 60px; }
+    .section h2 { font-size: 2rem; color: #004080; margin-bottom: 20px; }
+    .cards { display: flex; gap: 20px; flex-wrap: wrap; }
+    .card { background: white; border-radius: 10px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); flex: 1; min-width: 280px; padding: 20px; }
+    .card h3 { margin-top: 0; color: #0066cc; }
+    footer { background-color: #004080; color: white; text-align: center; padding: 15px; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Simple App</h1>
-    </header>
-    <div class="container">
-        <h2>User Input Form</h2>
-        <form id="dataForm">
-            <input type="text" id="name" placeholder="Name" required />
-            <input type="email" id="email" placeholder="Email" required />
-            <button type="submit">Submit</button>
-        </form>
-        <button id="showAdminBtn">Show Admin Panel</button>
-        <div class="admin-panel hidden" id="adminPanel">
-            <h2>Admin Panel</h2>
-            <table id="dataTable">
-                <thead>
-                    <tr><th>Name</th><th>Email</th></tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+  <header>
+    <h1>Welcome to Our Website</h1>
+  </header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <section class="hero">
+    <h1>Your Partner in Success</h1>
+    <p>Delivering quality solutions tailored to your needs.</p>
+    <button class="btn-primary">Get Started</button>
+  </section>
+  <div class="content">
+    <section id="about" class="section">
+      <h2>About Us</h2>
+      <p>We are a dedicated team committed to building powerful web solutions that empower businesses worldwide.</p>
+    </section>
+    <section id="services" class="section">
+      <h2>Our Services</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Web Development</h3>
+          <p>Custom websites and applications tailored to your business goals.</p>
         </div>
-    </div>
-    <script>
-        const dataForm = document.getElementById('dataForm');
-        const adminPanel = document.getElementById('adminPanel');
-        const showAdminBtn = document.getElementById('showAdminBtn');
-        const dataTableBody = document.querySelector('#dataTable tbody');
-
-        let dataStore = JSON.parse(localStorage.getItem('dataStore') || '[]');
-
-        function renderTable() {
-            dataTableBody.innerHTML = '';
-            dataStore.forEach(entry => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${entry.name}</td><td>${entry.email}</td>`;
-                dataTableBody.appendChild(row);
-            });
-        }
-
-        dataForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            if(name && email) {
-                dataStore.push({name, email});
-                localStorage.setItem('dataStore', JSON.stringify(dataStore));
-                dataForm.reset();
-                alert('Data saved');
-                renderTable();
-            }
-        });
-
-        showAdminBtn.addEventListener('click', () => {
-            adminPanel.classList.toggle('hidden');
-            renderTable();
-        });
-    </script>
+        <div class="card">
+          <h3>SEO Optimization</h3>
+          <p>Improve your site's ranking and visibility with our SEO experts.</p>
+        </div>
+        <div class="card">
+          <h3>Consulting</h3>
+          <p>Strategic advice to drive growth and innovation in your company.</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="section">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or want to work with us, feel free to reach out!</p>
+    </section>
+  </div>
+  <footer>
+    &copy; 2025 Our Website Inc. All rights reserved.
+  </footer>
 </body>
 </html>
